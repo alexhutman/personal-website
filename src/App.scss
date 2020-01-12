@@ -1,5 +1,8 @@
+$background-color: #333333;
+$font-color: #ADABAA;
+
 body {
-    background-color: #333333;
-    color: #ADABAA;
-    margin: 0;
+  background-color: $background-color;
+  color: $font-color;
+  margin: 0;
 }
