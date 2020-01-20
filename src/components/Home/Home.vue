@@ -1,5 +1,7 @@
 <template>
-  <div class="home">Home</div>
+  <div class="home">
+    <font-awesome-icon icon="user-secret" />
+  </div>
 </template>
 
 <script lang="ts">
