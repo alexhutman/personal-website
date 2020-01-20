@@ -4,11 +4,15 @@ import Home from '../components/Home/Home.vue';
 
 Vue.use(VueRouter);
 
+const baseTitle = 'Alex Hutman |';
 const routes = [
   {
     path: '/',
     name: 'home',
     component: Home,
+    meta: {
+      title: `${baseTitle} Home`,
+    },
   },
   {
     path: '/about',
@@ -17,21 +21,36 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../components/About/About.vue'),
+    meta: {
+      title: `${baseTitle} About`,
+    },
   },
   {
     path: '/projects',
     name: 'projects',
     component: () => import(/* webpackChunkName: "about" */ '../components/Projects/Projects.vue'),
+    meta: {
+      title: `${baseTitle} Projects`,
+    },
   },
   {
     path: '/resume',
     name: 'resume',
     component: () => import(/* webpackChunkName: "about" */ '../components/Resume/Resume.vue'),
+    meta: {
+      title: `${baseTitle} Resume`,
+    },
   },
 ];
 
 const router = new VueRouter({
   routes,
+});
+
+// Adapted from https://alligator.io/vuejs/vue-router-modify-head/
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title;
+  next();
 });
 
 export default router;
