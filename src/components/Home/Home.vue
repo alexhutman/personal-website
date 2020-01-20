@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <font-awesome-icon :icon="[ 'fab', 'github-square' ]" />
+    <font-awesome-icon :icon="[ 'fab', 'github-square' ]" class="fa-3x" />
   </div>
 </template>
 
