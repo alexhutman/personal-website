@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <font-awesome-icon icon="user-secret" />
+    <font-awesome-icon :icon="[ 'fab', 'github-square' ]" />
   </div>
 </template>
 
