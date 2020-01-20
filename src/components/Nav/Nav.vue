@@ -1,14 +1,15 @@
 <template>
-  <ul class="nav">
-    <div class="nav-links">
-      <router-link
-        class="nav-item"
-        v-for="(link, index) in links"
-        :key="index"
-        :to="{path: link.link}"
-      >{{ link.name }}</router-link>
-    </div>
-  </ul>
+  <div class="nav">
+    <router-link
+      class="btn btn-lg btn-outline-dark"
+      v-for="(link, index) in links"
+      :key="index"
+      :to="{path: link.link}"
+      tag="button"
+      active-class="active"
+      exact
+    >{{ link.name }}</router-link>
+  </div>
 </template>
 
 <script lang="ts">
@@ -36,6 +37,8 @@ export default {
       ],
     };
   },
+
+  methods: {},
 };
 </script>
 

@@ -1,27 +1,33 @@
 .nav {
   width: 100%;
-
   margin: 0;
-
   padding: 1em 0;
-
   background-color: #1F1E1E;
+
+  display: flex;
+  justify-content: flex-end;
 }
 
-ul {
-  text-align: right;
-  list-style-type: none;
+.nav>button {
+  margin: 1vmin;
 
+  text-align: center;
+  color: gray;
 
+  border-radius: .2em;
 }
 
-.nav-links {
-  a {
-    display: inline;
-  }
-}
+// Extra small devices (portrait phones, less than 576px)
+// No media query for `xs` since this is the default in Bootstrap
 
-.nav-item {
-  color: white;
-  padding-right: 3em;
-}
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {}
