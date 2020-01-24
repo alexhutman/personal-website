@@ -1,15 +1,24 @@
 <template>
-  <div class="nav">
-    <router-link
-      class="btn btn-lg btn-outline-dark"
-      v-for="(link, index) in links"
-      :key="index"
-      :to="{path: link.link}"
-      tag="button"
-      active-class="active"
-      exact
-    >{{ link.name }}</router-link>
-  </div>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+      <router-link class="navbar-brand" to="/">Hef</router-link>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarResponsive"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item" v-for="(link, index) in links" :key="index">
+            <router-link class="nav-link" :to="{path: link.link}">{{ link.name }}</router-link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script lang="ts">

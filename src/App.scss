@@ -1,13 +1,12 @@
-$background-color: #333333;
-$font-color: #ADABAA;
+@import "variables";
 
 body {
-  background-color: $background-color;
   color: $font-color;
   margin: 0;
 }
 
 .nav-page-container {
+  background-color: $main-background-color;
   width: 100%;
   height: auto;
 }
