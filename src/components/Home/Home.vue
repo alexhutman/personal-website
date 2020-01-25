@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container home-container">
+  <div class="home-container">
     <font-awesome-icon :icon="[ 'fab', 'github-square' ]" class="fa-3x" />
   </div>
 </template>
