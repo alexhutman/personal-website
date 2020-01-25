@@ -1,3 +1,5 @@
+@import "../../variables";
+
 h3 {
   margin: 40px 0 0;
 }
@@ -16,6 +18,6 @@ a {
   color: #42b983;
 }
 
-body {
-  background-color: #333333;
+.home-container {
+  background-color: red;
 }

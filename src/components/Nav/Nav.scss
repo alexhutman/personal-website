@@ -1,20 +1,7 @@
-.nav {
-  width: 100vw;
-  margin: 0;
-  padding: 1em 0;
-  background-color: #1F1E1E;
+@import "../../variables";
 
-  display: flex;
-  justify-content: flex-end;
-}
-
-.nav>button {
-  margin: 1vmin;
-
-  text-align: center;
-  color: gray;
-
-  border-radius: .2em;
+#nav {
+  height: $nav-height;
 }
 
 // Extra small devices (portrait phones, less than 576px)

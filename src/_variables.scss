@@ -1,2 +1,9 @@
 $main-background-color: #333333;
-$font-color: #ADABAA
+$font-color: #ADABAA;
+
+$nav-height: 7vh;
+
+.page-container {
+    width: 100%;
+    height: 100vh - $nav-height;
+}

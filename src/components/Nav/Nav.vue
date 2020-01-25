@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+  <nav id="nav" class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
       <router-link class="navbar-brand" to="/">Hef</router-link>
       <button
@@ -13,7 +13,8 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item" v-for="(link, index) in links" :key="index">
-            <router-link class="nav-link" :to="{path: link.link}">{{ link.name }}</router-link>
+            <router-link class="nav-link" v-bind:class="{ active: isHome() }"
+:to="{path: link.link}">{{ link.name }}</router-link>
           </li>
         </ul>
       </div>
@@ -47,7 +48,12 @@ export default {
     };
   },
 
-  methods: {},
+  methods: {
+    isHome(): boolean {
+      return false;
+      // return (this.$route == "/#/");
+    },
+  },
 };
 </script>
 
