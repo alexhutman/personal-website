@@ -1,10 +1,14 @@
 <template>
-  <div class="fill-page resume-container">
-    <!-- <iframe
-      src="/uploads/media/default/0001/01/540cb75550adf33f281f29132dddd14fded85bfc.pdf"
-      width="100%"
-      height="100%"
-    ></iframe>-->
+  <div class="fill-page resume-container container-fluid">
+    <div class="row text-center">
+      <div class="col-lg-12 embed-responsive">
+        <iframe
+          class="embed-responsive-item"
+          id="resume"
+          src="http://docs.google.com/gview?url=https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf&embedded=true"
+        ></iframe>
+      </div>
+    </div>
   </div>
 </template>
 
