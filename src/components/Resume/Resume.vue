@@ -1,34 +1,26 @@
 <template>
-  <div class="fill-page resume-container container-fluid">
+  <div class="fill-page resume-container ">
     <div class="row text-center">
-      <div class="col-lg-12 embed-responsive">
-        <iframe class="embed-responsive-item" id="resume" :src="getResumeUrl(true)"></iframe>
+      <div class="col-lg-12 ">
+        <iframe id="resume-iframe" src="https://drive.google.com/file/d/1YBn7QiqXOyNBb2_EsCy5d4JeEIJ-d7Po/preview#view=FitBV" width="100%" height="100%"></iframe>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+/*eslint-disable*/
 import Vue from 'vue';
+
+// window.addEventListener('load', (event) => {
+//   const theURL = '';
+//   window.open(theURL, 'resumeee');
+// });
 
 export default Vue.extend({
   name: 'Resume',
-  data() {
-    return {
-      resumeURL:
-        'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-    };
-  },
-  methods: {
-    getResumeUrl(googleEmbed: boolean): string {
-      return googleEmbed
-        ? `http://docs.google.com/gview?url=${this.$data.resumeURL}&embedded=true`
-        : this.$data.resumeURL;
-    },
-  },
 });
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped src="./Resume.scss" lang="scss">
-</style>
+<style scoped src="./Resume.scss" lang="scss"></style>
