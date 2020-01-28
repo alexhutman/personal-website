@@ -1,11 +1,11 @@
 <template>
-  <div class="fill-page resume-container ">
-    <div class="row text-center">
-      <div class="col-lg-12 ">
-        <iframe id="resume-iframe" src="https://drive.google.com/file/d/1YBn7QiqXOyNBb2_EsCy5d4JeEIJ-d7Po/preview#view=FitBV" width="100%" height="100%"></iframe>
-      </div>
-    </div>
+<div class="fill-page">
+  <div class="resume-container">
+    <iframe @load="onResumeLoad" v-show="iframeLoaded" id="resume-iframe" type="application/pdf"
+      src="./assets/jeff.pdf#view=FitV&toolbar=0" scale="tofit">
+    </iframe>
   </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -19,6 +19,16 @@ import Vue from 'vue';
 
 export default Vue.extend({
   name: 'Resume',
+  data() {
+    return {
+      iframeLoaded: false,
+    }
+  },
+  methods: {
+    onResumeLoad: function() {
+      this.iframeLoaded = true;
+    },
+  },
 });
 </script>
 
