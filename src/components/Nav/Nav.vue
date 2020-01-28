@@ -15,6 +15,8 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item" v-for="(link, index) in links" :key="index">
               <router-link
+                data-toggle="collapse"
+                data-target="#navbarResponsive"
                 class="nav-link"
                 :class="{'active': isCurPageActive(link.name)}"
                 :to="{path: link.link}"
