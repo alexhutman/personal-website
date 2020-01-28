@@ -1,6 +1,8 @@
 <template>
-  <div class="fill-page home-container">
-    <font-awesome-icon :icon="[ 'fab', 'github-square' ]" class="fa-3x" />
+  <div class="fill-page">
+    <div class="page-container home-container">
+      <font-awesome-icon :icon="[ 'fab', 'github-square' ]" class="fa-3x" />
+    </div>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
 <div class="fill-page">
-  <div class="resume-container">
+  <div class="page-container resume-container">
     <iframe @load="onResumeLoad" v-show="iframeLoaded" id="resume-iframe" type="application/pdf"
       src="./assets/jeff.pdf#view=FitV&toolbar=0" scale="tofit">
     </iframe>
