@@ -15,8 +15,8 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item" v-for="(link, index) in links" :key="index">
               <router-link
-                data-toggle="collapse"
-                data-target="#navbarResponsive"
+                :data-toggle="isMobile() ? 'collapse' : null"
+                :data-target="isMobile() ? '#navbarResponsive' : null"
                 class="nav-link"
                 :class="{'active': isCurPageActive(link.name)}"
                 :to="{path: link.link}"
@@ -61,6 +61,9 @@ export default Vue.extend({
   methods: {
     isCurPageActive(pageName: string): boolean {
       return this.$route.name === pageName.toLowerCase();
+    },
+    isMobile(): boolean {
+      return window.innerWidth <= 768;
     },
   },
 });
