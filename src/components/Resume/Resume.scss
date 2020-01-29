@@ -12,7 +12,7 @@
   overflow: hidden;
 }
 
-@media only screen and (max-width: 600px) {
+@media (max-width: 600px) {
   #resume-iframe {
     height: 100%;
     // @TODO: Do something for the width when you get to mobile
