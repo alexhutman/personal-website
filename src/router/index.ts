@@ -41,6 +41,14 @@ const routes = [
       title: `${baseTitle} Resume`,
     },
   },
+  {
+    path: '/contact',
+    name: 'contact',
+    component: () => import(/* webpackChunkName: "about" */ '../components/Contact/Contact.vue'),
+    meta: {
+      title: `${baseTitle} Contact`,
+    },
+  },
 ];
 
 const router = new VueRouter({

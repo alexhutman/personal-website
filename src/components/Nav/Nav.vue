@@ -55,6 +55,10 @@ export default Vue.extend({
           name: 'Resume',
           link: '/resume',
         },
+        {
+          name: 'Contact',
+          link: '/contact',
+        },
       ],
     };
   },
