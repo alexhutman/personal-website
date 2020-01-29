@@ -15,7 +15,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="card">
-              <img class="card-img-top" src="https://c8.alamy.com/comp/TXHN9T/igor-bogdanov-arrives-on-the-red-carpet-before-the-screening-of-twin-peaks-during-the-70th-annual-cannes-international-film-festival-in-cannes-france-on-may-25-2017-photo-by-david-silpaupi-TXHN9T.jpg">
+              <img class="card-img-top" :src="getImg('aes.png')">
               <div class="card-body">
                 <h4 class="card-title">AES</h4>
                 <p class="card-text">This is the description for AES xd</p>
@@ -48,6 +48,12 @@
 <script lang="ts">
 export default {
   name: 'Projects',
+  methods: {
+    getImg(imgName: string): NodeRequire {
+      // eslint-disable-next-line global-require, import/no-dynamic-require
+      return require(`../../../public/assets/img/${imgName}`);
+    },
+  },
 };
 </script>
 

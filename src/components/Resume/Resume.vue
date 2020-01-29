@@ -2,7 +2,7 @@
 <div class="fill-page">
   <div class="page-container resume-container">
     <iframe @load="onResumeLoad" v-show="iframeLoaded" id="resume-iframe" type="application/pdf"
-      src="./assets/jeff.pdf#view=FitV&toolbar=0" scale="tofit">
+      src="./assets/resume/jeff.pdf#view=FitV&toolbar=0" scale="tofit">
     </iframe>
   </div>
 </div>
