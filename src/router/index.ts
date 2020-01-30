@@ -28,7 +28,7 @@ const routes = [
   {
     path: '/projects',
     name: 'projects',
-    component: () => import(/* webpackChunkName: "about" */ '../components/Projects/Projects.vue'),
+    component: () => import(/* webpackChunkName: "projects" */ '../components/Projects/Projects.vue'),
     meta: {
       title: `${baseTitle} Projects`,
     },
@@ -36,7 +36,7 @@ const routes = [
   {
     path: '/projects/aes',
     name: 'aes',
-    component: () => import(/* webpackChunkName: "about" */ '../components/Projects/AES/Aes.vue'),
+    component: () => import(/* webpackChunkName: "aes" */ '../components/Projects/AES/Aes.vue'),
     meta: {
       title: `${baseTitle} Projects | AES`,
     },
@@ -44,7 +44,7 @@ const routes = [
   {
     path: '/projects/gaussian',
     name: 'gaussian',
-    component: () => import(/* webpackChunkName: "about" */ '../components/Projects/Gaussian/Gaussian.vue'),
+    component: () => import(/* webpackChunkName: "gaussian" */ '../components/Projects/Gaussian/Gaussian.vue'),
     meta: {
       title: `${baseTitle} Projects | Gaussian`,
     },
@@ -52,7 +52,7 @@ const routes = [
   {
     path: '/resume',
     name: 'resume',
-    component: () => import(/* webpackChunkName: "about" */ '../components/Resume/Resume.vue'),
+    component: () => import(/* webpackChunkName: "resume" */ '../components/Resume/Resume.vue'),
     meta: {
       title: `${baseTitle} Resume`,
     },
@@ -60,7 +60,7 @@ const routes = [
   {
     path: '/contact',
     name: 'contact',
-    component: () => import(/* webpackChunkName: "about" */ '../components/Contact/Contact.vue'),
+    component: () => import(/* webpackChunkName: "contact" */ '../components/Contact/Contact.vue'),
     meta: {
       title: `${baseTitle} Contact`,
     },
