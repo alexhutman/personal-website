@@ -4,3 +4,30 @@
   background-color: $main-background-color;
   color: white;
 }
+
+.state-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas: "cell-00 cell-01 cell-02 cell-03"
+                       "cell-10 cell-11 cell-12 cell-13"
+                       "cell-20 cell-21 cell-22 cell-23"
+                       "cell-30 cell-31 cell-32 cell-33";
+}
+
+.cell-00 { grid-area: cell-00; }
+.cell-01 { grid-area: cell-01; }
+.cell-02 { grid-area: cell-02; }
+.cell-03 { grid-area: cell-03; }
+.cell-10 { grid-area: cell-10; }
+.cell-11 { grid-area: cell-11; }
+.cell-12 { grid-area: cell-12; }
+.cell-13 { grid-area: cell-13; }
+.cell-20 { grid-area: cell-20; }
+.cell-21 { grid-area: cell-21; }
+.cell-22 { grid-area: cell-22; }
+.cell-23 { grid-area: cell-23; }
+.cell-30 { grid-area: cell-30; }
+.cell-31 { grid-area: cell-31; }
+.cell-32 { grid-area: cell-32; }
+.cell-33 { grid-area: cell-33; }
