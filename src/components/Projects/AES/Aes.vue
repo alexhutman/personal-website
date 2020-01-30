@@ -17,17 +17,31 @@
 
           <div class="interactive col-md-6">
               <div class="input">
-                  <div class="row message text-center">
-                    <div class="col text-center">
-                        Msg
+                <form>
+                  <label for="messageInputBox">Message:</label>
+                  <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <font-awesome-icon :icon="[ 'fas', 'comment-dots' ]"/>
+                      </div>
                     </div>
+                    <input type="text" class="form-control col-lg-6"
+                           id="messageInputBox"
+                           placeholder="The message you'd like to encrypt">
                   </div>
 
-                  <div class="row key">
-                    <div class="col text-center">
-                        Key
+                  <label for="keyInputBox">Key:</label>
+                  <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <font-awesome-icon :icon="[ 'fas', 'key' ]"/>
+                      </div>
                     </div>
+                    <input type="text" class="form-control col-lg-6"
+                           id="keyInputBox"
+                           placeholder="The key to encrypt the message with">
                   </div>
+                </form>
               </div>
 
               <div class="row state">
