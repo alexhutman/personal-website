@@ -33,22 +33,22 @@
               <div class="row state">
                 <div class="col text-center">
                     <div class="state-grid">
-                        <div class="cell-00">00</div>
-                        <div class="cell-01">01</div>
-                        <div class="cell-02">02</div>
-                        <div class="cell-03">03</div>
-                        <div class="cell-10">10</div>
-                        <div class="cell-11">11</div>
-                        <div class="cell-12">12</div>
-                        <div class="cell-13">13</div>
-                        <div class="cell-20">20</div>
-                        <div class="cell-21">21</div>
-                        <div class="cell-22">22</div>
-                        <div class="cell-23">23</div>
-                        <div class="cell-30">30</div>
-                        <div class="cell-31">31</div>
-                        <div class="cell-32">32</div>
-                        <div class="cell-33">33</div>
+                        <div class="cell-00 hbb hrb">00</div>
+                        <div class="cell-01 hbb hrb hlb">01</div>
+                        <div class="cell-02 hbb hrb hlb">02</div>
+                        <div class="cell-03 hbb hlb">03</div>
+                        <div class="cell-10 htb hbb hrb">10</div>
+                        <div class="cell-11 htb hbb hrb hlb">11</div>
+                        <div class="cell-12 htb hbb hrb hlb">12</div>
+                        <div class="cell-13 htb hbb hlb">13</div>
+                        <div class="cell-20 htb hbb hrb">20</div>
+                        <div class="cell-21 htb hbb hrb hlb">21</div>
+                        <div class="cell-22 htb hbb hrb hlb">22</div>
+                        <div class="cell-23 htb hbb hlb">23</div>
+                        <div class="cell-30 htb hrb">30</div>
+                        <div class="cell-31 htb hrb hlb">31</div>
+                        <div class="cell-32 htb hrb hlb">32</div>
+                        <div class="cell-33 htb hlb">33</div>
                     </div>
                 </div>
               </div>

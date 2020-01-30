@@ -1,5 +1,9 @@
 @import "../../../variables";
 
+$border-color: white;
+$border-stroke: 1px;
+$outside-border-stroke: 2*$border-stroke;
+
 .aes-container {
   background-color: $main-background-color;
   color: white;
@@ -13,6 +17,31 @@
                        "cell-10 cell-11 cell-12 cell-13"
                        "cell-20 cell-21 cell-22 cell-23"
                        "cell-30 cell-31 cell-32 cell-33";
+                      
+  div {
+    border: $outside-border-stroke solid $border-color;
+    text-align: center;
+  }
+  
+  .htb {
+    // Half top border
+    border-top: $border-stroke solid $border-color;
+  }
+
+  .hbb {
+    // Half bottom border
+    border-bottom: $border-stroke solid $border-color;
+  }
+
+  .hlb {
+    // Half left border
+    border-left: $border-stroke solid $border-color;
+  }
+
+  .hrb {
+    // Half right border
+    border-right: $border-stroke solid $border-color;
+  }
 }
 
 .cell-00 { grid-area: cell-00; }
@@ -31,3 +60,4 @@
 .cell-31 { grid-area: cell-31; }
 .cell-32 { grid-area: cell-32; }
 .cell-33 { grid-area: cell-33; }
+
