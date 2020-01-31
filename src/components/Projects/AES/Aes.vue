@@ -27,7 +27,9 @@
                     </div>
                     <input type="text" class="form-control col-lg-6"
                            id="messageInputBox"
-                           placeholder="The message you'd like to encrypt">
+                           placeholder="The message you'd like to encrypt"
+                           v-model="blocks[0].msg"
+                           v-on:input="onMsgChange()">
                   </div>
 
                   <label for="keyInputBox">Key:</label>
@@ -39,7 +41,9 @@
                     </div>
                     <input type="text" class="form-control col-lg-6"
                            id="keyInputBox"
-                           placeholder="The key to encrypt the message with">
+                           placeholder="The key to encrypt the message with"
+                           v-model="blocks[0].key"
+                           v-on:input="onKeyChange()">
                   </div>
                 </form>
               </div>
@@ -75,9 +79,29 @@
 </template>
 
 <script lang="ts">
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'AES',
-};
+  data() {
+    return {
+      blocks: [
+        {
+          msg: '',
+          key: '',
+        },
+      ],
+    };
+  },
+  methods: {
+    onMsgChange() {
+      console.log(this.blocks[0].msg);
+    },
+    onKeyChange() {
+      console.log(this.blocks[0].key);
+    },
+  },
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
