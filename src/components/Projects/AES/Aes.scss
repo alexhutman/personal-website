@@ -44,6 +44,10 @@ $outside-border-stroke: 2*$border-stroke;
   }
 }
 
+.no-padding {
+  padding: 0;
+}
+
 .cell-00 { grid-area: cell-00; }
 .cell-01 { grid-area: cell-01; }
 .cell-02 { grid-area: cell-02; }

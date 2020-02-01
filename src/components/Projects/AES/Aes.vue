@@ -16,8 +16,8 @@
           </div>
 
           <div class="interactive col-md-6">
-              <div class="input">
-                <form>
+              <div class="input col-lg-6 no-padding">
+                <form class="needs-validation" novalidate>
                   <label for="messageInputBox">Message:</label>
                   <div class="input-group mb-2 mr-sm-2">
                     <div class="input-group-prepend">
@@ -25,11 +25,17 @@
                         <font-awesome-icon :icon="[ 'fas', 'comment-dots' ]"/>
                       </div>
                     </div>
-                    <input type="text" class="form-control col-lg-6"
+                    <input type="text"
+                           class="form-control"
+                           :class="{ 'is-invalid': msg.isInvalid }"
                            id="messageInputBox"
                            placeholder="The message you'd like to encrypt"
-                           v-model="msg"
+                           v-model="msg.text"
                            v-on:input="onMsgChange()">
+                    <div class="invalid-feedback">
+                      Please ensure that the message is a maximum of 16 ASCII characters.
+                      Support for more than 1 block will be added!
+                    </div>
                   </div>
 
                   <label for="keyInputBox">Key:</label>
@@ -39,11 +45,17 @@
                         <font-awesome-icon :icon="[ 'fas', 'key' ]"/>
                       </div>
                     </div>
-                    <input type="text" class="form-control col-lg-6"
+                    <input type="text"
+                           class="form-control"
+                           :class="{ 'is-invalid': key.isInvalid }"
                            id="keyInputBox"
                            placeholder="The key to encrypt the message with"
-                           v-model="key"
+                           v-model="key.text"
                            v-on:input="onKeyChange()">
+                    <div class="invalid-feedback">
+                      Please ensure that the key is a maximum of 16 ASCII characters.
+                      192/256 bit key sizes will be added!
+                    </div>
                   </div>
                 </form>
               </div>
@@ -85,8 +97,14 @@ export default Vue.extend({
   name: 'AES',
   data() {
     return {
-      msg: '',
-      key: '',
+      msg: {
+        text: '',
+        isInvalid: false,
+      },
+      key: {
+        text: '',
+        isInvalid: false,
+      },
       blocks: [
         [
           [0, 1, 2, 3],
@@ -99,13 +117,36 @@ export default Vue.extend({
   },
   methods: {
     onMsgChange(): void {
-      console.log(this.msg);
+      this.msg.isInvalid = !(this.isASCII(this.msg.text) && this.isInputLengthValid(this.msg.text));
+
+      if (this.msg.isInvalid) {
+        const vals = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+
+        this.populateState(0, vals);
+      }
+      console.log(this.msg.text);
     },
     onKeyChange():void {
-      console.log(this.key);
+      this.key.isInvalid = !(this.isASCII(this.key.text) && this.isInputLengthValid(this.key.text));
+
+      if (this.key.isInvalid) {
+        const vals = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+
+        this.populateState(0, vals);
+      }
+      console.log(this.key.text);
     },
     padNumber(n: number): string {
       return n.toString().padStart(2, '0');
+    },
+    isASCII(str: string): boolean {
+      return (/^[\x32-\xFF]*$/).test(str);
+    },
+    isInputLengthValid(msg: string): boolean {
+      return msg.length <= 16;
+    },
+    populateState(n: number, vals: number[][]): void {
+      this.blocks[n] = vals;
     },
   },
 });
