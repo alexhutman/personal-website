@@ -28,7 +28,7 @@
                     <input type="text" class="form-control col-lg-6"
                            id="messageInputBox"
                            placeholder="The message you'd like to encrypt"
-                           v-model="blocks[0].msg"
+                           v-model="msg"
                            v-on:input="onMsgChange()">
                   </div>
 
@@ -42,7 +42,7 @@
                     <input type="text" class="form-control col-lg-6"
                            id="keyInputBox"
                            placeholder="The key to encrypt the message with"
-                           v-model="blocks[0].key"
+                           v-model="key"
                            v-on:input="onKeyChange()">
                   </div>
                 </form>
@@ -85,20 +85,24 @@ export default Vue.extend({
   name: 'AES',
   data() {
     return {
+      msg: '',
+      key: '',
       blocks: [
-        {
-          msg: '',
-          key: '',
-        },
+        [
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+        ],
       ],
     };
   },
   methods: {
     onMsgChange() {
-      console.log(this.blocks[0].msg);
+      console.log(this.msg);
     },
     onKeyChange() {
-      console.log(this.blocks[0].key);
+      console.log(this.key);
     },
   },
 });
