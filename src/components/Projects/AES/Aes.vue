@@ -51,22 +51,22 @@
               <div class="row state">
                 <div class="col text-center">
                     <div class="state-grid">
-                        <div class="cell-00 hbb hrb">00</div>
-                        <div class="cell-01 hbb hrb hlb">01</div>
-                        <div class="cell-02 hbb hrb hlb">02</div>
-                        <div class="cell-03 hbb hlb">03</div>
-                        <div class="cell-10 htb hbb hrb">10</div>
-                        <div class="cell-11 htb hbb hrb hlb">11</div>
-                        <div class="cell-12 htb hbb hrb hlb">12</div>
-                        <div class="cell-13 htb hbb hlb">13</div>
-                        <div class="cell-20 htb hbb hrb">20</div>
-                        <div class="cell-21 htb hbb hrb hlb">21</div>
-                        <div class="cell-22 htb hbb hrb hlb">22</div>
-                        <div class="cell-23 htb hbb hlb">23</div>
-                        <div class="cell-30 htb hrb">30</div>
-                        <div class="cell-31 htb hrb hlb">31</div>
-                        <div class="cell-32 htb hrb hlb">32</div>
-                        <div class="cell-33 htb hlb">33</div>
+                        <div class="cell-00 hbb hrb">{{ padNumber(blocks[0][0][0]) }}</div>
+                        <div class="cell-01 hbb hrb hlb">{{ padNumber(blocks[0][0][1]) }}</div>
+                        <div class="cell-02 hbb hrb hlb">{{ padNumber(blocks[0][0][2]) }}</div>
+                        <div class="cell-03 hbb hlb">{{ padNumber(blocks[0][0][3]) }}</div>
+                        <div class="cell-10 hbb htb hrb">{{ padNumber(blocks[0][1][0]) }}</div>
+                        <div class="cell-11 hbb htb hrb hlb">{{ padNumber(blocks[0][1][1]) }}</div>
+                        <div class="cell-12 hbb htb hrb hlb">{{ padNumber(blocks[0][1][2]) }}</div>
+                        <div class="cell-13 hbb htb hlb">{{ padNumber(blocks[0][1][3]) }}</div>
+                        <div class="cell-20 hbb htb hrb">{{ padNumber(blocks[0][2][0]) }}</div>
+                        <div class="cell-21 hbb htb hrb hlb">{{ padNumber(blocks[0][2][1]) }}</div>
+                        <div class="cell-22 hbb htb hrb hlb">{{ padNumber(blocks[0][2][2]) }}</div>
+                        <div class="cell-23 hbb htb hlb">{{ padNumber(blocks[0][2][3]) }}</div>
+                        <div class="cell-30 htb hrb">{{ padNumber(blocks[0][3][0]) }}</div>
+                        <div class="cell-31 htb hrb hlb">{{ padNumber(blocks[0][3][1]) }}</div>
+                        <div class="cell-32 htb hrb hlb">{{ padNumber(blocks[0][3][2]) }}</div>
+                        <div class="cell-33 htb hlb">{{ padNumber(blocks[0][3][3]) }}</div>
                     </div>
                 </div>
               </div>
@@ -89,20 +89,23 @@ export default Vue.extend({
       key: '',
       blocks: [
         [
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
-          [0, 0, 0, 0],
+          [0, 1, 2, 3],
+          [4, 5, 6, 7],
+          [8, 9, 10, 11],
+          [12, 13, 14, 15],
         ],
       ],
     };
   },
   methods: {
-    onMsgChange() {
+    onMsgChange(): void {
       console.log(this.msg);
     },
-    onKeyChange() {
+    onKeyChange():void {
       console.log(this.key);
+    },
+    padNumber(n: number): string {
+      return n.toString().padStart(2, '0');
     },
   },
 });
