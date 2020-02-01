@@ -11,12 +11,12 @@
 
       <div class="container-fluid">
         <div class="row">
-          <div class="explanation col-md-4 text-center" style="border: 1px solid red">
+          <div class="explanation col-md-4 text-center">
               Explanation
           </div>
 
-          <div class="interactive col-md-8 text-center" style="border: 1px solid red">
-            Canvas
+          <div id="canvas-col" class="interactive col-md-8 text-center">
+
           </div>
 
         </div>
@@ -26,9 +26,38 @@
 </template>
 
 <script lang="ts">
-export default {
+import Vue from 'vue';
+
+import P5 from 'p5';
+
+const path = require('../../../../public/assets/img/aes.png');
+
+export default Vue.extend({
   name: 'Gaussian',
-};
+  mounted() {
+    const sketch = (p5: P5) => {
+      let img: P5.Image;
+      p5.preload = () => {
+        img = p5.loadImage(path);
+      };
+      /* eslint no-param-reassign: ["error", { "props": false }] */
+
+      p5.setup = () => {
+        console.log(img);
+        const canvas = p5.createCanvas(img.width, img.height);
+        canvas.parent('canvas-col');
+        canvas.style('height', '100%');
+        canvas.style('width', 'auto');
+      };
+
+      p5.draw = () => {
+        p5.image(img, 0, 0);
+      };
+    };
+
+    const p5 = new P5(sketch);
+  },
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
