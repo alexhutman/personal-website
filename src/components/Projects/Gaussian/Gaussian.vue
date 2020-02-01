@@ -30,7 +30,7 @@ import Vue from 'vue';
 
 import P5 from 'p5';
 
-const path = require('../../../../public/assets/img/aes.png');
+const path = require('../../../../public/assets/img/papabiceps.jpg');
 
 export default Vue.extend({
   name: 'Gaussian',
