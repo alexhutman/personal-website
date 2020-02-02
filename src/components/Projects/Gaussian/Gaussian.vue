@@ -24,15 +24,24 @@
               -->
             </div>
 
-            <div>
-              <input id="sigma-slider" type="range" min="1" max="15"
-                value="1" step="0.5" class="slider" v-model="sigma">
+            <div class="row">
+              <div class="col-6">
+                <div>
+                  σ = {{ sigma }}
+                </div>
+                <input id="sigma-slider" type="range" min="1" max="15"
+                  value="1" step="0.5" class="slider" v-model="sigma">
+                </div>
+
+              <div class="col-6">
+                <div>
+                  Radius = {{ kernel }}
+                </div>
+                <input id="kernel-slider" type="range" min="1" max="51"
+                  value="1" step="2" class="slider" v-model="kernel">
+              </div>
             </div>
 
-            <div>
-              <input id="kernel-slider" type="range" min="1" max="51"
-                value="1" step="2" class="slider" v-model="kernel">
-            </div>
 
             <div>
               <button id="click-me" class="btn btn-primary">Hello</button>
