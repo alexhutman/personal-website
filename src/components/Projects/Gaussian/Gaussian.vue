@@ -26,12 +26,12 @@
 
             <div>
               <input id="sigma-slider" type="range" min="1" max="15"
-                value="1" step="0.5" class="slider">
+                value="1" step="0.5" class="slider" v-model="sigma">
             </div>
 
             <div>
               <input id="kernel-slider" type="range" min="1" max="51"
-                value="1" step="2" class="slider">
+                value="1" step="2" class="slider" v-model="kernel">
             </div>
 
             <div>
@@ -57,6 +57,8 @@ export default Vue.extend({
   data() {
     return {
       gb: GaussianBlur.prototype,
+      sigma: 0,
+      kernel: 0,
     };
   },
   mounted() {
