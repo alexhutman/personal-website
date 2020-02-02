@@ -18,6 +18,7 @@
           <div class="interactive col-md-8 text-center">
 
             <div id="canvas-col">
+              <img id="dom-image" class="img-fluid">
               <!--
                 The canvas gets injected here on page load.
               -->

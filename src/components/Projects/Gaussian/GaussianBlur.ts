@@ -5,6 +5,10 @@ const path = require('../../../../public/assets/img/papabiceps.jpg');
 export default class GaussianBlur {
   public p5: P5;
 
+  public canvas: any;
+
+  private domImg: P5.Element|null;
+
   private kernelsize = 31;
 
   private kernelwidth: number = Math.floor(this.kernelsize / 2);
@@ -13,22 +17,22 @@ export default class GaussianBlur {
 
   constructor() {
     this.p5 = new P5(this.sketch);
+    this.domImg = this.p5.select('#dom-image');
   }
 
   sketch = (p5: P5) => {
-    const canvasCol = document.getElementById('canvas-col');
-    let canvas: any;
+    let img: P5.Image;
 
     const gaussianBlur = () => {
-      const imgWidth = canvas.width;
-      const imgHeight = canvas.height;
+      const imgWidth = this.canvas.width;
+      const imgHeight = this.canvas.height;
 
       const trueWidth = imgWidth - 1;
       const trueHeight = imgHeight - 1;
 
       const weightVector = this.createWM(this.kernelsize, this.kernelwidth);
 
-      p5.loadPixels();
+      this.canvas.loadPixels();
 
       // Horizontal pass
       for (let y = 0; y < imgHeight; y += 1) {
@@ -56,12 +60,12 @@ export default class GaussianBlur {
             sumR += matrixVal * p5.pixels[curColor];
             sumG += matrixVal * p5.pixels[curColor + 1];
             sumB += matrixVal * p5.pixels[curColor + 2];
-            // sumA += matrixVal * this.p5.pixels[curColor + 3];
+            // sumA += matrixVal * p5.pixels[curColor + 3];
           }
           p5.pixels[loc] = sumR;
           p5.pixels[loc + 1] = sumG;
           p5.pixels[loc + 2] = sumB;
-          // this.p5.pixels[loc + 3] = sumA;
+          // p5.pixels[loc + 3] = sumA;
         }
       }
 
@@ -92,50 +96,30 @@ export default class GaussianBlur {
             sumR += matrixVal * p5.pixels[curColor];
             sumG += matrixVal * p5.pixels[curColor + 1];
             sumB += matrixVal * p5.pixels[curColor + 2];
-            // sumA += matrixVal * this.p5.pixels[curColor + 3];
+            // sumA += matrixVal * p5.pixels[curColor + 3];
           }
           p5.pixels[loc] = sumR;
           p5.pixels[loc + 1] = sumG;
           p5.pixels[loc + 2] = sumB;
-          // this.p5.pixels[loc + 3] = sumA;
+          // p5.pixels[loc + 3] = sumA;
         }
       }
 
-      p5.updatePixels();
+      this.canvas.updatePixels();
     };
 
-    let img: P5.Image;
     p5.preload = () => {
       img = p5.loadImage(path);
     };
     /* eslint no-param-reassign: ["error", { "props": false }] */
     p5.setup = () => {
-      if (canvasCol) {
-        // const ws = canvasCol.offsetWidth;
-        // const hs = canvasCol.offsetHeight;
-
-        // const rs = ws / hs;
-
-        // @TODO Make the column stretch to the bottom of the screen so that
-        // we can call this to make it fit the column
-        // const wi = img.width;
-        // const hi = img.height;
-        // const ri = wi / hi;
-
-        // const dims = rs > ri ? [wi * hs / hi, hs] : [ws, hi * ws / wi];
-        // img.resize(dims[0], dims[1]);
-
-        canvas = p5.createCanvas(img.width, img.height);
-        canvas.parent('canvas-col');
-        canvas.removeClass('p5Canvas');
-
-        p5.pixelDensity(1);
-      } else {
-        console.log('There ain\'t no canvasCol element');
-      }
+      this.canvas = p5.createCanvas(img.width, img.height);
+      this.canvas.parent('#canvas-col');
+      this.canvas.style('display', 'none');
 
       const jeff = () => {
         gaussianBlur();
+        this.updateImg();
       };
 
       const clickme = p5.select('#click-me');
@@ -143,13 +127,28 @@ export default class GaussianBlur {
         clickme.mousePressed(jeff);
       }
 
+      p5.pixelDensity(1);
+
       p5.noLoop();
     };
 
     p5.draw = () => {
       p5.image(img, 0, 0);
+
+      this.updateImg();
     };
   };
+
+  private updateImg(): void {
+    if (this.domImg) {
+      this.domImg.attribute('src', this.getImgURL());
+    }
+  }
+
+  private getImgURL(): string {
+    const urlToReturn = (this.canvas && this.canvas.elt) ? this.canvas.elt.toDataURL() : '';
+    return urlToReturn;
+  }
 
   private blur(x: number, y: number) {
     const twoSigma = 2 * this.sigma * this.sigma;
