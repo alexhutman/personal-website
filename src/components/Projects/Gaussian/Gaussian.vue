@@ -32,6 +32,10 @@
               <input id="kernel-slider" type="range" min="1" max="51"
                 value="1" step="2" class="slider">
             </div>
+
+            <div>
+              <button id="click-me" class="btn btn-primary">Hello</button>
+            </div>
           </div>
 
         </div>

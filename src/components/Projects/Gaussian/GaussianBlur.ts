@@ -3,9 +3,7 @@ import P5 from 'p5';
 const path = require('../../../../public/assets/img/papabiceps.jpg');
 
 export default class GaussianBlur {
-  public p5: Promise<P5>;
-
-  public canvas: any;
+  public p5: P5;
 
   private kernelsize = 31;
 
@@ -14,18 +12,98 @@ export default class GaussianBlur {
   private sigma = 9;
 
   constructor() {
-    this.p5 = this.createP5(this.sketch);
-    this.p5.then((data) => {
-      this.canvas = data;
-    });
+    this.p5 = new P5(this.sketch);
   }
-
-  createP5 = (func: (p5: P5) => any) => new Promise<P5>((resolve, reject) => {
-    resolve(new P5(func));
-  });
 
   sketch = (p5: P5) => {
     const canvasCol = document.getElementById('canvas-col');
+    let canvas: any;
+
+    const gaussianBlur = () => {
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+
+      const trueWidth = imgWidth - 1;
+      const trueHeight = imgHeight - 1;
+
+      const weightVector = this.createWM(this.kernelsize, this.kernelwidth);
+
+      p5.loadPixels();
+
+      // Horizontal pass
+      for (let y = 0; y < imgHeight; y += 1) {
+        for (let x = 0; x < imgWidth; x += 1) {
+          const xBasis = x - this.kernelwidth;
+          const loc = 4 * (y * imgWidth + x);
+          let sumR = 0;
+          let sumG = 0;
+          let sumB = 0;
+          // let sumA = 0;
+
+          for (let xOffset = 0; xOffset < this.kernelsize; xOffset += 1) {
+            let curX = xBasis + xOffset;
+            const offscreenXneg = curX < 0;
+            const offscreenXpos = curX > trueWidth;
+            if (offscreenXneg) {
+              curX = 0;
+            }
+            if (offscreenXpos) {
+              curX = trueWidth;
+            }
+
+            const matrixVal = weightVector[xOffset];
+            const curColor = 4 * (y * imgWidth + curX);
+            sumR += matrixVal * p5.pixels[curColor];
+            sumG += matrixVal * p5.pixels[curColor + 1];
+            sumB += matrixVal * p5.pixels[curColor + 2];
+            // sumA += matrixVal * this.p5.pixels[curColor + 3];
+          }
+          p5.pixels[loc] = sumR;
+          p5.pixels[loc + 1] = sumG;
+          p5.pixels[loc + 2] = sumB;
+          // this.p5.pixels[loc + 3] = sumA;
+        }
+      }
+
+      // Vertical pass
+      for (let x = 0; x < imgWidth; x += 1) {
+        for (let y = 0; y < imgHeight; y += 1) {
+          const yBasis = y - this.kernelwidth;
+          const loc = 4 * (y * imgWidth + x);
+          let sumR = 0;
+          let sumG = 0;
+          let sumB = 0;
+          // let sumA = 0;
+
+          for (let yOffset = 0; yOffset < this.kernelsize; yOffset += 1) {
+            let curY = yBasis + yOffset;
+            const offscreenYneg = curY < 0;
+            const offscreenYpos = curY > trueHeight;
+            if (offscreenYneg) {
+              curY = 0;
+            }
+            if (offscreenYpos) {
+              curY = trueHeight;
+            }
+
+            const matrixVal = weightVector[yOffset];
+            const curColor = 4 * (curY * imgWidth + x);
+            // console.log(curColor);
+            sumR += matrixVal * p5.pixels[curColor];
+            sumG += matrixVal * p5.pixels[curColor + 1];
+            sumB += matrixVal * p5.pixels[curColor + 2];
+            // sumA += matrixVal * this.p5.pixels[curColor + 3];
+          }
+          p5.pixels[loc] = sumR;
+          p5.pixels[loc + 1] = sumG;
+          p5.pixels[loc + 2] = sumB;
+          // this.p5.pixels[loc + 3] = sumA;
+        }
+      }
+
+      p5.updatePixels();
+    };
+
     let img: P5.Image;
     p5.preload = () => {
       img = p5.loadImage(path);
@@ -47,13 +125,22 @@ export default class GaussianBlur {
         // const dims = rs > ri ? [wi * hs / hi, hs] : [ws, hi * ws / wi];
         // img.resize(dims[0], dims[1]);
 
-        const canvas = p5.createCanvas(img.width, img.height);
+        canvas = p5.createCanvas(img.width, img.height);
         canvas.parent('canvas-col');
         canvas.removeClass('p5Canvas');
 
         p5.pixelDensity(1);
       } else {
         console.log('There ain\'t no canvasCol element');
+      }
+
+      const jeff = () => {
+        gaussianBlur();
+      };
+
+      const clickme = p5.select('#click-me');
+      if (clickme) {
+        clickme.mousePressed(jeff);
       }
 
       p5.noLoop();
@@ -63,93 +150,6 @@ export default class GaussianBlur {
       p5.image(img, 0, 0);
     };
   };
-
-  public async gaussianBlur(): Promise<any> {
-    const imgWidth = (this.canvas as any).width;
-    const imgHeight = (this.canvas as any).height;
-
-    const trueWidth = imgWidth - 1;
-    const trueHeight = imgHeight - 1;
-
-    const weightVector = this.createWM(this.kernelsize, this.kernelwidth);
-
-    const jeff = (await this.p5);
-
-    jeff.loadPixels();
-
-    // Horizontal pass
-    for (let y = 0; y < imgHeight; y += 1) {
-      for (let x = 0; x < imgWidth; x += 1) {
-        const xBasis = x - this.kernelwidth;
-        const loc = 4 * (y * imgWidth + x);
-        let sumR = 0;
-        let sumG = 0;
-        let sumB = 0;
-        // let sumA = 0;
-
-        for (let xOffset = 0; xOffset < this.kernelsize; xOffset += 1) {
-          let curX = xBasis + xOffset;
-          const offscreenXneg = curX < 0;
-          const offscreenXpos = curX > trueWidth;
-          if (offscreenXneg) {
-            curX = 0;
-          }
-          if (offscreenXpos) {
-            curX = trueWidth;
-          }
-
-          const matrixVal = weightVector[xOffset];
-          const curColor = 4 * (y * imgWidth + curX);
-          sumR += matrixVal * jeff.pixels[curColor];
-          sumG += matrixVal * jeff.pixels[curColor + 1];
-          sumB += matrixVal * jeff.pixels[curColor + 2];
-          // sumA += matrixVal * this.p5.pixels[curColor + 3];
-        }
-        jeff.pixels[loc] = sumR;
-        jeff.pixels[loc + 1] = sumG;
-        jeff.pixels[loc + 2] = sumB;
-        // this.p5.pixels[loc + 3] = sumA;
-      }
-    }
-
-    // Vertical pass
-    for (let x = 0; x < imgWidth; x += 1) {
-      for (let y = 0; y < imgHeight; y += 1) {
-        const yBasis = y - this.kernelwidth;
-        const loc = 4 * (y * imgWidth + x);
-        let sumR = 0;
-        let sumG = 0;
-        let sumB = 0;
-        // let sumA = 0;
-
-        for (let yOffset = 0; yOffset < this.kernelsize; yOffset += 1) {
-          let curY = yBasis + yOffset;
-          const offscreenYneg = curY < 0;
-          const offscreenYpos = curY > trueHeight;
-          if (offscreenYneg) {
-            curY = 0;
-          }
-          if (offscreenYpos) {
-            curY = trueHeight;
-          }
-
-          const matrixVal = weightVector[yOffset];
-          const curColor = 4 * (curY * imgWidth + x);
-          // console.log(curColor);
-          sumR += matrixVal * jeff.pixels[curColor];
-          sumG += matrixVal * jeff.pixels[curColor + 1];
-          sumB += matrixVal * jeff.pixels[curColor + 2];
-          // sumA += matrixVal * this.p5.pixels[curColor + 3];
-        }
-        jeff.pixels[loc] = sumR;
-        jeff.pixels[loc + 1] = sumG;
-        jeff.pixels[loc + 2] = sumB;
-        // this.p5.pixels[loc + 3] = sumA;
-      }
-    }
-
-    jeff.updatePixels();
-  }
 
   private blur(x: number, y: number) {
     const twoSigma = 2 * this.sigma * this.sigma;
