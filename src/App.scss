@@ -13,9 +13,9 @@ body {
 
 .fill-page {
   flex-grow: 1;
-}
 
-.page-container {
-  height: 100%;
-  max-width: 100%;
+  .page-container {
+    height: 100%;
+    max-width: 100%;
+  }
 }
