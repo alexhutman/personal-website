@@ -9,15 +9,25 @@ export default class GaussianBlur {
 
   private domImg: P5.Element|null;
 
-  private kernelsize = 31;
+  public sigma = 9;
 
-  private kernelwidth: number = Math.floor(this.kernelsize / 2);
+  private kernelsize!: number;
 
-  private sigma = 9;
+  private kernelwidth!: number;
 
   constructor() {
     this.p5 = new P5(this.sketch);
     this.domImg = this.p5.select('#dom-image');
+    this.setKernelSize(31);
+  }
+
+  public setKernelSize(n: number): void {
+    this.kernelsize = n;
+    this.kernelwidth = Math.floor(this.kernelsize / 2);
+  }
+
+  public getKernelSize(): number {
+    return this.kernelsize;
   }
 
   sketch = (p5: P5) => {

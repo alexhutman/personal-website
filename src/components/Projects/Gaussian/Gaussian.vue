@@ -27,18 +27,18 @@
             <div class="row">
               <div class="col-6">
                 <div>
-                  σ = {{ sigma }}
+                  σ = {{ gb.sigma }}
                 </div>
                 <input id="sigma-slider" type="range" min="1" max="15"
-                  value="1" step="0.5" class="slider" v-model="sigma">
+                  value="1" step="0.5" class="slider" v-model="gb.sigma">
                 </div>
 
               <div class="col-6">
                 <div>
-                  Radius = {{ kernel }}
+                  Radius = {{ gb.getKernelSize() }}
                 </div>
-                <input id="kernel-slider" type="range" min="1" max="51"
-                  value="1" step="2" class="slider" v-model="kernel">
+                <input id="kernel-slider" type="range" min="1" max="51" v-model="kernelSliderValue"
+                  value="1" step="2" class="slider" @input="gb.setKernelSize(kernelSliderValue)">
               </div>
             </div>
 
@@ -66,8 +66,7 @@ export default Vue.extend({
   data() {
     return {
       gb: GaussianBlur.prototype,
-      sigma: 0,
-      kernel: 0,
+      kernelSliderValue: Number,
     };
   },
   mounted() {
