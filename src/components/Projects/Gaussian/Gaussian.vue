@@ -46,48 +46,22 @@ import Vue from 'vue';
 import P5 from 'p5';
 import GaussianBlur from './GaussianBlur';
 
-const path = require('../../../../public/assets/img/papabiceps.jpg');
 
 export default Vue.extend({
   name: 'Gaussian',
-  mounted() {
-    const canvasCol = document.getElementById('canvas-col');
-
-    const sketch = (p5: P5) => {
-      let img: P5.Image;
-      let canvas: any;
-      p5.preload = () => {
-        img = p5.loadImage(path);
-      };
-      /* eslint no-param-reassign: ["error", { "props": false }] */
-
-      p5.setup = () => {
-        if (canvasCol) {
-          const ccx = canvasCol.offsetWidth;
-          const ccy = canvasCol.offsetHeight;
-
-          // @TODO Make the column stretch to the bottom of the screen so that
-          // we can call this to make it fit the column
-          // img.resize(0, ccy);
-          canvas = p5.createCanvas(img.width, img.height);
-          canvas.parent('canvas-col');
-          canvas.style('height', '100%');
-          canvas.style('width', 'auto');
-
-          p5.pixelDensity(1);
-        }
-
-        p5.noLoop();
-      };
-
-      p5.draw = () => {
-        const gb = new GaussianBlur(p5);
-        p5.image(img, 0, 0);
-        gb.gaussianBlur(canvas);
-      };
+  data() {
+    return {
+      gb: GaussianBlur.prototype,
     };
-
-    const p5 = new P5(sketch);
+  },
+  mounted() {
+    this.gb = new GaussianBlur();
+  },
+  methods: {
+    blur(): void {
+      // TODO: Add methods such as these in the class
+      // this.gb.gaussianBlur(canvas);
+    },
   },
 });
 </script>
