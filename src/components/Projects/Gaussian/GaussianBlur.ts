@@ -9,16 +9,16 @@ export default class GaussianBlur {
 
   private domImg: P5.Element|null;
 
-  public sigma = 9;
+  public sigma = 1;
 
   private kernelsize!: number;
 
   private kernelwidth!: number;
 
-  constructor() {
+  constructor(initialKernelSize: number) {
     this.p5 = new P5(this.sketch);
     this.domImg = this.p5.select('#dom-image');
-    this.setKernelSize(31);
+    this.setKernelSize(initialKernelSize);
   }
 
   public setKernelSize(n: number): void {
@@ -131,13 +131,21 @@ export default class GaussianBlur {
       this.canvas.parent('#canvas-col');
       this.canvas.style('display', 'none');
 
-      const jeff = () => {
-        gaussianBlur();
-      };
+      const sigmaSlider = p5.select('#sigma-slider') as any;
+      const kernelSlider = p5.select('#kernel-slider') as any;
 
-      const clickme = p5.select('#click-me');
-      if (clickme) {
-        clickme.mousePressed(jeff);
+      if (sigmaSlider) {
+        // @TODO: maybe use a promise somehow to not make the page lag on change
+        sigmaSlider.changed(() => {
+          gaussianBlur();
+        });
+      }
+
+      if (kernelSlider) {
+        // @TODO: maybe use a promise somehow to not make the page lag on change
+        kernelSlider.changed(() => {
+          gaussianBlur();
+        });
       }
 
       p5.pixelDensity(1);

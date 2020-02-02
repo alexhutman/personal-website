@@ -41,11 +41,6 @@
                   value="1" step="2" class="slider" @input="gb.setKernelSize(kernelSliderValue)">
               </div>
             </div>
-
-
-            <div>
-              <button id="click-me" class="btn btn-primary">Hello</button>
-            </div>
           </div>
 
         </div>
@@ -66,17 +61,13 @@ export default Vue.extend({
   data() {
     return {
       gb: GaussianBlur.prototype,
-      kernelSliderValue: Number,
+      kernelSliderValue: 1,
     };
   },
   mounted() {
-    this.gb = new GaussianBlur();
+    this.gb = new GaussianBlur(this.kernelSliderValue);
   },
   methods: {
-    blur(): void {
-      // TODO: Add methods such as these in the class
-      // this.gb.gaussianBlur(canvas);
-    },
   },
 });
 </script>
