@@ -34,6 +34,9 @@ export default class GaussianBlur {
     let img: P5.Image;
 
     const gaussianBlur = () => {
+      p5.clear();
+      p5.image(img, 0, 0);
+
       const imgWidth = this.canvas.width;
       const imgHeight = this.canvas.height;
 
@@ -116,6 +119,7 @@ export default class GaussianBlur {
       }
 
       this.canvas.updatePixels();
+      this.updateImg();
     };
 
     p5.preload = () => {
@@ -129,7 +133,6 @@ export default class GaussianBlur {
 
       const jeff = () => {
         gaussianBlur();
-        this.updateImg();
       };
 
       const clickme = p5.select('#click-me');
