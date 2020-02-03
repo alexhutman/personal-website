@@ -14,7 +14,8 @@
           <!-- <div class="explanation col-md-4 text-center"> -->
           <div class="explanation col-md-4 text-center vertical-center">
             <div class="container-fluid">
-              <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+              <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel"
+                data-interval="false">
                 <ol class="carousel-indicators">
                   <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
                   <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
