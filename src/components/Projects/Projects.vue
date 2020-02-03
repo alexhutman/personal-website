@@ -15,7 +15,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="card">
-              <img class="card-img-top" :src="getImg('aes.png')">
+              <img class="card-img-top" src="assets/img/aes.png">
               <div class="card-body">
                 <h4 class="card-title">AES</h4>
                 <p class="card-text">This is the description for AES xd</p>
@@ -49,10 +49,6 @@
 export default {
   name: 'Projects',
   methods: {
-    getImg(imgName: string): NodeRequire {
-      // eslint-disable-next-line global-require, import/no-dynamic-require
-      return require(`../../../public/assets/img/${imgName}`);
-    },
   },
 };
 </script>
