@@ -9,7 +9,7 @@ export default class AES {
   private N_k!: number;
   private N_r!: number;
 
-  private keySchedule!: number[];
+  private keySchedule!: number[][];
 
   constructor(key_len: number) {
     this.keyLength = key_len as keyRange;
@@ -46,36 +46,26 @@ export default class AES {
     [this.N_k, this.N_r] = this.calculateConstants(key, this.keyLength);
 
     this.keySchedule = this.generateKeySchedule(key);
-    print("-"*25)
-    print("KEY SCHEDULE:")
-    #pprint([[hex(a) for a in row] for row in this.key_schedule])
-    print("-"*25)
 
-    encrypted_blocks = []
+    const encrypted_blocks = new Array<Array<Array<number>>>();
 
-    for block in msg:
-        state = this.__add_round_key(block, this.__get_round_key(0))  # Add initial key to message block
+    msg.forEach((block) => {
+      let state = this.addRoundKey(block, this.getRoundKey(0));
 
-        print("round {} - state: {}".format(0, hexify_state(state)))
-        for round_i in range(1, this.N_r+1):
-            state = this.__byte_sub(state)
-            print("round {} - bytesub: {}".format(round_i, hexify_state(state)))
-            state = transpose(this.__shift_row(transpose(state)))
-            print("round {} - shift_row: {}".format(round_i, hexify_state(state)))
-            if round_i != this.N_r:
-                state = transpose(this.__mix_columns(transpose(state)))
-                print("round {} - mix_columns: {}".format(round_i, hexify_state(state)))
+      this.range(1, this.N_r+1).forEach((roundI) => {
+        state = this.byteSub(state);
+        state = this.transpose(this.shiftRow(this.transpose(state)));
+        if (roundI != this.N_r){
+          state = this.transpose(this.mixColumns(this.transpose(state)))
+        }
 
-            print("-"*25)
-            print(f"ROUND KEY FOR ROUND {round_i}:")
-            r_key = this.__get_round_key(round_i)
-            print(hexify_state(r_key))
-            print("-"*25)
+        const rKey = this.getRoundKey(roundI);
 
-            state = this.__add_round_key(state, r_key)
-            print("round {} - add_round_key: {}".format(round_i, hexify_state(state)))
+        state = this.addRoundKey(state, rKey)
+      });
 
-        encrypted_blocks.append(state)
+      encrypted_blocks.push(state)
+    });
 
     return "".join([hexify_state(enc_block) for enc_block in encrypted_blocks])
   }
