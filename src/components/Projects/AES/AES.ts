@@ -1,3 +1,5 @@
+import Lookups from './Lookups';
+
 type keyRange = 128 | 192 | 256;
 
 export default class AES {
@@ -33,10 +35,13 @@ export default class AES {
     return Object.keys(dict).map((str) => Number(str));
   }
 
-  private range(n: number): number[] {
-    return [...Array(n).keys()];
+  // From https://stackoverflow.com/a/10050831/6708303
+  private range(size:number, startAt:number = 0):ReadonlyArray<number> {
+    return [...Array(size).keys()].map(i => i + startAt);
   }
-  public encrypt(msg: string[], key: string[]): string {
+
+
+  public encrypt(msg: number[], key: number[]): string {
     this.validateKey(key, this.keyLength);
     [this.N_k, this.N_r] = this.calculateConstants(key, this.keyLength);
 
@@ -104,26 +109,53 @@ export default class AES {
     return [N_k, N_r];
   }
 
-  private generateKeySchedule(key: number[]): number[] {
-    const rCon = this.generateRoundConsts();
-
-    const w = [];
-    this.range(4*(self.N_r+1)).forEach((i) => {
-      if i < self.N_k:
-          print("Case 1")
-          w.append(key[4*i:4*i+4])
-      elif i >= self.N_k and i % self.N_k == 0:
-          print("Case 2")
-          w.append(Encrypt.__xor_col(w[i - self.N_k], Encrypt.__transform_col(w[i - 1], Rcon[(i // self.N_k) - 1])))
-      elif i >= self.N_k and self.N_k > 6 and i % self.N_k == 4:
-          print("Case 3")
-          w.append(Encrypt.__xor_col(w[i - self.N_k], [lookups.s_box[x] for x in w[i-1]]))
-      else:
-          print("Case 4")
-          w.append(Encrypt.__xor_col(w[i - self.N_k], w[i-1]))
-      #print(f"w[{i}] = {''.join([hex(a)[2:].rjust(2, '0') for a in w[i]])}")
+  private xorCol(col1: number[], col2: number[]): number[] {
+    const temp = new Array<number>(col1.length);
+    this.range(col1.length).forEach((i) => {
+      temp[i] = col1[i] ^ col2[i];
     });
 
-    return w
+    return temp;
+  }
+
+  private rotWord(word: number[], n: number) {
+    const temp = new Array<number>(word.length);
+    this.range(n, word.length + n).forEach((i) => {
+      temp.push(word[i % word.length])
+    });
+    return temp;
+  }
+
+  private transformCol(col: number[], r_const: number) {
+    const temp = this.rotWord(col, 1);
+    this.range(temp.length).forEach((i) => {
+      temp[i] = Lookups.sBox[temp[i]];
+    });
+    temp[0] = temp[0] ^ r_const;
+    return temp;
+  }
+
+  private generateKeySchedule(key: number[]): number[][] {
+    const rCon = this.generateRoundConsts();
+
+    const w = new Array<Array<number>>();
+    // const w: number[][];
+    this.range(4*(this.N_r+1)).forEach((i) => {
+      if (i < this.N_k) {
+        w.push(key.slice(4*i, 4*i+4));
+      } else if (i >= this.N_k && i % this.N_k == 0) {
+        w.push(this.xorCol(w[i - this.N_k], this.transformCol(w[i - 1], rCon[(i / this.N_k) - 1])))
+      } else if (i >= this.N_k && this.N_k > 6 && i % this.N_k == 4) {
+        const substituted = new Array<number>(w[i - 1].length);
+        this.range(w[i - 1].length).forEach((j) => {
+          substituted[j] = Lookups.sBox[w[i - 1][j]];
+        });
+        w.push(this.xorCol(w[i - this.N_k], substituted));
+      } else {
+        w.push(this.xorCol(w[i - this.N_k], w[i-1]));
+      }
+    });
+
+    return w;
   }
 }
