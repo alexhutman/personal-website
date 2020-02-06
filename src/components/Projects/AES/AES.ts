@@ -41,7 +41,7 @@ export default class AES {
   }
 
 
-  public encrypt(msg: number[], key: number[]): string {
+  public encrypt(msg: number[][][], key: number[]): string {
     this.validateKey(key, this.keyLength);
     [this.N_k, this.N_r] = this.calculateConstants(key, this.keyLength);
 
@@ -68,6 +68,39 @@ export default class AES {
     });
 
     return "".join([hexify_state(enc_block) for enc_block in encrypted_blocks])
+  }
+
+  private byteSub(state: number[][]) {
+    const subbed = new Array<Array<number>>();
+
+    this.range(state.length).forEach((i) => {
+      const temp = new Array<number>();
+        this.range(state[i].length).forEach((j) => {
+          temp.push(Lookups.sBox[state[i][j]]);
+        });
+      subbed.push(temp);
+    });
+    return state;
+  }
+
+  private addRoundKey(state: number[][], roundKey: number[][]): number[][] {
+    const XORd = new Array<Array<number>>();
+    this.range(roundKey.length).forEach((i) => {
+      XORd.push(this.xorCol(state[i], roundKey[i]))
+    });
+    return XORd;
+  }
+
+  private transpose(matrix: number[][]) {
+    const transposed = new Array<Array<number>>();
+    this.range(matrix.length).forEach((row) => {
+      const temp = new Array<number>();
+      this.range(matrix[0].length).forEach((col) => {
+        temp.push(matrix[col][row]);
+      });
+      transposed.push(temp);
+    });
+    return transposed;
   }
 
   private validateKey(key: number[], keyLen: number): void {
@@ -147,5 +180,9 @@ export default class AES {
     });
 
     return w;
+  }
+
+  private getRoundKey(curRound: number): number[][] {
+    return this.keySchedule.slice(4*curRound, 4*curRound+4);
   }
 }
