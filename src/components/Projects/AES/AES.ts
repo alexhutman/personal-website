@@ -217,4 +217,15 @@ export default class AES {
   private getRoundKey(curRound: number): number[][] {
     return this.keySchedule.slice(4*curRound, 4*curRound+4);
   }
+
+  private hexifyState(state: number[][]): String {
+    let res: String = new String();
+    state.forEach((row) => {
+      row.forEach((entry) => {
+        let hexed = entry.toString(16).padStart(2, '0');
+        res.concat(hexed);
+      });
+    });
+    return res;
+  }
 }
