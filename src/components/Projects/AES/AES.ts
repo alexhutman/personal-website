@@ -91,6 +91,15 @@ export default class AES {
     return XORd;
   }
 
+  private shiftRow(state: number[][]) {
+    const temp = new Array<Array<number>>();
+
+    this.range(state.length).forEach((row) => {
+      temp.push(this.rotWord(state[row], row));
+    });
+    return temp;
+  }
+
   private transpose(matrix: number[][]) {
     const transposed = new Array<Array<number>>();
     this.range(matrix.length).forEach((row) => {
@@ -142,8 +151,8 @@ export default class AES {
   }
 
   private rotWord(word: number[], n: number) {
-    const temp = new Array<number>(word.length);
-    this.range(n, word.length + n).forEach((i) => {
+    const temp = new Array<number>();
+    this.range(word.length, n).forEach((i) => {
       temp.push(word[i % word.length])
     });
     return temp;
