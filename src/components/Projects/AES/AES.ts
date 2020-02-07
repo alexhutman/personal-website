@@ -100,6 +100,29 @@ export default class AES {
     return temp;
   }
 
+  private mixColumns(state: number[][]): number[][] {
+    /*
+    Multiplies the state matrix with the following matrix on the left:
+    [x   x+1   1   1]
+    [1   x   x+1   1]
+    [1   1   x   x+1]
+    [x+1   1   1   x]
+    :param state:
+    :return:
+    */
+    const statePrime = new Array<Array<number>>();
+    this.range(4).forEach((i) => {
+      statePrime.push(new Array<number>(4));
+    });
+    this.range(state.length).forEach((col) => {
+      statePrime[0][col] = Lookups.multTable.get([0x2, state[0][col]]) ^ Lookups.multTable.get([0x3, state[1][col]]) ^ state[2][col] ^ state[3][col];
+      statePrime[1][col] = state[0][col] ^ Lookups.multTable.get([0x2, state[1][col]]) ^ Lookups.multTable.get([0x3, state[2][col]]) ^ state[3][col];
+      statePrime[2][col] = state[0][col] ^ state[1][col] ^ Lookups.multTable.get([0x2, state[2][col]]) ^ Lookups.multTable.get([0x3, state[3][col]]);
+      statePrime[3][col] = Lookups.multTable.get([0x3, state[0][col]]) ^ state[1][col] ^ state[2][col] ^ Lookups.multTable.get([0x2, state[3][col]]);
+    });
+    return statePrime;
+  }
+
   private transpose(matrix: number[][]) {
     const transposed = new Array<Array<number>>();
     this.range(matrix.length).forEach((row) => {
