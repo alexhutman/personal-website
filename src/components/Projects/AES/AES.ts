@@ -67,7 +67,11 @@ export default class AES {
       encrypted_blocks.push(state)
     });
 
-    return "".join([hexify_state(enc_block) for enc_block in encrypted_blocks])
+    let res = new String();
+    encrypted_blocks.forEach((block) => {
+      res.concat(this.hexifyState(block));
+    });
+    return res as string;
   }
 
   private byteSub(state: number[][]) {
@@ -219,7 +223,7 @@ export default class AES {
   }
 
   // Shoutout to Al
-  private hexifyState(state: number[][]): String {
+  private hexifyState(state: number[][]): string {
     let res: String = new String();
     state.forEach((row) => {
       row.forEach((entry) => {
@@ -227,6 +231,6 @@ export default class AES {
         res.concat(hexed);
       });
     });
-    return res;
+    return res as string;
   }
 }
