@@ -218,6 +218,7 @@ export default class AES {
     return this.keySchedule.slice(4*curRound, 4*curRound+4);
   }
 
+  // Shoutout to Al
   private hexifyState(state: number[][]): String {
     let res: String = new String();
     state.forEach((row) => {
