@@ -1,110 +1,114 @@
+/* eslint-disable */
+
 import Lookups from './Lookups';
 
 type keyRange = 128 | 192 | 256;
 
 export default class AES {
-  private N_b = 4;
+  private Nb = 4;
+
   private keyLength: number;
 
-  private N_k!: number;
-  private N_r!: number;
+  private Nk!: number;
+
+  private Nr!: number;
 
   private keySchedule!: number[][];
 
-  constructor(key_len: number) {
-    this.keyLength = key_len as keyRange;
+  constructor(keyLen: number) {
+    this.keyLength = keyLen as keyRange;
   }
 
-  private generateRoundConsts(): number[] {
+  private static generateRoundConsts(): number[] {
     const rc: number[] = [];
 
-    this.range(10).forEach((i) => {
-      if (i == 0) {
+    AES.range(10).forEach((i) => {
+      if (i === 0) {
         rc.push(1);
-      } else if (i > 0 && rc[i-1] < 0x80) {
-        rc.push(2 * rc[i-1]);
+      } else if (i > 0 && rc[i - 1] < 0x80) {
+        rc.push(2 * rc[i - 1]);
       } else if (i > 0 && rc[i - 1] >= 0x80) {
-        rc.push(((2 * rc[i-1]) ^ 0x1B) & 0xFF);
+        rc.push(((2 * rc[i - 1]) ^ 0x1B) & 0xFF);
       }
     });
 
     return rc;
   }
 
-  private numberDictKeys(dict: Record<string, Number>): number[] {
-    return Object.keys(dict).map((str) => Number(str));
+  private static numberDictKeys(dict: Record<string, Number>): number[] {
+    return Object.keys(dict).map(str => Number(str));
   }
 
   // From https://stackoverflow.com/a/10050831/6708303
-  private range(size:number, startAt:number = 0):ReadonlyArray<number> {
+  private static range(size:number, startAt:number = 0):ReadonlyArray<number> {
     return [...Array(size).keys()].map(i => i + startAt);
   }
 
 
   public encrypt(msg: number[][][], key: number[]): string {
-    this.validateKey(key, this.keyLength);
-    [this.N_k, this.N_r] = this.calculateConstants(key, this.keyLength);
+    AES.validateKey(key, this.keyLength);
+    [this.Nk, this.Nr] = AES.calculateConstants(key, this.keyLength);
 
     this.keySchedule = this.generateKeySchedule(key);
 
-    const encrypted_blocks = new Array<Array<Array<number>>>();
+    const encryptedBlocks: number[][][] = [[[]]];
 
     msg.forEach((block) => {
-      let state = this.addRoundKey(block, this.getRoundKey(0));
+      let state = AES.addRoundKey(block, this.getRoundKey(0));
 
-      this.range(1, this.N_r+1).forEach((roundI) => {
-        state = this.byteSub(state);
-        state = this.transpose(this.shiftRow(this.transpose(state)));
-        if (roundI != this.N_r){
-          state = this.transpose(this.mixColumns(this.transpose(state)))
+      AES.range(1, this.Nr + 1).forEach((roundI) => {
+        state = AES.byteSub(state);
+        state = AES.transpose(AES.shiftRow(AES.transpose(state)));
+        if (roundI !== this.Nr) {
+          state = AES.transpose(AES.mixColumns(AES.transpose(state)));
         }
 
         const rKey = this.getRoundKey(roundI);
 
-        state = this.addRoundKey(state, rKey)
+        state = AES.addRoundKey(state, rKey);
       });
 
-      encrypted_blocks.push(state)
+      encryptedBlocks.push(state);
     });
 
-    let res = new String();
-    encrypted_blocks.forEach((block) => {
-      res.concat(this.hexifyState(block));
+    let res = '';
+    encryptedBlocks.forEach((block) => {
+      res += AES.hexifyState(block);
     });
-    return res as string;
+    return res;
   }
 
-  private byteSub(state: number[][]) {
-    const subbed = new Array<Array<number>>();
+  private static byteSub(state: number[][]) {
+    const subbed: number[][] = [[]];
 
-    this.range(state.length).forEach((i) => {
-      const temp = new Array<number>();
-        this.range(state[i].length).forEach((j) => {
-          temp.push(Lookups.sBox[state[i][j]]);
-        });
+    AES.range(state.length).forEach((i) => {
+      const temp: number[] = [];
+      AES.range(state[i].length).forEach((j) => {
+        temp.push(Lookups.sBox[state[i][j]]);
+      });
       subbed.push(temp);
     });
     return state;
   }
 
-  private addRoundKey(state: number[][], roundKey: number[][]): number[][] {
-    const XORd = new Array<Array<number>>();
-    this.range(roundKey.length).forEach((i) => {
-      XORd.push(this.xorCol(state[i], roundKey[i]))
+  private static addRoundKey(state: number[][], roundKey: number[][]): number[][] {
+    const XORd: number[][] = [[]];
+    AES.range(roundKey.length).forEach((i) => {
+      XORd.push(AES.xorCol(state[i], roundKey[i]));
     });
     return XORd;
   }
 
-  private shiftRow(state: number[][]) {
-    const temp = new Array<Array<number>>();
+  private static shiftRow(state: number[][]) {
+    const temp: number[][] = [[]];
 
-    this.range(state.length).forEach((row) => {
-      temp.push(this.rotWord(state[row], row));
+    AES.range(state.length).forEach((row) => {
+      temp.push(AES.rotWord(state[row], row));
     });
     return temp;
   }
 
-  private mixColumns(state: number[][]): number[][] {
+  private static mixColumns(state: number[][]): number[][] {
     /*
     Multiplies the state matrix with the following matrix on the left:
     [x   x+1   1   1]
@@ -114,24 +118,36 @@ export default class AES {
     :param state:
     :return:
     */
-    const statePrime = new Array<Array<number>>();
-    this.range(4).forEach((i) => {
-      statePrime.push(new Array<number>(4));
+    const statePrime: number[][] = [[]];
+    AES.range(4).forEach((i) => {
+      statePrime.push([0, 0, 0, 0]);
     });
-    this.range(state.length).forEach((col) => {
-      statePrime[0][col] = Lookups.multTable.get([0x2, state[0][col]]) ^ Lookups.multTable.get([0x3, state[1][col]]) ^ state[2][col] ^ state[3][col];
-      statePrime[1][col] = state[0][col] ^ Lookups.multTable.get([0x2, state[1][col]]) ^ Lookups.multTable.get([0x3, state[2][col]]) ^ state[3][col];
-      statePrime[2][col] = state[0][col] ^ state[1][col] ^ Lookups.multTable.get([0x2, state[2][col]]) ^ Lookups.multTable.get([0x3, state[3][col]]);
-      statePrime[3][col] = Lookups.multTable.get([0x3, state[0][col]]) ^ state[1][col] ^ state[2][col] ^ Lookups.multTable.get([0x2, state[3][col]]);
+    AES.range(state.length).forEach((col) => {
+      statePrime[0][col] = Lookups.multTable.get([0x2, state[0][col]])
+                           ^ Lookups.multTable.get([0x3, state[1][col]])
+                           ^ state[2][col]
+                           ^ state[3][col];
+      statePrime[1][col] = state[0][col]
+                           ^ Lookups.multTable.get([0x2, state[1][col]])
+                           ^ Lookups.multTable.get([0x3, state[2][col]])
+                           ^ state[3][col];
+      statePrime[2][col] = state[0][col]
+                           ^ state[1][col]
+                           ^ Lookups.multTable.get([0x2, state[2][col]])
+                           ^ Lookups.multTable.get([0x3, state[3][col]]);
+      statePrime[3][col] = Lookups.multTable.get([0x3, state[0][col]])
+                           ^ state[1][col]
+                           ^ state[2][col]
+                           ^ Lookups.multTable.get([0x2, state[3][col]]);
     });
     return statePrime;
   }
 
-  private transpose(matrix: number[][]) {
-    const transposed = new Array<Array<number>>();
-    this.range(matrix.length).forEach((row) => {
-      const temp = new Array<number>();
-      this.range(matrix[0].length).forEach((col) => {
+  private static transpose(matrix: number[][]) {
+    const transposed: number[][] = [[]];
+    AES.range(matrix.length).forEach((row) => {
+      const temp: number[] = [];
+      AES.range(matrix[0].length).forEach((col) => {
         temp.push(matrix[col][row]);
       });
       transposed.push(temp);
@@ -139,79 +155,82 @@ export default class AES {
     return transposed;
   }
 
-  private validateKey(key: number[], keyLen: number): void {
+  private static validateKey(key: number[], keyLen: number): void {
     const numRounds = {
       128: 10,
       192: 12,
-      256: 14
+      256: 14,
     };
 
-    if (!this.numberDictKeys(numRounds).includes(keyLen)) {
-      throw `KeyLengthException: Key length must be either 128, 192, or 256 bits long (got ${keyLen}).`;
+    if (!AES.numberDictKeys(numRounds).includes(keyLen)) {
+      throw new Error(`KeyLengthException: Key length must be either 128, 192,
+                       or 256 bits long (got ${keyLen}).`);
     }
 
     const givenKeyLen = 8 * key.length;
-    if (givenKeyLen != keyLen) {
-      throw `KeyLengthException: Key length must be ${keyLen} long (got ${givenKeyLen} bits).`;
+    if (givenKeyLen !== keyLen) {
+      throw new Error(`KeyLengthException: Key length must be ${keyLen} long
+                       (got ${givenKeyLen} bits).`);
     }
   }
 
-  private calculateConstants(key: number[], keyLen: number): number[] {
+  private static calculateConstants(key: number[], keyLen: number): number[] {
     const numRounds: { [keyLen: number]: number } = {
       128: 10,
       192: 12,
-      256: 14
+      256: 14,
     };
 
-    const N_k = keyLen / 32;
-    const N_r = numRounds[keyLen];
-    return [N_k, N_r];
+    const Nk = keyLen / 32;
+    const Nr = numRounds[keyLen];
+    return [Nk, Nr];
   }
 
-  private xorCol(col1: number[], col2: number[]): number[] {
+  private static xorCol(col1: number[], col2: number[]): number[] {
     const temp = new Array<number>(col1.length);
-    this.range(col1.length).forEach((i) => {
+    AES.range(col1.length).forEach((i) => {
       temp[i] = col1[i] ^ col2[i];
     });
 
     return temp;
   }
 
-  private rotWord(word: number[], n: number) {
-    const temp = new Array<number>();
-    this.range(word.length, n).forEach((i) => {
-      temp.push(word[i % word.length])
+  private static rotWord(word: number[], n: number) {
+    const temp: number[] = [];
+    AES.range(word.length, n).forEach((i) => {
+      temp.push(word[i % word.length]);
     });
     return temp;
   }
 
-  private transformCol(col: number[], r_const: number) {
-    const temp = this.rotWord(col, 1);
-    this.range(temp.length).forEach((i) => {
+  private static transformCol(col: number[], rConst: number) {
+    const temp = AES.rotWord(col, 1);
+    AES.range(temp.length).forEach((i) => {
       temp[i] = Lookups.sBox[temp[i]];
     });
-    temp[0] = temp[0] ^ r_const;
+
+    temp[0] ^= rConst;
     return temp;
   }
 
   private generateKeySchedule(key: number[]): number[][] {
-    const rCon = this.generateRoundConsts();
+    const rCon = AES.generateRoundConsts();
 
-    const w = new Array<Array<number>>();
+    const w: number[][] = [[]];
     // const w: number[][];
-    this.range(4*(this.N_r+1)).forEach((i) => {
-      if (i < this.N_k) {
-        w.push(key.slice(4*i, 4*i+4));
-      } else if (i >= this.N_k && i % this.N_k == 0) {
-        w.push(this.xorCol(w[i - this.N_k], this.transformCol(w[i - 1], rCon[(i / this.N_k) - 1])))
-      } else if (i >= this.N_k && this.N_k > 6 && i % this.N_k == 4) {
+    AES.range(4 * (this.Nr + 1)).forEach((i) => {
+      if (i < this.Nk) {
+        w.push(key.slice(4 * i, 4 * i + 4));
+      } else if (i >= this.Nk && i % this.Nk === 0) {
+        w.push(AES.xorCol(w[i - this.Nk], AES.transformCol(w[i - 1], rCon[(i / this.Nk) - 1])));
+      } else if (i >= this.Nk && this.Nk > 6 && i % this.Nk === 4) {
         const substituted = new Array<number>(w[i - 1].length);
-        this.range(w[i - 1].length).forEach((j) => {
+        AES.range(w[i - 1].length).forEach((j) => {
           substituted[j] = Lookups.sBox[w[i - 1][j]];
         });
-        w.push(this.xorCol(w[i - this.N_k], substituted));
+        w.push(AES.xorCol(w[i - this.Nk], substituted));
       } else {
-        w.push(this.xorCol(w[i - this.N_k], w[i-1]));
+        w.push(AES.xorCol(w[i - this.Nk], w[i - 1]));
       }
     });
 
@@ -219,16 +238,16 @@ export default class AES {
   }
 
   private getRoundKey(curRound: number): number[][] {
-    return this.keySchedule.slice(4*curRound, 4*curRound+4);
+    return this.keySchedule.slice(4 * curRound, 4 * curRound + 4);
   }
 
   // Shoutout to Al
-  private hexifyState(state: number[][]): string {
-    let res: String = new String();
+  private static hexifyState(state: number[][]): string {
+    let res = '';
     state.forEach((row) => {
       row.forEach((entry) => {
-        let hexed = entry.toString(16).padStart(2, '0');
-        res.concat(hexed);
+        const hexed = entry.toString(16).padStart(2, '0');
+        res += hexed;
       });
     });
     return res as string;

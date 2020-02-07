@@ -233,6 +233,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import AES from './AES';
 
 export default Vue.extend({
   name: 'AES',
@@ -255,6 +256,18 @@ export default Vue.extend({
         ],
       ],
     };
+  },
+  mounted() {
+    const block1 = [
+      [0, 1, 2, 3],
+      [4, 5, 6, 7],
+      [8, 9, 10, 11],
+      [12, 13, 14, 15],
+    ];
+
+    const key = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+    const a = new AES(128);
+    console.log(a.encrypt([block1], key));
   },
   methods: {
     onMsgChange(): void {
