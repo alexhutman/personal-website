@@ -204,22 +204,54 @@
               <div class="row state">
                 <div class="col text-center">
                     <div class="state-grid">
-                        <div class="cell-00 hbb hrb">{{ padNumber(blocks[0][0][0]) }}</div>
-                        <div class="cell-01 hbb hrb hlb">{{ padNumber(blocks[0][0][1]) }}</div>
-                        <div class="cell-02 hbb hrb hlb">{{ padNumber(blocks[0][0][2]) }}</div>
-                        <div class="cell-03 hbb hlb">{{ padNumber(blocks[0][0][3]) }}</div>
-                        <div class="cell-10 hbb htb hrb">{{ padNumber(blocks[0][1][0]) }}</div>
-                        <div class="cell-11 hbb htb hrb hlb">{{ padNumber(blocks[0][1][1]) }}</div>
-                        <div class="cell-12 hbb htb hrb hlb">{{ padNumber(blocks[0][1][2]) }}</div>
-                        <div class="cell-13 hbb htb hlb">{{ padNumber(blocks[0][1][3]) }}</div>
-                        <div class="cell-20 hbb htb hrb">{{ padNumber(blocks[0][2][0]) }}</div>
-                        <div class="cell-21 hbb htb hrb hlb">{{ padNumber(blocks[0][2][1]) }}</div>
-                        <div class="cell-22 hbb htb hrb hlb">{{ padNumber(blocks[0][2][2]) }}</div>
-                        <div class="cell-23 hbb htb hlb">{{ padNumber(blocks[0][2][3]) }}</div>
-                        <div class="cell-30 htb hrb">{{ padNumber(blocks[0][3][0]) }}</div>
-                        <div class="cell-31 htb hrb hlb">{{ padNumber(blocks[0][3][1]) }}</div>
-                        <div class="cell-32 htb hrb hlb">{{ padNumber(blocks[0][3][2]) }}</div>
-                        <div class="cell-33 htb hlb">{{ padNumber(blocks[0][3][3]) }}</div>
+                        <div class="cell-00 hbb hrb">
+                          {{ padNumber(msg.blocks[0][0][0]) }}
+                        </div>
+                        <div class="cell-01 hbb hrb hlb">
+                          {{ padNumber(msg.blocks[0][0][1]) }}
+                        </div>
+                        <div class="cell-02 hbb hrb hlb">
+                          {{ padNumber(msg.blocks[0][0][2]) }}
+                        </div>
+                        <div class="cell-03 hbb hlb">
+                          {{ padNumber(msg.blocks[0][0][3]) }}
+                        </div>
+                        <div class="cell-10 hbb htb hrb">
+                          {{ padNumber(msg.blocks[0][1][0]) }}
+                        </div>
+                        <div class="cell-11 hbb htb hrb hlb">
+                          {{ padNumber(msg.blocks[0][1][1]) }}
+                        </div>
+                        <div class="cell-12 hbb htb hrb hlb">
+                          {{ padNumber(msg.blocks[0][1][2]) }}
+                        </div>
+                        <div class="cell-13 hbb htb hlb">
+                          {{ padNumber(msg.blocks[0][1][3]) }}
+                        </div>
+                        <div class="cell-20 hbb htb hrb">
+                          {{ padNumber(msg.blocks[0][2][0]) }}
+                        </div>
+                        <div class="cell-21 hbb htb hrb hlb">
+                          {{ padNumber(msg.blocks[0][2][1]) }}
+                        </div>
+                        <div class="cell-22 hbb htb hrb hlb">
+                          {{ padNumber(msg.blocks[0][2][2]) }}
+                        </div>
+                        <div class="cell-23 hbb htb hlb">
+                          {{ padNumber(msg.blocks[0][2][3]) }}
+                        </div>
+                        <div class="cell-30 htb hrb">
+                          {{ padNumber(msg.blocks[0][3][0]) }}
+                        </div>
+                        <div class="cell-31 htb hrb hlb">
+                          {{ padNumber(msg.blocks[0][3][1]) }}
+                        </div>
+                        <div class="cell-32 htb hrb hlb">
+                          {{ padNumber(msg.blocks[0][3][2]) }}
+                        </div>
+                        <div class="cell-33 htb hlb">
+                          {{ padNumber(msg.blocks[0][3][3]) }}
+                        </div>
                     </div>
                 </div>
               </div>
@@ -239,57 +271,71 @@ export default Vue.extend({
   name: 'AES',
   data() {
     return {
+      aesInstance: new AES(128),
       msg: {
         text: '',
         isInvalid: false,
+        blocks: [
+          [
+            [0x00, 0x11, 0x22, 0x33],
+            [0x44, 0x55, 0x66, 0x77],
+            [0x88, 0x99, 0xaa, 0xbb],
+            [0xcc, 0xdd, 0xee, 0xff],
+          ],
+        ],
       },
       key: {
         text: '',
         isInvalid: false,
-      },
-      blocks: [
-        [
-          [0, 1, 2, 3],
-          [4, 5, 6, 7],
-          [8, 9, 10, 11],
-          [12, 13, 14, 15],
+        intArr: [
+          0x0, 0x1, 0x2, 0x3,
+          0x4, 0x5, 0x6, 0x7,
+          0x8, 0x9, 0xa, 0xb,
+          0xc, 0xd, 0xe, 0xf,
         ],
-      ],
+      },
     };
   },
   mounted() {
-    const block1 = [
-      [0x00, 0x11, 0x22, 0x33],
-      [0x44, 0x55, 0x66, 0x77],
-      [0x88, 0x99, 0xaa, 0xbb],
-      [0xcc, 0xdd, 0xee, 0xff],
-    ];
-
-    const key = [0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8,
-      0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf];
-    const a = new AES(128);
-    console.log(a.encrypt([block1], key));
+    console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
   },
   methods: {
     onMsgChange(): void {
       this.msg.isInvalid = !(this.isASCII(this.msg.text) && this.isInputLengthValid(this.msg.text));
 
-      if (this.msg.isInvalid) {
-        const vals = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+      if (this.msg.isInvalid || (!this.msg.text)) {
+        const origMsg = [
+          [0x00, 0x11, 0x22, 0x33],
+          [0x44, 0x55, 0x66, 0x77],
+          [0x88, 0x99, 0xaa, 0xbb],
+          [0xcc, 0xdd, 0xee, 0xff],
+        ];
 
-        this.populateState(0, vals);
+        this.populateState(0, origMsg);
+
+        // TODO: reset the key to the original value too
+      } else {
+        this.populateState(0, this.textToMatrix(this.msg.text));
+        console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
-      console.log(this.msg.text);
     },
     onKeyChange():void {
       this.key.isInvalid = !(this.isASCII(this.key.text) && this.isInputLengthValid(this.key.text));
 
-      if (this.key.isInvalid) {
-        const vals = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+      if (this.key.isInvalid || (!this.key.text)) {
+        const origMsg = [
+          [0x00, 0x11, 0x22, 0x33],
+          [0x44, 0x55, 0x66, 0x77],
+          [0x88, 0x99, 0xaa, 0xbb],
+          [0xcc, 0xdd, 0xee, 0xff],
+        ];
 
-        this.populateState(0, vals);
+        this.populateState(0, origMsg);
+
+        // TODO: reset the key to the original value too
+      } else {
+        console.log(this.key.text);
       }
-      console.log(this.key.text);
     },
     padNumber(n: number): string {
       return n.toString().padStart(2, '0');
@@ -301,7 +347,33 @@ export default Vue.extend({
       return msg.length <= 16;
     },
     populateState(n: number, vals: number[][]): void {
-      this.blocks[n] = vals;
+      this.msg.blocks[n] = vals;
+    },
+    textToMatrix(txt: string): number[][] {
+      const toInts: number[] = [];
+
+      for (let i = 0; i < txt.length; i += 1) {
+        toInts.push(txt.charCodeAt(i));
+      }
+
+      for (let i = 0; i < (16 - txt.length); i += 1) {
+        toInts.push(0);
+      }
+
+      return this.arrToMatrix(toInts);
+    },
+    arrToMatrix(arr: number[]) {
+      const matrixRowLen = 4;
+
+      if (arr.length === (matrixRowLen * matrixRowLen)) {
+        const matrix: number[][] = [];
+        for (let i = 0; i < (arr.length / matrixRowLen); i += 1) {
+          matrix.push(arr.slice(i * matrixRowLen, (i + 1) * matrixRowLen));
+        }
+        return matrix;
+      }
+
+      throw new Error(`Array needs to be ${matrixRowLen * matrixRowLen} (got ${arr.length})`);
     },
   },
 });
