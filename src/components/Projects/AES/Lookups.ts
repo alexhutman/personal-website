@@ -1,13 +1,7 @@
 /* eslint-disable */
 
 class MultTable {
-  private mt: Map<number[], number>;
-
-  constructor() {
-    this.mt = this.calculateMultTable();
-  }
-
-  private static multiplyInGF256(p1: number, p2: number) {
+  public static multiplyInGF256(p1: number, p2: number) {
     let product: number = 0x0;
     while (p1 && p2) {
       if (p2 & 0x1) {
@@ -23,27 +17,9 @@ class MultTable {
     }
     return product;
   }
-
-  public get(key: number[]): number {
-    return this.mt.get(key)!;
-  }
-
-  private calculateMultTable(): Map<number[], number> {
-    let temp: Map<number[], number> = new Map();
-
-    for (let p1 = 0x2; p1 < 0x4; p1 += 0x1) {
-      for (let p2 = 0x0; p2 < 0x100; p2 += 0x1) { 
-        const res = MultTable.multiplyInGF256(p1, p2);
-
-        temp.set([p1, p2], res);
-      }
-    }
-
-    return temp;
-  }
 }
 
-export default class Lookups {
+class Lookups {
   /* eslint no-bitwise: [2, { allow: ["&", "^"] }] */
   static readonly sBox: { [key: number]: number } = {
     0: 99, 1: 124, 2: 119, 3: 123, 4: 242, 5: 107, 6: 111, 7: 197, 8: 48, 9: 1, 10: 103, 11: 43, 12: 254, 13: 215,
@@ -79,7 +55,9 @@ export default class Lookups {
     240: 140, 241: 161, 242: 137, 243: 13, 244: 191, 245: 230, 246: 66, 247: 104, 248: 65, 249: 153, 250: 45, 251: 15,
     252: 176, 253: 84, 254: 187, 255: 22
   }
+}
 
-
-  static readonly multTable = new MultTable();
+export {
+  MultTable,
+  Lookups,
 }
