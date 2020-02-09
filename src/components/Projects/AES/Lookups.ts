@@ -20,7 +20,6 @@ class MultTable {
 }
 
 class Lookups {
-  /* eslint no-bitwise: [2, { allow: ["&", "^"] }] */
   static readonly sBox: { [key: number]: number } = {
     0: 99, 1: 124, 2: 119, 3: 123, 4: 242, 5: 107, 6: 111, 7: 197, 8: 48, 9: 1, 10: 103, 11: 43, 12: 254, 13: 215,
     14: 171, 15: 118,
