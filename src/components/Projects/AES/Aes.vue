@@ -167,6 +167,7 @@
                       </div>
                     </div>
                     <input type="text"
+                           maxlength="16"
                            class="form-control"
                            :class="{ 'is-invalid': msg.isInvalid }"
                            id="messageInputBox"
@@ -174,8 +175,8 @@
                            v-model="msg.text"
                            v-on:input="onMsgChange()">
                     <div class="invalid-feedback">
-                      Please ensure that the message is a maximum of 16 ASCII characters.
-                      Support for more than 1 block will be added!
+                      Please ensure that the message contains only ASCII characters.
+                      Support for other characters will be added!
                     </div>
                   </div>
 
@@ -187,6 +188,7 @@
                       </div>
                     </div>
                     <input type="text"
+                           maxlength="16"
                            class="form-control"
                            :class="{ 'is-invalid': key.isInvalid }"
                            id="keyInputBox"
@@ -194,8 +196,8 @@
                            v-model="key.text"
                            v-on:input="onKeyChange()">
                     <div class="invalid-feedback">
-                      Please ensure that the key is a maximum of 16 ASCII characters.
-                      192/256 bit key sizes will be added!
+                      Please ensure that the key contains only ASCII characters.
+                      Support for other characters will be added, as well as 192/256 bit key sizes!
                     </div>
                   </div>
                 </form>
@@ -320,7 +322,7 @@ export default Vue.extend({
       }
     },
     onKeyChange():void {
-      this.key.isInvalid = !(this.isASCII(this.key.text) && this.isInputLengthValid(this.key.text));
+      this.key.isInvalid = !(this.isASCII(this.key.text) && this.key.text.length === 16);
 
       if (this.key.isInvalid || (!this.key.text)) {
         const origMsg = [
@@ -334,14 +336,17 @@ export default Vue.extend({
 
         // TODO: reset the key to the original value too
       } else {
-        console.log(this.key.text);
+        this.populateState(0, this.textToMatrix(this.msg.text));
+
+        this.key.intArr = this.strToIntArr(this.key.text);
+        console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
     },
     padNumber(n: number): string {
       return n.toString().padStart(2, '0');
     },
     isASCII(str: string): boolean {
-      return (/^[\x32-\xFF]*$/).test(str);
+      return (/^[\x32-\xFF\x20]*$/).test(str);
     },
     isInputLengthValid(msg: string): boolean {
       return msg.length <= 16;
@@ -362,7 +367,15 @@ export default Vue.extend({
 
       return this.arrToMatrix(toInts);
     },
-    arrToMatrix(arr: number[]) {
+    strToIntArr(str: string): number[] {
+      const intArr: number[] = [];
+      for (let i = 0; i < str.length; i += 1) {
+        intArr.push(str.charCodeAt(i));
+      }
+
+      return intArr;
+    },
+    arrToMatrix(arr: number[]): number[][] {
       const matrixRowLen = 4;
 
       if (arr.length === (matrixRowLen * matrixRowLen)) {
