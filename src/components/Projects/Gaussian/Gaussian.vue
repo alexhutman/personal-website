@@ -14,14 +14,14 @@
           <!-- <div class="explanation col-md-4 text-center"> -->
           <div class="explanation col-md-4 text-center vertical-center">
             <div class="container-fluid">
-              <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel"
+              <div id="gaussianCarousel" class="carousel slide" data-ride="carousel"
                 data-interval="false">
                 <ol class="carousel-indicators">
-                  <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                  <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                  <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-                  <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
-                  <li data-target="#carouselExampleCaptions" data-slide-to="4"></li>
+                  <li data-target="#gaussianCarousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#gaussianCarousel" data-slide-to="1"></li>
+                  <li data-target="#gaussianCarousel" data-slide-to="2"></li>
+                  <li data-target="#gaussianCarousel" data-slide-to="3"></li>
+                  <li data-target="#gaussianCarousel" data-slide-to="4"></li>
                 </ol>
                 <div class="carousel-inner" style=" width:100%; height: 500px !important;">
                   <div class="carousel-item active">
@@ -142,12 +142,12 @@
                     </div>
                   </div>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleCaptions"
+                <a class="carousel-control-prev" href="#gaussianCarousel"
                   role="button" data-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carouselExampleCaptions"
+                <a class="carousel-control-next" href="#gaussianCarousel"
                   role="button" data-slide="next">
                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
                   <span class="sr-only">Next</span>
