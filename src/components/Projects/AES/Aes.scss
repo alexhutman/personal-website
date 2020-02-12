@@ -19,6 +19,11 @@ $outside-border-stroke: 2*$border-stroke;
   border-radius: 25px;
 }
 
+.carousel-inner {
+  display: flex;
+  align-items: center;
+}
+
 .carousel-caption {
     position: relative;
     left: auto;

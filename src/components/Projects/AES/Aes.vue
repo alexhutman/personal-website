@@ -13,37 +13,29 @@
         <div class="row">
           <div class="explanation col-md-6 text-center vertical-center">
             <div class="container-fluid">
-              <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel"
+              <div id="aesCarousel" class="carousel slide" data-ride="carousel"
                 data-interval="false">
                 <ol class="carousel-indicators">
-                  <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                  <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                  <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-                  <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
-                  <li data-target="#carouselExampleCaptions" data-slide-to="4"></li>
+                  <li data-target="#aesCarousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#aesCarousel" data-slide-to="1"></li>
+                  <li data-target="#aesCarousel" data-slide-to="2"></li>
+                  <li data-target="#aesCarousel" data-slide-to="3"></li>
+                  <li data-target="#aesCarousel" data-slide-to="4"></li>
                 </ol>
-                <div class="carousel-inner" style=" width:100%; height: 500px !important;">
+                <div class="carousel-inner" style="height: 500px !important;">
                   <div class="carousel-item active">
-                    <img src="assets/gaussian/matrix.png" class="img-fluid fit-carousel-img"
-                      alt="...">
-                    <!--
-                      <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100"
-                      width="600" height="700" xmlns="http://www.w3.org/2000/svg"
-                      preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
-                      aria-label="Placeholder: Third slide">
-                      <title>Placeholder</title>
-                      <rect width="100%" height="100%" fill="#555"></rect>
-                      <text x="50%" y="50%" fill="#333" dy=".3em">First slide</text>
-                    </svg>
-                    -->
                     <div class="carousel-caption d-none d-md-block">
-                      <h5>How does it work?</h5>
+                      <h5>What is AES?</h5>
                       <p>
-                        \(a \ne 0\)
-                        First we start with a RADIUSxRADIUS matrix. For example, the above is a
-                        matrix where the radius is equal to 3. The middle entry is the current pixel
-                        that we're looking at. We then plug each of these (x,y) values into the
-                        following equation to get a weighted matrix:
+                        AES is a block cipher used to encrypt messages with a given key. A <b>block
+                        cipher</b> is a cipher that splits the message up into blocks of a fixed
+                        length. In AES' case, each block is 128 bits long. In the standard, keys
+                        can have lengths of 128, 192, or 256 bits. We will demonstrate AES128 to
+                        get the general idea, and support for AES192 and AES256 will be added in the
+                        future. Each ASCII character is 8 bits long, so for the purpose of the
+                        demonstration, we will only work with 1 message block which is comprised
+                        of 16 ASCII characters <code>(8 bits/character * 16 characters = 128 bits)
+                        </code>. The same is true for the key.
                       </p>
                     </div>
                   </div>
@@ -142,12 +134,12 @@
                     </div>
                   </div>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleCaptions"
+                <a class="carousel-control-prev" href="#aesCarousel"
                   role="button" data-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carouselExampleCaptions"
+                <a class="carousel-control-next" href="#aesCarousel"
                   role="button" data-slide="next">
                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
                   <span class="sr-only">Next</span>
@@ -196,8 +188,7 @@
                            v-model="key.text"
                            v-on:input="onKeyChange()">
                     <div class="invalid-feedback">
-                      Please ensure that the key contains only ASCII characters.
-                      Support for other characters will be added, as well as 192/256 bit key sizes!
+                      Please ensure that the key is 16 ASCII characters long.
                     </div>
                   </div>
                 </form>
@@ -205,54 +196,111 @@
 
               <div class="row state">
                 <div class="col text-center">
+                  <h3>State:</h3>
                     <div class="state-grid">
                         <div class="cell-00 hbb hrb">
-                          {{ padNumber(msg.blocks[0][0][0]) }}
+                          {{ toHex(msg.blocks[0][0][0]) }}
                         </div>
                         <div class="cell-01 hbb hrb hlb">
-                          {{ padNumber(msg.blocks[0][0][1]) }}
+                          {{ toHex(msg.blocks[0][0][1]) }}
                         </div>
                         <div class="cell-02 hbb hrb hlb">
-                          {{ padNumber(msg.blocks[0][0][2]) }}
+                          {{ toHex(msg.blocks[0][0][2]) }}
                         </div>
                         <div class="cell-03 hbb hlb">
-                          {{ padNumber(msg.blocks[0][0][3]) }}
+                          {{ toHex(msg.blocks[0][0][3]) }}
                         </div>
                         <div class="cell-10 hbb htb hrb">
-                          {{ padNumber(msg.blocks[0][1][0]) }}
+                          {{ toHex(msg.blocks[0][1][0]) }}
                         </div>
                         <div class="cell-11 hbb htb hrb hlb">
-                          {{ padNumber(msg.blocks[0][1][1]) }}
+                          {{ toHex(msg.blocks[0][1][1]) }}
                         </div>
                         <div class="cell-12 hbb htb hrb hlb">
-                          {{ padNumber(msg.blocks[0][1][2]) }}
+                          {{ toHex(msg.blocks[0][1][2]) }}
                         </div>
                         <div class="cell-13 hbb htb hlb">
-                          {{ padNumber(msg.blocks[0][1][3]) }}
+                          {{ toHex(msg.blocks[0][1][3]) }}
                         </div>
                         <div class="cell-20 hbb htb hrb">
-                          {{ padNumber(msg.blocks[0][2][0]) }}
+                          {{ toHex(msg.blocks[0][2][0]) }}
                         </div>
                         <div class="cell-21 hbb htb hrb hlb">
-                          {{ padNumber(msg.blocks[0][2][1]) }}
+                          {{ toHex(msg.blocks[0][2][1]) }}
                         </div>
                         <div class="cell-22 hbb htb hrb hlb">
-                          {{ padNumber(msg.blocks[0][2][2]) }}
+                          {{ toHex(msg.blocks[0][2][2]) }}
                         </div>
                         <div class="cell-23 hbb htb hlb">
-                          {{ padNumber(msg.blocks[0][2][3]) }}
+                          {{ toHex(msg.blocks[0][2][3]) }}
                         </div>
                         <div class="cell-30 htb hrb">
-                          {{ padNumber(msg.blocks[0][3][0]) }}
+                          {{ toHex(msg.blocks[0][3][0]) }}
                         </div>
                         <div class="cell-31 htb hrb hlb">
-                          {{ padNumber(msg.blocks[0][3][1]) }}
+                          {{ toHex(msg.blocks[0][3][1]) }}
                         </div>
                         <div class="cell-32 htb hrb hlb">
-                          {{ padNumber(msg.blocks[0][3][2]) }}
+                          {{ toHex(msg.blocks[0][3][2]) }}
                         </div>
                         <div class="cell-33 htb hlb">
-                          {{ padNumber(msg.blocks[0][3][3]) }}
+                          {{ toHex(msg.blocks[0][3][3]) }}
+                        </div>
+                    </div>
+                </div>
+              </div>
+
+              <div class="row key">
+                <div class="col text-center">
+                  <h3>Key:</h3>
+                    <div class="state-grid">
+                        <div class="cell-00 hbb hrb">
+                          {{ toHex(key.intArr[0]) }}
+                        </div>
+                        <div class="cell-01 hbb hrb hlb">
+                          {{ toHex(key.intArr[1]) }}
+                        </div>
+                        <div class="cell-02 hbb hrb hlb">
+                          {{ toHex(key.intArr[2]) }}
+                        </div>
+                        <div class="cell-03 hbb hlb">
+                          {{ toHex(key.intArr[3]) }}
+                        </div>
+                        <div class="cell-10 hbb htb hrb">
+                          {{ toHex(key.intArr[4]) }}
+                        </div>
+                        <div class="cell-11 hbb htb hrb hlb">
+                          {{ toHex(key.intArr[5]) }}
+                        </div>
+                        <div class="cell-12 hbb htb hrb hlb">
+                          {{ toHex(key.intArr[6]) }}
+                        </div>
+                        <div class="cell-13 hbb htb hlb">
+                          {{ toHex(key.intArr[7]) }}
+                        </div>
+                        <div class="cell-20 hbb htb hrb">
+                          {{ toHex(key.intArr[8]) }}
+                        </div>
+                        <div class="cell-21 hbb htb hrb hlb">
+                          {{ toHex(key.intArr[9]) }}
+                        </div>
+                        <div class="cell-22 hbb htb hrb hlb">
+                          {{ toHex(key.intArr[10]) }}
+                        </div>
+                        <div class="cell-23 hbb htb hlb">
+                          {{ toHex(key.intArr[11]) }}
+                        </div>
+                        <div class="cell-30 htb hrb">
+                          {{ toHex(key.intArr[12]) }}
+                        </div>
+                        <div class="cell-31 htb hrb hlb">
+                          {{ toHex(key.intArr[13]) }}
+                        </div>
+                        <div class="cell-32 htb hrb hlb">
+                          {{ toHex(key.intArr[14]) }}
+                        </div>
+                        <div class="cell-33 htb hlb">
+                          {{ toHex(key.intArr[15]) }}
                         </div>
                     </div>
                 </div>
@@ -269,6 +317,35 @@
 import Vue from 'vue';
 import AES from './AES';
 
+
+// const origMsg = [
+//   [0x00, 0x11, 0x22, 0x33],
+//   [0x44, 0x55, 0x66, 0x77],
+//   [0x88, 0x99, 0xaa, 0xbb],
+//   [0xcc, 0xdd, 0xee, 0xff],
+// ];
+
+const origMsg = [
+  [0x00, 0x00, 0x00, 0x00],
+  [0x00, 0x00, 0x00, 0x00],
+  [0x00, 0x00, 0x00, 0x00],
+  [0x00, 0x00, 0x00, 0x00],
+];
+
+// const origKey = [
+//   0x0, 0x1, 0x2, 0x3,
+//   0x4, 0x5, 0x6, 0x7,
+//   0x8, 0x9, 0xa, 0xb,
+//   0xc, 0xd, 0xe, 0xf,
+// ];
+
+const origKey = [
+  0x0, 0x0, 0x0, 0x0,
+  0x0, 0x0, 0x0, 0x0,
+  0x0, 0x0, 0x0, 0x0,
+  0x0, 0x0, 0x0, 0x0,
+];
+
 export default Vue.extend({
   name: 'AES',
   data() {
@@ -278,23 +355,14 @@ export default Vue.extend({
         text: '',
         isInvalid: false,
         blocks: [
-          [
-            [0x00, 0x11, 0x22, 0x33],
-            [0x44, 0x55, 0x66, 0x77],
-            [0x88, 0x99, 0xaa, 0xbb],
-            [0xcc, 0xdd, 0xee, 0xff],
-          ],
+          origMsg,
         ],
       },
       key: {
         text: '',
         isInvalid: false,
-        intArr: [
-          0x0, 0x1, 0x2, 0x3,
-          0x4, 0x5, 0x6, 0x7,
-          0x8, 0x9, 0xa, 0xb,
-          0xc, 0xd, 0xe, 0xf,
-        ],
+        intArr: origKey
+        ,
       },
     };
   },
@@ -306,13 +374,6 @@ export default Vue.extend({
       this.msg.isInvalid = !(this.isASCII(this.msg.text) && this.isInputLengthValid(this.msg.text));
 
       if (this.msg.isInvalid || (!this.msg.text)) {
-        const origMsg = [
-          [0x00, 0x11, 0x22, 0x33],
-          [0x44, 0x55, 0x66, 0x77],
-          [0x88, 0x99, 0xaa, 0xbb],
-          [0xcc, 0xdd, 0xee, 0xff],
-        ];
-
         this.populateState(0, origMsg);
 
         // TODO: reset the key to the original value too
@@ -325,16 +386,9 @@ export default Vue.extend({
       this.key.isInvalid = !(this.isASCII(this.key.text) && this.key.text.length === 16);
 
       if (this.key.isInvalid || (!this.key.text)) {
-        const origMsg = [
-          [0x00, 0x11, 0x22, 0x33],
-          [0x44, 0x55, 0x66, 0x77],
-          [0x88, 0x99, 0xaa, 0xbb],
-          [0xcc, 0xdd, 0xee, 0xff],
-        ];
-
         this.populateState(0, origMsg);
 
-        // TODO: reset the key to the original value too
+        this.key.intArr = origKey;
       } else {
         this.populateState(0, this.textToMatrix(this.msg.text));
 
@@ -342,11 +396,11 @@ export default Vue.extend({
         console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
     },
-    padNumber(n: number): string {
-      return n.toString().padStart(2, '0');
+    toHex(n: number): string {
+      return n.toString(16).toUpperCase();
     },
     isASCII(str: string): boolean {
-      return (/^[\x32-\xFF\x20]*$/).test(str);
+      return (/^[\x20-\x7E]*$/).test(str);
     },
     isInputLengthValid(msg: string): boolean {
       return msg.length <= 16;
