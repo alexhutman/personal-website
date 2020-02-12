@@ -6,6 +6,7 @@
 </template>
 
 <script >
+import Vue from 'vue';
 import Nav from '@/components/Nav/Nav.vue';
 
 export default {
@@ -14,6 +15,12 @@ export default {
     Nav,
   },
 };
+
+Vue.mixin({
+  methods: {
+    isMobile: () => window.innerWidth < 768,
+  },
+});
 </script>
 
 <style src="./App.scss" lang="scss">

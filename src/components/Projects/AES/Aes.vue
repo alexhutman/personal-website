@@ -34,33 +34,57 @@
                         get the general idea, and support for AES192 and AES256 will be added in the
                         future. Each ASCII character is 8 bits long, so for the purpose of the
                         demonstration, we will only work with 1 message block which is comprised
-                        of 16 ASCII characters <code>(8 bits/character * 16 characters = 128 bits)
-                        </code>. The same is true for the key.
+                        of 16 ASCII characters <code>(8 bits/character * 16 characters = 128
+                        bits)</code>. The same is true for the key.
                       </p>
                     </div>
                   </div>
                   <div class="carousel-item">
-                    <img src="assets/gaussian/equation.png" class="img-fluid" alt="...">
-                    <!--
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800"
-                    height="400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid
-                    slice" focusable="false" role="img" aria-label="Placeholder: Third slide">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#555"></rect>
-                    <text x="50%" y="50%" fill="#333" dy=".3em">Second slide</text>
-                    </svg>
-                    -->
                     <div class="carousel-caption d-none d-md-block">
                       <!-- <h5>Second slide label</h5> -->
-                      <p class="carousel-text">
-                        This is the 3D version of a normalized bell curve that has a standard
-                        deviation of σ. First, picture a 2D bell curve. If we make it have a large
-                        standard deviation, it will become shorter but wider. The same applies for
-                        the 3D version -- the larger we make σ, the more the pixels around the
-                        center one will be weighted, giving a blurrier image. We will apply this
-                        unction to the (x,y) coordinate of each entry in the matrix to get a new
-                        weighted matrix. If we pick σ = 1.5 we get the following...
-                      </p>
+                      <div class="carousel-text">
+                        <p>
+                          {{ isMobile() ? "Below" : "To the right"}} is where you will find the
+                          state. The state is where the calculations will be applied to. At first we
+                          will populate the state with the binary representation of our message. In
+                          our case, each entry in the state matrix will become the hexadecimal ASCII
+                          representation of each character entered. There are 4 major
+                          transformations of the state as defined by the AES standard:
+                        </p>
+                        <dl class="dl-horizontal">
+                          <dt>SubBytes</dt>
+                          <dd>
+                            This step substitutes bytes of the state matrix with bytes of a
+                            substitution table (commonly referred to as an <b>S-box</b>). It is
+                            essentially a table that maps (more specifically, <b>affinely
+                            transforms</b>) one byte to another (ex. <code>0xC6 -> 0xB4</code>).
+                          </dd>
+
+                          <dt>ShiftRows</dt>
+                          <dd>
+                            ShiftRows is fairly straightforward. For
+                            <code>0 &lt; i &lt; 4</code>, this step performs a circular left shift
+                            of row <code>i</code> of the state matrix by <code>i</code> positions.
+                          </dd>
+
+                          <dt>MixColumns</dt>
+                          <dd>
+                            MixColumns is arguably the most complex step in AES. It treats
+                            each column of the state as a polynomial over a <b>Galois Field of order
+                            256 modulo x<sup>4</sup> + 1</b> and multiplies each one by another
+                            polynomial.
+                          </dd>
+
+                          <dt>AddRoundKey</dt>
+                          <dd>
+                            AddRoundKey simply adds each element in the state matrix with its
+                            corresponding element in the <b>key schedule</b>.
+                          </dd>
+                        </dl>
+                        <p>
+                          Each step will be explained in further detail in upcoming slides.
+                        </p>
+                      </div>
                     </div>
                   </div>
                   <div class="carousel-item">
