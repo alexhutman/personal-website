@@ -159,12 +159,12 @@
                   </div>
                 </div>
                 <a class="carousel-control-prev" href="#aesCarousel"
-                  role="button" data-slide="prev">
+                  role="button" v-on:click="onPrevSlide()" data-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="sr-only">Previous</span>
                 </a>
                 <a class="carousel-control-next" href="#aesCarousel"
-                  role="button" data-slide="next">
+                  role="button" v-on:click="onNextSlide()" data-slide="next">
                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
                   <span class="sr-only">Next</span>
                 </a>
@@ -374,6 +374,8 @@ export default Vue.extend({
   name: 'AES',
   data() {
     return {
+      numSlides: 5,
+      curSlide: 0,
       aesInstance: new AES(128),
       msg: {
         text: '',
@@ -394,6 +396,12 @@ export default Vue.extend({
     console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
   },
   methods: {
+    onPrevSlide(): void {
+      this.curSlide = (((this.curSlide - 1) % this.numSlides) + this.numSlides) % this.numSlides;
+    },
+    onNextSlide(): void {
+      this.curSlide = (((this.curSlide + 1) % this.numSlides) + this.numSlides) % this.numSlides;
+    },
     onMsgChange(): void {
       this.msg.isInvalid = !(this.isASCII(this.msg.text) && this.isInputLengthValid(this.msg.text));
 
