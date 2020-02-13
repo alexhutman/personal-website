@@ -88,25 +88,34 @@
                     </div>
                   </div>
                   <div class="carousel-item">
-                    <img src="assets/gaussian/matrix2.png" class="img-fluid fit-carousel-img"
-                      alt="...">
-                    <!--
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800"
-                    height="400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid
-                    slice" focusable="false" role="img" aria-label="Placeholder: Third slide">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#555"></rect>
-                    <text x="50%" y="50%" fill="#333" dy=".3em">Third slide</text>
-                    </svg>
-                    -->
                     <div class="carousel-caption d-none d-md-block">
                       <!-- <h5>Third slide label</h5> -->
-                      <p class="carousel-text">
-                        We are almost done! We must now normalize the matrix by calculating the sum
-                        of every value and then divide each entry by this sum. If we did not do
-                        this, we would get a darker image if the sum was less than 1 and a brighter
-                        image if the sum was greater than 1.
-                      </p>
+                      <div class="carousel-text">
+                        <h3>Preliminaries:</h3>
+                        <p>
+                          Calculations in AES occur in <code>GF(2<sup>8</sup>) /
+                          (x<sup>8</sup> + x<sup>4</sup> + x<sup>3</sup> + x + 1)</code>.
+                          It would take a fair bit of time to explain everything about Galois
+                          Fields, but we will go over what is needed for the algorithm.
+                        </p>
+                        <dl class="dl-horizontal">
+                          <dt>Addition (<code>&#8853;</code>)</dt>
+                          <dd>
+                            You may have seen this symbol before. It is commonly used for the XOR
+                            (e<u>x</u>clusive <u>or</u>) operator in Boolean logic. In
+                            GF(2<sup>8</sup>), adding is equivalent to XORing. XORing 2 bits,
+                            <code>b<sub>1</sub></code> and <code>b<sub>2</sub></code> produces
+                            <code>1</code> <u>only if either</u> <code>b<sub>1</sub></code>
+                            &nbsp;<u>or</u> <code>b<sub>2</sub></code> are <code>1</code>.
+                            Otherwise, the result is <code>0</code>. <br><a href="https://en.wikipedia.org/wiki/Exclusive_or" target="_blank">Click here</a>
+                            to learn more about the XOR operator.
+                          </dd>
+                          <dt>Multiplication (<code>•</code>)</dt>
+                          <dd>
+                            Bottom text
+                          </dd>
+                        </dl>
+                      </div>
                     </div>
                   </div>
                   <div class="carousel-item">
@@ -132,17 +141,6 @@
                     </div>
                   </div>
                   <div class="carousel-item">
-                    <img src="assets/gaussian/matrix3.png" class="img-fluid fit-carousel-img"
-                      alt="...">
-                    <!--
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800"
-                    height="400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid
-                    slice" focusable="false" role="img" aria-label="Placeholder: Third slide">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#555"></rect>
-                    <text x="50%" y="50%" fill="#333" dy=".3em">Third slide</text>
-                    </svg>
-                    -->
                     <div class="carousel-caption d-none d-md-block">
                       <!-- <h5>Third slide label</h5> -->
                       <p class="carousel-text">
