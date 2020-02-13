@@ -93,12 +93,20 @@
                       <div class="carousel-text">
                         <h3>Preliminaries:</h3>
                         <p>
-                          Calculations in AES occur in <code>GF(2<sup>8</sup>) /
+                          Most calculations in AES occur in <code>GF(2<sup>8</sup>) /
                           (x<sup>8</sup> + x<sup>4</sup> + x<sup>3</sup> + x + 1)</code>.
                           It would take a fair bit of time to explain everything about Galois
                           Fields, but we will go over what is needed for the algorithm.
                         </p>
                         <dl class="dl-horizontal">
+                          <dt>Representation</dt>
+                          <dd>
+                            We treat each byte like a polynomial in the above Galois Field. For
+                            example, <code>C6<sub>16</sub> = 11000110<sub>2</sub></code> represents
+                            <br><code> 1*x<sup>7</sup> + 1*x<sup>6</sup> + 0*x<sup>5</sup> +
+                            0*x<sup>4</sup> + 0*x<sup>3</sup> + x<sup>2</sup> + x + 0*1</code> =
+                            <code>x<sup> 7</sup> + x<sup>6 </sup> + x<sup>2</sup> + x</code>
+                          </dd>
                           <dt>Addition (<code>&#8853;</code>)</dt>
                           <dd>
                             You may have seen this symbol before. It is commonly used for the XOR
@@ -112,7 +120,16 @@
                           </dd>
                           <dt>Multiplication (<code>•</code>)</dt>
                           <dd>
-                            Bottom text
+                            Multiplication modulo a polynomial is similar to multiplication in
+                            &#8484;<sub>n</sub>. In &#8484;<sub>5</sub> for example, if we
+                            calculate <code>4*3</code>, we can just take the result in &#8484;
+                            and take the remainder modulo <code>5</code>, which would be <code>
+                            2</code>, to get a result in &#8484;<sub>5</sub>. The same goes for the
+                            above Galois Field. If we took 2 polynomials (which we represent as 2
+                            binary numbers) and multiplied them, we would do normal polynomial
+                            multiplication, but would then have to do polynomial division (in our
+                            case, by <code>x<sup>8</sup> + x<sup>4</sup> + x<sup>3</sup> + x + 1
+                            </code>) to get an element in the field.
                           </dd>
                         </dl>
                       </div>
@@ -372,7 +389,7 @@ export default Vue.extend({
   name: 'AES',
   data() {
     return {
-      numSlides: 5,
+      numSlides: document.getElementsByClassName('carousel-item').length,
       curSlide: 0,
       aesInstance: new AES(128),
       msg: {
