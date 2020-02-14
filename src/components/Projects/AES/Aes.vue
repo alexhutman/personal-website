@@ -137,6 +137,14 @@
                   </div>
                   <div class="carousel-item">
                     <div class="carousel-caption d-none d-md-block">
+                      <h3>Try it out!</h3>
+                      <p class="carousel-text">
+                        Enter your own message {{ isMobile() ? "below": "to the right" }}!
+                      </p>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="carousel-caption d-none d-md-block">
                       <h3>SubBytes</h3>
                       <p>
                         SubBytes has only 2 steps. For a number <code>n</code> with bits
@@ -171,21 +179,6 @@
                       </p>
                     </div>
                   </div>
-                  <div class="carousel-item">
-                    <div class="carousel-caption d-none d-md-block">
-                      <!-- <h5>Third slide label</h5> -->
-                      <p class="carousel-text">
-                        We're done! Each pixel is averaged according to the pixels around it,
-                        producing a Gaussian blur. As you can see, σ = 1.5 and a radius size of 3
-                        does not produce a very intense blur. Try changing the σ and Radius values
-                        to get a blurrier image!
-                        <!--
-                          You can also upload your own picture and blur it by hitting the Choose
-                          File button!
-                        -->
-                      </p>
-                    </div>
-                  </div>
                 </div>
                 <a class="carousel-control-prev" href="#aesCarousel"
                   role="button" v-on:click="onPrevSlide()" data-slide="prev">
@@ -212,6 +205,7 @@
                       </div>
                     </div>
                     <input type="text"
+                           :disabled="!onTrySlide()"
                            maxlength="16"
                            class="form-control"
                            :class="{ 'is-invalid': msg.isInvalid }"
@@ -233,6 +227,7 @@
                       </div>
                     </div>
                     <input type="text"
+                           :disabled="!onTrySlide()"
                            maxlength="16"
                            class="form-control"
                            :class="{ 'is-invalid': key.isInvalid }"
@@ -403,7 +398,7 @@ export default Vue.extend({
   name: 'AES',
   data() {
     return {
-      numSlides: document.getElementsByClassName('carousel-item').length,
+      numSlides: 0,
       curSlide: 0,
       aesInstance: new AES(128),
       msg: {
@@ -422,6 +417,7 @@ export default Vue.extend({
     };
   },
   mounted() {
+    this.numSlides = document.getElementsByClassName('carousel-item').length;
     console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
   },
   methods: {
@@ -456,6 +452,9 @@ export default Vue.extend({
         this.key.intArr = this.strToIntArr(this.key.text);
         console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
+    },
+    onTrySlide(): boolean {
+      return (this.curSlide === 3);
     },
     toHex(n: number): string {
       return n.toString(16).toUpperCase();
