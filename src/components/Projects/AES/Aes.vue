@@ -136,24 +136,31 @@
                     </div>
                   </div>
                   <div class="carousel-item">
-                    <img src="assets/gaussian/matrix3.png" class="img-fluid fit-carousel-img"
-                      alt="...">
-                    <!--
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800"
-                    height="400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid
-                    slice" focusable="false" role="img" aria-label="Placeholder: Third slide">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#555"></rect>
-                    <text x="50%" y="50%" fill="#333" dy=".3em">Third slide</text>
-                    </svg>
-                    -->
                     <div class="carousel-caption d-none d-md-block">
-                      <!-- <h5>Third slide label</h5> -->
-                      <p class="carousel-text">
-                        Now we must weigh each pixel according to this matrix. This means the
-                        center pixel's new R value is (top-left pixel's R value)*(0.0947416) +
-                        (top-center pixel's R value)*(0.118318) + ... We do this for the G,B, and A
-                        values of each pixel as well.
+                      <h3>SubBytes</h3>
+                      <p>
+                        SubBytes has only 2 steps:
+                        <ol>
+                          <li>
+                            Invert the number in GF(2<sup>8</sup>).
+                            <p>
+                              This is similar to inverting a number in &#8484;<sub>n</sub>. In
+                              &#8484;<sub>5</sub> for example, to invert <code>4</code>, we must
+                              find a number <code>x</code> such that <code>4*x &equiv; 1 mod
+                              5</code>. In this case, <code>4</code>'s inverse is itself because
+                              <code>4*4 &equiv; 16 &equiv; 1 mod 5</code>. We do the same thing in
+                              GF(2<sup>8</sup>). To find the inverse to a polynomial <code>
+                              p(x)</code>, we must find <code>q(x)</code> such that <code>p(x)•q(x)
+                              &equiv; 1 mod m(x)</code>, where <code>m(x) = x<sup>8</sup> +
+                              x<sup>4</sup> + x<sup>3</sup> + x + 1</code>, as described in the
+                              "Preliminaries" slide. We won't get into specifically how to find
+                              the inverse, but this is the general idea.
+                            </p>
+                          </li>
+                          <li>Apply the following affine transformation:</li>
+                          <img src="assets/aes/subbytes.png" class="img-fluid fit-carousel-img"
+                          alt="affine-transformation">
+                        </ol>
                       </p>
                     </div>
                   </div>
