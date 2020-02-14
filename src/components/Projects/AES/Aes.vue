@@ -139,10 +139,11 @@
                     <div class="carousel-caption d-none d-md-block">
                       <h3>SubBytes</h3>
                       <p>
-                        SubBytes has only 2 steps:
+                        SubBytes has only 2 steps. For a number <code>n</code> with bits
+                        <code>n<sub>0...7</sub></code>:
                         <ol>
                           <li>
-                            Invert the number in GF(2<sup>8</sup>).
+                            Invert <code>n</code> in GF(2<sup>8</sup>).
                             <p>
                               This is similar to inverting a number in &#8484;<sub>n</sub>. In
                               &#8484;<sub>5</sub> for example, to invert <code>4</code>, we must
@@ -160,6 +161,12 @@
                           <li>Apply the following affine transformation:</li>
                           <img src="assets/aes/subbytes.png" class="img-fluid fit-carousel-img"
                           alt="affine-transformation">
+                          <p>
+                            where <code>b<sub>0...7</sub> = (n<sup>-1</sup>)<sub>0...7</sub></code>.
+                            &nbsp;&nbsp; <code>b<sup>'</sup><sub style="position: relative; left:
+                            -.5em;">0...7</sub></code> will be the value to substitute
+                              <code>n</code> by.
+                          </p>
                         </ol>
                       </p>
                     </div>
