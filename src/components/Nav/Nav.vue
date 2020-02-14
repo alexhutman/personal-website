@@ -66,9 +66,6 @@ export default Vue.extend({
     isCurPageActive(pageName: string): boolean {
       return this.$route.name === pageName.toLowerCase();
     },
-    isMobile(): boolean {
-      return window.innerWidth <= 768;
-    },
   },
 });
 </script>
