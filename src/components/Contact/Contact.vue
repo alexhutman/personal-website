@@ -1,10 +1,7 @@
 <template>
-  <div class="fill-page">
-    <div class="page-container contact-container">
-      Contact
-    </div>
+  <div class="page-container contact-container">
+    Contact
   </div>
-
 </template>
 
 <script lang="ts">
@@ -14,5 +11,4 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped src="./Contact.scss" lang="scss">
-</style>
+<style scoped src="./Contact.scss" lang="scss"></style>

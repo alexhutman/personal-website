@@ -1,8 +1,6 @@
 <template>
-  <div class="fill-page">
-    <div class="page-container home-container">
-      <font-awesome-icon :icon="[ 'fab', 'github-square' ]" class="fa-3x" />
-    </div>
+  <div class="home-container">
+    <font-awesome-icon :icon="['fab', 'github-square']" class="fa-3x" />
   </div>
 </template>
 
@@ -13,5 +11,4 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped src="./Home.scss" lang="scss">
-</style>
+<style scoped src="./Home.scss" lang="scss"></style>

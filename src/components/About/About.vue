@@ -1,8 +1,6 @@
 <template>
-  <div class="fill-page">
-    <div class="page-container about-container">
-      About
-    </div>
+  <div class="page-container about-container">
+    About
   </div>
 </template>
 
@@ -13,5 +11,4 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped src="./About.scss" lang="scss">
-</style>
+<style scoped src="./About.scss" lang="scss"></style>
