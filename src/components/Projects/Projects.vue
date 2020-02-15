@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container projects-container">
+  <div class="projects-container">
     <div class="container-fluid">
       <div class="row welcome text-center">
         <div class="col-12">

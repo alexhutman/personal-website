@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container resume-container">
+  <div class="resume-container">
     <iframe
       @load="onResumeLoad"
       v-show="iframeLoaded"

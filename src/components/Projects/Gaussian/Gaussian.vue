@@ -1,6 +1,5 @@
 <template>
-  <div class="fill-page">
-    <div class="page-container gaussian-container">
+    <div class="gaussian-container">
       <div class="container-fluid">
         <div class="row welcome text-center">
           <div class="col-12">
@@ -187,7 +186,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
