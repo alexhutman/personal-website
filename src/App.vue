@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script >
+<script>
 import Vue from 'vue';
 import Nav from '@/components/Nav/Nav.vue';
 
@@ -23,5 +23,4 @@ Vue.mixin({
 });
 </script>
 
-<style src="./App.scss" lang="scss">
-</style>
+<style src="./App.scss" lang="scss"></style>
