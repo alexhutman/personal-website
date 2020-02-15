@@ -3,7 +3,9 @@
       <div class="container-fluid">
         <div class="row welcome text-center">
           <div class="col-12">
-            <h1 class="display-4">Advanced Encryption Standard (AES)</h1>
+            <h1 class="display-4">
+              {{ isMobile() ? "AES" : "Advanced Encryption Standard (AES)" }}
+            </h1>
           </div>
         </div>
       </div>
