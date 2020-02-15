@@ -32,11 +32,10 @@
                         cipher</b> is a cipher that splits the message up into blocks of a fixed
                         length. In AES' case, each block is 128 bits long. In the standard, keys
                         can have lengths of 128, 192, or 256 bits. We will demonstrate AES128 to
-                        get the general idea, and support for AES192 and AES256 will be added in the
-                        future. Each ASCII character is 8 bits long, so for the purpose of the
-                        demonstration, we will only work with 1 message block which is comprised
-                        of 16 ASCII characters <code>(8 bits/character * 16 characters = 128
-                        bits)</code>. The same is true for the key.
+                        get the general idea. Each ASCII character is 8 bits long, so for the
+                        purpose of the demonstration, we will only work with 1 message block which
+                        is comprised of 16 ASCII characters <code>(8 bits/character * 16 characters
+                        = 128 bits)</code>. The same is true for the key.
                       </p>
                     </div>
                   </div>
