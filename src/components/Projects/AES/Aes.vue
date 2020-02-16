@@ -25,7 +25,7 @@
                 </ol>
                 <div class="carousel-inner" style="height: 500px !important;">
                   <div class="carousel-item active">
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption">
                       <h5>What is AES?</h5>
                       <p>
                         AES is a block cipher used to encrypt messages with a given key. A <b>block
@@ -40,7 +40,7 @@
                     </div>
                   </div>
                   <div class="carousel-item">
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption">
                       <!-- <h5>Second slide label</h5> -->
                       <div class="carousel-text">
                         <p>
@@ -88,7 +88,7 @@
                     </div>
                   </div>
                   <div class="carousel-item">
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption">
                       <!-- <h5>Third slide label</h5> -->
                       <div class="carousel-text">
                         <h3>Preliminaries:</h3>
@@ -136,7 +136,7 @@
                     </div>
                   </div>
                   <div class="carousel-item">
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption">
                       <h3>Try it out!</h3>
                       <p class="carousel-text">
                         Enter your own message {{ isMobile() ? "below": "to the right" }}!
@@ -144,7 +144,7 @@
                     </div>
                   </div>
                   <div class="carousel-item">
-                    <div class="carousel-caption d-none d-md-block">
+                    <div class="carousel-caption">
                       <h3>SubBytes</h3>
                       <p>
                         SubBytes has only 2 steps. For a number <code>n</code> with bits
