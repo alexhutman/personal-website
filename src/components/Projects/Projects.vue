@@ -28,7 +28,7 @@
           <div class="card">
             <img
               class="card-img-top"
-              src="https://c8.alamy.com/comp/TXHN9T/igor-bogdanov-arrives-on-the-red-carpet-before-the-screening-of-twin-peaks-during-the-70th-annual-cannes-international-film-festival-in-cannes-france-on-may-25-2017-photo-by-david-silpaupi-TXHN9T.jpg"
+              src="assets/gaussian/gaussian-main.png"
             />
             <div class="card-body">
               <h4 class="card-title">Gaussian</h4>
