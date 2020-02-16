@@ -140,7 +140,7 @@
                     <div class="carousel-caption">
                       <h3>Try it out!</h3>
                       <p class="carousel-text">
-                        Enter your own message {{ isMobile() ? "below": "to the right" }}!
+                        Enter your own message and key {{ isMobile() ? "below": "to the right" }}!
                       </p>
                     </div>
                   </div>
