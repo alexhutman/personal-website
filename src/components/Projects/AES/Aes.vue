@@ -22,6 +22,7 @@
                   <li data-target="#aesCarousel" data-slide-to="2"></li>
                   <li data-target="#aesCarousel" data-slide-to="3"></li>
                   <li data-target="#aesCarousel" data-slide-to="4"></li>
+                  <li data-target="#aesCarousel" data-slide-to="5"></li>
                 </ol>
                 <div class="carousel-inner" style="height: 500px !important;">
                   <div class="carousel-item active">
@@ -52,6 +53,12 @@
                           transformations of the state as defined by the AES standard:
                         </p>
                         <dl class="dl-horizontal">
+                          <dt>AddRoundKey</dt>
+                          <dd>
+                            AddRoundKey simply adds each element in the state matrix with its
+                            corresponding element in the <b>key schedule</b>.
+                          </dd>
+
                           <dt>SubBytes</dt>
                           <dd>
                             This step substitutes bytes of the state matrix with bytes of a
@@ -73,12 +80,6 @@
                             each column of the state as a polynomial over a <b>Galois Field of order
                             256 modulo x<sup>4</sup> + 1</b> and multiplies each one by another
                             polynomial.
-                          </dd>
-
-                          <dt>AddRoundKey</dt>
-                          <dd>
-                            AddRoundKey simply adds each element in the state matrix with its
-                            corresponding element in the <b>key schedule</b>.
                           </dd>
                         </dl>
                         <p>
@@ -140,6 +141,14 @@
                       <h3>Try it out!</h3>
                       <p class="carousel-text">
                         Enter your own message {{ isMobile() ? "below": "to the right" }}!
+                      </p>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="carousel-caption">
+                      <h3>AddRoundKey</h3>
+                      <p>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure, minima!
                       </p>
                     </div>
                   </div>
