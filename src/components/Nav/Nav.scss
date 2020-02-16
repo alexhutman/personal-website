@@ -3,11 +3,19 @@
 // Extra small devices (portrait phones, less than 576px)
 // No media query for `xs` since this is the default in Bootstrap
 
+nav {
+  background-color: $main-background-color !important;
+}
+
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) {}
 
 // Medium devices (tablets, 768px and up)
-@media (min-width: 768px) {}
+@media (max-width: 767px) {
+  nav {
+    background-color: black !important;
+  }
+}
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {}
