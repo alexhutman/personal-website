@@ -24,10 +24,11 @@
                   <li data-target="#aesCarousel" data-slide-to="4"></li>
                   <li data-target="#aesCarousel" data-slide-to="5"></li>
                   <li data-target="#aesCarousel" data-slide-to="6"></li>
+                  <li data-target="#aesCarousel" data-slide-to="7"></li>
                 </ol>
                 <div class="carousel-inner">
                 <!-- <div class="carousel-inner" style="height: 500px !important;"> -->
-                  <div class="carousel-item active">
+                  <div id="slide-0" class="carousel-item active">
                     <div class="carousel-caption">
                       <h5>What is AES?</h5>
                       <p>
@@ -42,7 +43,7 @@
                       </p>
                     </div>
                   </div>
-                  <div class="carousel-item">
+                  <div id="slide-1" class="carousel-item">
                     <div class="carousel-caption">
                       <!-- <h5>Second slide label</h5> -->
                       <div class="carousel-text">
@@ -91,7 +92,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="carousel-item">
+                  <div id="slide-2" class="carousel-item">
                     <div class="carousel-caption">
                       <!-- <h5>Third slide label</h5> -->
                       <div class="carousel-text">
@@ -139,7 +140,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="carousel-item">
+                  <div id="slide-3" class="carousel-item">
                     <div class="carousel-caption">
                       <h3>Try it out!</h3>
                       <p class="carousel-text">
@@ -147,7 +148,7 @@
                       </p>
                     </div>
                   </div>
-                  <div class="carousel-item">
+                  <div id="slide-4" class="carousel-item">
                     <div class="carousel-caption">
                       <h3>AddRoundKey</h3>
                       <p>
@@ -201,7 +202,7 @@ return w
                       </p>
                     </div>
                   </div>
-                  <div class="carousel-item">
+                  <div id="slide-5" class="carousel-item">
                     <div class="carousel-caption">
                       <h3>SubBytes</h3>
                       <p>
@@ -240,7 +241,7 @@ return w
                       </p>
                     </div>
                   </div>
-                  <div class="carousel-item">
+                  <div id="slide-6" class="carousel-item">
                     <div class="carousel-caption">
                       <h3>ShiftRows</h3>
                       <p>
@@ -254,6 +255,14 @@ return w
                         <img src="assets/aes/shiftrows.png" class="img-fluid fit-carousel-img"
                         alt="shift-rows">
                       </a>
+                    </div>
+                  </div>
+                  <div id="slide-7" class="carousel-item">
+                    <div class="carousel-caption">
+                      <h3>MixColumns</h3>
+                      <p>
+                        Oh boy.
+                      </p>
                     </div>
                   </div>
                 </div>
