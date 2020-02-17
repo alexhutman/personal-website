@@ -24,7 +24,8 @@
                   <li data-target="#aesCarousel" data-slide-to="4"></li>
                   <li data-target="#aesCarousel" data-slide-to="5"></li>
                 </ol>
-                <div class="carousel-inner" style="height: 500px !important;">
+                <div class="carousel-inner">
+                <!-- <div class="carousel-inner" style="height: 500px !important;"> -->
                   <div class="carousel-item active">
                     <div class="carousel-caption">
                       <h5>What is AES?</h5>
