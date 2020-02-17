@@ -489,6 +489,15 @@ export default Vue.extend({
     console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
   },
   methods: {
+    // getCurSlide(): void {
+    //   const slides = document.getElementsByClassName('carousel-inner')[0].childNodes;
+    //   for (let i = 0; i < slides.length; i += 1) {
+    //     const el = slides[i] as HTMLElement;
+    //     if (el.classList.contains('active')) {
+    //       console.log(i);
+    //     }
+    //   }
+    // },
     onPrevSlide(): void {
       this.curSlide = (((this.curSlide - 1) % this.numSlides) + this.numSlides) % this.numSlides;
     },
