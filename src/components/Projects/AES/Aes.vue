@@ -450,6 +450,7 @@ return w
 import Vue from 'vue';
 import AES from './AES';
 
+const slideNumRegex = new RegExp('^slide-([0-9]+)$');
 // const origMsg = [
 //   [0x00, 0x11, 0x22, 0x33],
 //   [0x44, 0x55, 0x66, 0x77],
@@ -505,15 +506,11 @@ export default Vue.extend({
     console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
   },
   methods: {
-    // getCurSlide(): void {
-    //   const slides = document.getElementsByClassName('carousel-inner')[0].childNodes;
-    //   for (let i = 0; i < slides.length; i += 1) {
-    //     const el = slides[i] as HTMLElement;
-    //     if (el.classList.contains('active')) {
-    //       console.log(i);
-    //     }
-    //   }
-    // },
+    getCurSlide(): void {
+      const activeSlide = document.getElementsByClassName('carousel-item active')[0];
+      const slideNum = activeSlide.id.match(slideNumRegex)![1];
+      console.log(slideNum);
+    },
     onPrevSlide(): void {
       this.curSlide = (((this.curSlide - 1) % this.numSlides) + this.numSlides) % this.numSlides;
     },
