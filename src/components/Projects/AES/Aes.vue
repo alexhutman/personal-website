@@ -148,7 +148,53 @@
                     <div class="carousel-caption">
                       <h3>AddRoundKey</h3>
                       <p>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure, minima!
+                        AddRoundKey simply consists of XORing the state matrix with entries in the
+                        key schedule. The key schedule is not really something that deserves going
+                        into detail over, as it is just an algorithm that uses some of the concepts
+                        that were already explained. Below is Python code to generate the key
+                        schedule, <code>w</code>:
+                        <pre>
+                          <code>
+N_b = 4 # Number of columns (32-bit words comprising the state).
+# N_b = 4 for AES128, AES192, and AES256
+
+# The following 2 declarations are only true for AES128
+N_k = 4   # Number of 32-bit words comprising the key
+N_r = 10  # Number of rounds
+
+Rcon = []
+for i in range(10):
+    if i == 0:
+        rc.append(1)
+    elif i > 0 and rc[i-1] &lt; 0x80:
+        rc.append(2*rc[i-1])
+    elif i > 0 and rc[i - 1] >= 0x80:
+        rc.append((2*rc[i-1]) ^ 0x1B)
+
+w = []
+for i in range(4*(N_r+1)):
+    if i &lt; N_k:
+        w.append(key[4*i:4*(i+1)])
+    elif i >= N_k and i % N_k == 0:
+        temp_col = rot_word(w[i - 1], 1) # Circular left shift w[i-1] by 1 position
+        temp_col = [s_box[x] for x in temp_col] # Then substitute the bytes
+        temp_col[0] = temp_col[0] ^ Rcon[(i // N_k) - 1] # Then XOR first byte with round constant
+
+        w.append(xor_col(w[i - N_k], temp_col)
+    elif i >= N_k and N_k > 6 and i % N_k == 4:
+        w.append(xor_col(w[i - N_k], [s_box[x] for x in w[i-1]]))
+    else:
+        w.append(xor_col(w[i - N_k], w[i-1]))
+
+return w
+                          </code>
+                        </pre>
+                        We only need to generate this key schedule once, and can use it throughout
+                        the rest of the cipher. AddRoundKey simply consists of element-wise XORing
+                        the state with 4 consecutive columns of the key schedule, shifting by 4
+                        on each successive round. So for round <code>r</code>, <code>0 &lt; r &le;
+                        N<sub>r</sub></code>, we XOR the state with <code>w[r*N_b,
+                        (r+1)*N_b-1]</code>.
                       </p>
                     </div>
                   </div>
@@ -372,7 +418,6 @@
 <script lang="ts">
 import Vue from 'vue';
 import AES from './AES';
-
 
 // const origMsg = [
 //   [0x00, 0x11, 0x22, 0x33],
