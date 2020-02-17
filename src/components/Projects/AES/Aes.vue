@@ -225,8 +225,11 @@ return w
                             </p>
                           </li>
                           <li>Apply the following affine transformation:</li>
-                          <img src="assets/aes/subbytes.png" class="img-fluid fit-carousel-img"
-                          alt="affine-transformation">
+                          <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf#page=20"
+                          target="_blank">
+                            <img src="assets/aes/subbytes.png" class="img-fluid fit-carousel-img"
+                            alt="affine-transformation">
+                          </a>
                           <p>
                             where <code>b<sub>0...7</sub> = (n<sup>-1</sup>)<sub>0...7</sub></code>.
                             &nbsp;&nbsp; <code>b<sup>'</sup><sub style="position: relative; left:
@@ -246,8 +249,11 @@ return w
                         of row <code>i</code> of the state matrix by <code>i</code> positions.
                         Here is a graphic from FIPS 197 to help visualize it:
                       </p>
-                      <img src="assets/aes/shiftrows.png" class="img-fluid fit-carousel-img"
-                      alt="shift-rows">
+                      <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf#page=21"
+                      target="_blank">
+                        <img src="assets/aes/shiftrows.png" class="img-fluid fit-carousel-img"
+                        alt="shift-rows">
+                      </a>
                     </div>
                   </div>
                 </div>
