@@ -261,7 +261,22 @@ return w
                     <div class="carousel-caption">
                       <h3>MixColumns</h3>
                       <p>
-                        Oh boy.
+                        MixColumns operates on the state matrix on a column-by-column basis. It
+                        treats each column as a polynomial over GF(2<sup>8</sup>), and we multiply
+                        them <code>modulo x<sup>4</sup>+1</code> by <code>3x<sup>3</sup> +
+                        x<sup>2</sup> + x + 2</code>. Luckily, this transformation simplifies to
+                        the something easier to comprehend -- for <code>0 &lt; c &lt; 4</code> we
+                        perform the following transformation to column<sub>c</sub> of the state:
+                      </p>
+                      <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf#page=22"
+                      target="_blank">
+                        <img src="assets/aes/mixcolumns.png" class="img-fluid fit-carousel-img"
+                        alt="mix-columns">
+                      </a>
+                      <p>
+                        The details of the simplification would be too involved to go over here,
+                        but if you'd like to learn more, please click the image above to navigate
+                        to the standard. The details are located in <b>Section 4.3</b>.
                       </p>
                     </div>
                   </div>
