@@ -31,8 +31,15 @@ $outside-border-stroke: 2*$border-stroke;
 }
 
 .fit-carousel-img {
-  height: 330px;
-  width: auto;
+  width: 60%;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  .fit-carousel-img {
+    width: 90%;
+    height: auto;
+  }
 }
 
 .carousel-text {
