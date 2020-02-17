@@ -46,6 +46,7 @@
                     <div class="carousel-caption">
                       <!-- <h5>Second slide label</h5> -->
                       <div class="carousel-text">
+                      <h3>Summary</h3>
                         <p>
                           {{ isMobile() ? "Below" : "To the right"}} is where you will find the
                           state. The state is where the calculations will be applied to. At first we
