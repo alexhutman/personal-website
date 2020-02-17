@@ -23,6 +23,7 @@
                   <li data-target="#aesCarousel" data-slide-to="3"></li>
                   <li data-target="#aesCarousel" data-slide-to="4"></li>
                   <li data-target="#aesCarousel" data-slide-to="5"></li>
+                  <li data-target="#aesCarousel" data-slide-to="6"></li>
                 </ol>
                 <div class="carousel-inner">
                 <!-- <div class="carousel-inner" style="height: 500px !important;"> -->
@@ -233,6 +234,19 @@ return w
                           </p>
                         </ol>
                       </p>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="carousel-caption">
+                      <h3>ShiftRows</h3>
+                      <p>
+                        To reiterate the "Summary" slide, ShiftRows is fairly straightforward. For
+                        <code>0 &lt; i &lt; 4</code>, this step performs a circular left shift
+                        of row <code>i</code> of the state matrix by <code>i</code> positions.
+                        Here is a graphic from FIPS 197 to help visualize it:
+                      </p>
+                      <img src="assets/aes/shiftrows.png" class="img-fluid fit-carousel-img"
+                      alt="shift-rows">
                     </div>
                   </div>
                 </div>
