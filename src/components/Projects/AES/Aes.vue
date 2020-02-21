@@ -25,6 +25,7 @@
                   <li data-target="#aesCarousel" data-slide-to="5"></li>
                   <li data-target="#aesCarousel" data-slide-to="6"></li>
                   <li data-target="#aesCarousel" data-slide-to="7"></li>
+                  <li data-target="#aesCarousel" data-slide-to="8"></li>
                 </ol>
                 <div class="carousel-inner">
                 <!-- <div class="carousel-inner" style="height: 500px !important;"> -->
@@ -94,6 +95,50 @@
                   </div>
                   <div id="slide-2" class="carousel-item">
                     <div class="carousel-caption">
+                      <!-- <h5>Second slide label</h5> -->
+                      <div class="carousel-text">
+                        <h3>What makes AES so secure?</h3>
+                        <p>
+                          A <a href="https://en.wikipedia.org/wiki/Caesar_cipher" target="_blank">
+                          Caesar Cipher</a> is a cipher that just shifts letters in the alphabet by
+                          a fixed number of positions.
+                          For example, a valid Caesar Cipher would be mapping each letter to the
+                          next one, so A -> B, B -> C, etc. -- "Hello" would become "Ifmmp", for
+                          example. This is known as a <b>substitution cipher</b>. This cipher is
+                          very weak for a couple of reasons.
+                          <ol>
+                            <li>
+                              It can be brute forced easily. Since there are only 25 possible
+                              values to shift by, we can simply try all of them, taking very little
+                              time, and then check each one.
+                            </li>
+                            <li>
+                              Even without brute forcing, we can use other techniques to help us.
+                              In the above example, notice how there were 2 consecutive Ms.
+                              There are not that many cases (in English at least) where 2
+                              consecutive letters occur. We can use frequency analysis to crack the
+                              cipher very easily.
+                            </li>
+                          </ol>
+                          Substitution ciphers by themselves are not very secure. Some get a bit
+                          more complex, but can still be cracked with not very much effort. AES
+                          solves this by using a <b>substitution-permutation (SP) network</b>. SP
+                          networks work by taking the plaintext, substituting blocks of it with
+                          other predefined blocks, permuting them, that is, shifting them around
+                          in a "random" fashion, and then adding a round key, which is just a mini
+                          key that is derived from the original given key. We do all of these steps
+                          multiple times, calling each time of performing the substitution,
+                          permutation, then round key addition a "round." Adding the round key
+                          is the most important part of SP networks. Without adding the round key,
+                          someone would just be able to look at the implementation details of the
+                          cipher and just reverse the substitutions and permutations. However by
+                          adding the round key, we
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="slide-3" class="carousel-item">
+                    <div class="carousel-caption">
                       <!-- <h5>Third slide label</h5> -->
                       <div class="carousel-text">
                         <h3>Preliminaries:</h3>
@@ -140,7 +185,7 @@
                       </div>
                     </div>
                   </div>
-                  <div id="slide-3" class="carousel-item">
+                  <div id="slide-4" class="carousel-item">
                     <div class="carousel-caption">
                       <h3>Try it out!</h3>
                       <p class="carousel-text">
@@ -148,7 +193,7 @@
                       </p>
                     </div>
                   </div>
-                  <div id="slide-4" class="carousel-item">
+                  <div id="slide-5" class="carousel-item">
                     <div class="carousel-caption">
                       <h3>AddRoundKey</h3>
                       <p>
@@ -202,7 +247,7 @@ return w
                       </p>
                     </div>
                   </div>
-                  <div id="slide-5" class="carousel-item">
+                  <div id="slide-6" class="carousel-item">
                     <div class="carousel-caption">
                       <h3>SubBytes</h3>
                       <p>
@@ -241,7 +286,7 @@ return w
                       </p>
                     </div>
                   </div>
-                  <div id="slide-6" class="carousel-item">
+                  <div id="slide-7" class="carousel-item">
                     <div class="carousel-caption">
                       <h3>ShiftRows</h3>
                       <p>
@@ -257,7 +302,7 @@ return w
                       </a>
                     </div>
                   </div>
-                  <div id="slide-7" class="carousel-item">
+                  <div id="slide-8" class="carousel-item">
                     <div class="carousel-caption">
                       <h3>MixColumns</h3>
                       <p>
