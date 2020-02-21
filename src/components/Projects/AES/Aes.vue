@@ -201,6 +201,8 @@
                       <h3>Try it out!</h3>
                       <p class="carousel-text">
                         Enter your own message and key {{ isMobile() ? "below": "to the right" }}!
+                        We will go over each operation using your message and key to make the
+                        learning more hands-on.
                       </p>
                     </div>
                   </div>
