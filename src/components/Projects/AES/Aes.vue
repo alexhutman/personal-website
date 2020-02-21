@@ -103,7 +103,7 @@
                           Caesar Cipher</a> is a cipher that just shifts letters in the alphabet by
                           a fixed number of positions.
                           For example, a valid Caesar Cipher would be mapping each letter to the
-                          next one, so A -> B, B -> C, etc. -- "Hello" would become "Ifmmp", for
+                          next one, so A -> B, B -> C, etc. -- "Hello" would become "Ifmmp" in this
                           example. This is known as a <b>substitution cipher</b>. This cipher is
                           very weak for a couple of reasons.
                           <ol>
@@ -116,8 +116,10 @@
                               Even without brute forcing, we can use other techniques to help us.
                               In the above example, notice how there were 2 consecutive Ms.
                               There are not that many cases (in English at least) where 2
-                              consecutive letters occur. We can use frequency analysis to crack the
-                              cipher very easily.
+                              consecutive letters occur, so this can give us a great deal of
+                              information while trying to decode the ciphertext. We can use
+                              this and other techniques of frequency analysis to crack the Caesar
+                              Cipher very easily.
                             </li>
                           </ol>
                           Substitution ciphers by themselves are not very secure. Some get a bit
@@ -126,13 +128,22 @@
                           networks work by taking the plaintext, substituting blocks of it with
                           other predefined blocks, permuting them, that is, shifting them around
                           in a "random" fashion, and then adding a round key, which is just a mini
-                          key that is derived from the original given key. We do all of these steps
-                          multiple times, calling each time of performing the substitution,
-                          permutation, then round key addition a "round." Adding the round key
-                          is the most important part of SP networks. Without adding the round key,
+                          key that is derived from the original given key.
+                          We do all of these steps multiple times and we call each set of 1.)
+                          performing the substitution, 2.) permutation, then 3.) round key addition
+                          a <b>round</b>. Adding the round key is the most important part of SP
+                          networks. Without adding the round key,
                           someone would just be able to look at the implementation details of the
                           cipher and just reverse the substitutions and permutations. However by
-                          adding the round key, we
+                          adding the round key, we make it so that neither the plaintext nor the
+                          key are recoverable. <br> Now, there have been some attacks on AES, but
+                          they are not dependent on the algorithm itself, rather, its
+                          implementation. These are known as <b>side channel attacks</b>. For
+                          example, if not implemented correctly, it is possible to look at the heat
+                          signatures of CPUs to gain information about the code being executed.
+                          Most CPUs nowadays have AES instructions baked into their instruction
+                          sets, making computations incredibly fast, and attacks virtually
+                          impossible.
                         </p>
                       </div>
                     </div>
