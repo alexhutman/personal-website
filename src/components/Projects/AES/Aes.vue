@@ -33,16 +33,29 @@
                     <div class="carousel-caption">
                       <h5>What is AES?</h5>
                       <p>
-                        AES is a block cipher used to encrypt messages with a given key. A <b>cipher
+                        AES is a block cipher used to encrypt data with a given key. A <b>cipher
                         </b> is just an algorithm used for encrypting or decrypting data. A <b>block
                         cipher</b> is a cipher that splits the plaintext up into <b>blocks</b> of
                         data, and operates on these blocks to turn the plaintext into ciphertext, as
                         opposed to <b>stream ciphers</b>, which encrypt one bit or byte of plaintext
                         at a time to produce the ciphertext.
-                        In AES' case, each block is 128 bits long. In the standard, keys
+                        Before AES, the United States was using <b>DES</b>, the Data Encryption
+                        Standard, for protecting sensitive government data. When it was developed,
+                        DES was adequate for its purpose, but as
+                        time went on, weaknesses in DES were being discovered and faster hardware
+                        was making attacks even easier. This was sort of jury-rigged by applying DES
+                        3 times, spawning an algorithm suitably called Triple DES. Triple DES was
+                        better, but a new, more secure encryption standard was definitely needed.
+                        In 1997, the U.S. National Institute of Standards and Technology called
+                        upon anyone and everyone to submit proposals for the new standard. There
+                        were a few heavyweight contenders but <b>Rijndael</b>, created by
+                        Belgian cryptographers Vincent Rijmen and Joan Daemen, ended up becoming
+                        the victor. The NIST chose a subset of the proposed Rijndael specification
+                        to become AES: each block is 128 bits long and keys
                         can have lengths of 128, 192, or 256 bits. We will demonstrate AES128 to
-                        get the general idea. Each ASCII character is 8 bits long, so for the
-                        purpose of the demonstration, we will only work with 1 message block which
+                        get the general idea, but the 192 and 256 bit key versions are very similar.
+                        Each ASCII character is 8 bits long, so for the purpose of the
+                        demonstration, we will only work with 1 message block which
                         is comprised of 16 ASCII characters <code>(8 bits/character * 16 characters
                         = 128 bits)</code>. The same is true for the key.
                       </p>
