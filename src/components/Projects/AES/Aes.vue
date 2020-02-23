@@ -33,9 +33,13 @@
                     <div class="carousel-caption">
                       <h5>What is AES?</h5>
                       <p>
-                        AES is a block cipher used to encrypt messages with a given key. A <b>block
-                        cipher</b> is a cipher that splits the message up into blocks of a fixed
-                        length. In AES' case, each block is 128 bits long. In the standard, keys
+                        AES is a block cipher used to encrypt messages with a given key. A <b>cipher
+                        </b> is just an algorithm used for encrypting or decrypting data. A <b>block
+                        cipher</b> is a cipher that splits the plaintext up into <b>blocks</b> of
+                        data, and operates on these blocks to turn the plaintext into ciphertext, as
+                        opposed to <b>stream ciphers</b>, which encrypt one bit or byte of plaintext
+                        at a time to produce the ciphertext.
+                        In AES' case, each block is 128 bits long. In the standard, keys
                         can have lengths of 128, 192, or 256 bits. We will demonstrate AES128 to
                         get the general idea. Each ASCII character is 8 bits long, so for the
                         purpose of the demonstration, we will only work with 1 message block which
