@@ -17,15 +17,16 @@
               <div id="aesCarousel" class="carousel slide" data-ride="carousel"
                 data-interval="false">
                 <ol class="carousel-indicators">
-                  <li data-target="#aesCarousel" data-slide-to="0" class="active"></li>
-                  <li data-target="#aesCarousel" data-slide-to="1"></li>
-                  <li data-target="#aesCarousel" data-slide-to="2"></li>
-                  <li data-target="#aesCarousel" data-slide-to="3"></li>
-                  <li data-target="#aesCarousel" data-slide-to="4"></li>
-                  <li data-target="#aesCarousel" data-slide-to="5"></li>
-                  <li data-target="#aesCarousel" data-slide-to="6"></li>
-                  <li data-target="#aesCarousel" data-slide-to="7"></li>
-                  <li data-target="#aesCarousel" data-slide-to="8"></li>
+                  <li data-target="#aesCarousel" data-slide-to="0" @click="curSlide = 0"
+                  class="active"></li>
+                  <li data-target="#aesCarousel" data-slide-to="1" @click="curSlide = 1"></li>
+                  <li data-target="#aesCarousel" data-slide-to="2" @click="curSlide = 2"></li>
+                  <li data-target="#aesCarousel" data-slide-to="3" @click="curSlide = 3"></li>
+                  <li data-target="#aesCarousel" data-slide-to="4" @click="curSlide = 4"></li>
+                  <li data-target="#aesCarousel" data-slide-to="5" @click="curSlide = 5"></li>
+                  <li data-target="#aesCarousel" data-slide-to="6" @click="curSlide = 6"></li>
+                  <li data-target="#aesCarousel" data-slide-to="7" @click="curSlide = 7"></li>
+                  <li data-target="#aesCarousel" data-slide-to="8" @click="curSlide = 8"></li>
                 </ol>
                 <div class="carousel-inner">
                 <!-- <div class="carousel-inner" style="height: 500px !important;"> -->
@@ -62,55 +63,6 @@
                     </div>
                   </div>
                   <div id="slide-1" class="carousel-item">
-                    <div class="carousel-caption">
-                      <!-- <h5>Second slide label</h5> -->
-                      <div class="carousel-text">
-                      <h3>Summary</h3>
-                        <p>
-                          {{ isMobile() ? "Below" : "To the right"}} is where you will find the
-                          state. The state is where the calculations will be applied to. At first we
-                          will populate the state with the binary representation of our message. In
-                          our case, each entry in the state matrix will become the hexadecimal ASCII
-                          representation of each character entered. There are 4 major
-                          transformations of the state as defined by the AES standard:
-                        </p>
-                        <dl class="dl-horizontal">
-                          <dt>AddRoundKey</dt>
-                          <dd>
-                            AddRoundKey simply adds each element in the state matrix with its
-                            corresponding element in the <b>key schedule</b>.
-                          </dd>
-
-                          <dt>SubBytes</dt>
-                          <dd>
-                            This step substitutes bytes of the state matrix with bytes of a
-                            substitution table (commonly referred to as an <b>S-box</b>). It is
-                            essentially a table that maps (more specifically, <b>affinely
-                            transforms</b>) one byte to another (ex. <code>0xC6 -> 0xB4</code>).
-                          </dd>
-
-                          <dt>ShiftRows</dt>
-                          <dd>
-                            ShiftRows is fairly straightforward. For
-                            <code>0 &lt; i &lt; 4</code>, this step performs a circular left shift
-                            of row <code>i</code> of the state matrix by <code>i</code> positions.
-                          </dd>
-
-                          <dt>MixColumns</dt>
-                          <dd>
-                            MixColumns is arguably the most complex step in AES. It treats
-                            each column of the state as a polynomial over a <b>Galois Field of order
-                            256 modulo x<sup>4</sup> + 1</b> and multiplies each one by another
-                            polynomial.
-                          </dd>
-                        </dl>
-                        <p>
-                          Each step will be explained in further detail in upcoming slides.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div id="slide-2" class="carousel-item">
                     <div class="carousel-caption">
                       <!-- <h5>Second slide label</h5> -->
                       <div class="carousel-text">
@@ -160,7 +112,56 @@
                           signatures of CPUs to gain information about the code being executed.
                           Most CPUs nowadays have AES instructions baked into their instruction
                           sets, making computations incredibly fast, and attacks virtually
-                          impossible.
+                          impossible. Keep the contents of this slide in mind when looking at the
+                          next one which describes a brief summary of the subroutines used in AES.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="slide-2" class="carousel-item">
+                    <div class="carousel-caption">
+                      <!-- <h5>Second slide label</h5> -->
+                      <div class="carousel-text">
+                      <h3>Summary</h3>
+                        <p>
+                          All calculations are applied to the <b>state</b> in AES. At first we
+                          will populate the state with the binary representation of our message. In
+                          our case, each entry in the state matrix will become the hexadecimal ASCII
+                          representation of each character entered. There are 4 major
+                          transformations of the state as defined by the AES standard:
+                        </p>
+                        <dl class="dl-horizontal">
+                          <dt>AddRoundKey</dt>
+                          <dd>
+                            AddRoundKey simply adds each element in the state matrix with its
+                            corresponding element in the <b>key schedule</b>.
+                          </dd>
+
+                          <dt>SubBytes</dt>
+                          <dd>
+                            This step substitutes bytes of the state matrix with bytes of a
+                            substitution table (commonly referred to as an <b>S-box</b>). It is
+                            essentially a table that maps (more specifically, <b>affinely
+                            transforms</b>) one byte to another (ex. <code>0xC6 -> 0xB4</code>).
+                          </dd>
+
+                          <dt>ShiftRows</dt>
+                          <dd>
+                            ShiftRows is fairly straightforward. For
+                            <code>0 &lt; i &lt; 4</code>, this step performs a circular left shift
+                            of row <code>i</code> of the state matrix by <code>i</code> positions.
+                          </dd>
+
+                          <dt>MixColumns</dt>
+                          <dd>
+                            MixColumns is arguably the most complex step in AES. It treats
+                            each column of the state as a polynomial over a <b>Galois Field of order
+                            256 modulo x<sup>4</sup> + 1</b> and multiplies each one by another
+                            polynomial.
+                          </dd>
+                        </dl>
+                        <p>
+                          Each step will be explained in further detail in upcoming slides.
                         </p>
                       </div>
                     </div>
