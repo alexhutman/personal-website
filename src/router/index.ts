@@ -34,22 +34,6 @@ const routes = [
     },
   },
   {
-    path: '/projects/aes',
-    name: 'aes',
-    component: () => import(/* webpackChunkName: "aes" */ '../components/Projects/AES/Aes.vue'),
-    meta: {
-      title: `${baseTitle} Projects | AES`,
-    },
-  },
-  {
-    path: '/projects/gaussian',
-    name: 'gaussian',
-    component: () => import(/* webpackChunkName: "gaussian" */ '../components/Projects/Gaussian/Gaussian.vue'),
-    meta: {
-      title: `${baseTitle} Projects | Gaussian`,
-    },
-  },
-  {
     path: '/resume',
     name: 'resume',
     component: () => import(/* webpackChunkName: "resume" */ '../components/Resume/Resume.vue'),
