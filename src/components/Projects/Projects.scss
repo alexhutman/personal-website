@@ -4,8 +4,23 @@
   background-color: $main-background-color;
 }
 
-.display-4 {
+.coming {
   color: white;
+
+  -webkit-animation-duration: 7s;
+  animation-duration: 7s;
+  -webkit-animation-name: coming-soon;
+  animation-name: coming-soon;
+}
+
+@-webkit-keyframes coming-soon {
+  0% { opacity: 0; }
+  100% { opacity: 100; }
+}
+
+@keyframes coming-soon {
+  0% { opacity: 0; }
+  100% { opacity: 100; }
 }
 
 hr {
