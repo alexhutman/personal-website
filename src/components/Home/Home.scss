@@ -1,4 +1,5 @@
 @import "../../variables";
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
 
 $logo-animation-duration: 4s;
 
@@ -26,6 +27,8 @@ $logo-animation-duration: 4s;
 }
 
 .alex {
+  font-family: 'Raleway', ;
+
   color: $accent-color;
   font-size: 6rem;
 
@@ -72,6 +75,8 @@ $logo-animation-duration: 4s;
 }
 
 .hutman {
+  font-family: 'Raleway', ;
+
   color: white;
   font-size: 6rem;
 

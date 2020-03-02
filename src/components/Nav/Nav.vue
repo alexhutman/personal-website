@@ -2,7 +2,9 @@
   <div class="navContainer">
     <nav id="nav" class="navbar navbar-expand-md navbar-dark bg-dark sticky-top py-3">
       <div class="container-fluid">
-        <router-link class="navbar-brand" to="/">INSERT LOGO HERE DUMMY</router-link>
+        <router-link class="navbar-brand" to="/">
+        <span class="logo alex">alex</span><span class="logo">hutman</span>
+        </router-link>
         <button
           class="navbar-toggler"
           type="button"
