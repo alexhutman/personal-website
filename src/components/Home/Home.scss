@@ -1,11 +1,20 @@
 @import "../../variables";
 
+$logo-animation-duration: 4s;
+
 .home-container {
     background-color: $main-background-color;
 }
 
 .logo-container {
   position: relative;
+
+  -webkit-animation-duration: $logo-animation-duration;
+  animation-duration: $logo-animation-duration;
+  -webkit-animation-name: logo-container-translate;
+  animation-name: logo-container-translate;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
 }
 
 .logo-cover {
@@ -26,8 +35,8 @@
   top: 0;
   left: -1%;
 
-  -webkit-animation-duration: 4s;
-  animation-duration: 4s;
+  -webkit-animation-duration: $logo-animation-duration;
+  animation-duration: $logo-animation-duration;
   -webkit-animation-name: logo-translate;
   animation-name: logo-translate;
   animation-fill-mode: forwards;
@@ -37,14 +46,28 @@
 @-webkit-keyframes logo-translate {
   0% { }
   100% {
-    transform: translate(-104%, 0%);
+    transform: translate(-102%, 0%);
   }
 }
 
 @keyframes logo-translate {
   0% { }
   100% {
-    transform: translate(-104%, 0%);
+    transform: translate(-102%, 0%);
+  }
+}
+
+@-webkit-keyframes logo-container-translate {
+  0% { }
+  100% {
+    transform: translate(26%, 0%);
+  }
+}
+
+@keyframes logo-container-translate {
+  0% { }
+  100% {
+    transform: translate(26%, 0%);
   }
 }
 
