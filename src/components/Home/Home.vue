@@ -6,11 +6,11 @@
           <rect/>
         </svg>
 
-        <div class="alex">
+        <div class="logo alex">
           alex
         </div>
 
-        <div class="hutman">
+        <div class="logo hutman">
           hutman
         </div>
       </div>

@@ -26,11 +26,14 @@ $logo-animation-duration: 4s;
   z-index: 2;
 }
 
+.logo {
+  font-size: 6rem;
+}
+
 .alex {
   font-family: 'Raleway', ;
 
   color: $accent-color;
-  font-size: 6rem;
 
   z-index: 1;
   position: absolute;
@@ -78,11 +81,20 @@ $logo-animation-duration: 4s;
   font-family: 'Raleway', ;
 
   color: white;
-  font-size: 6rem;
 
   z-index: 3;
   position: absolute;
 
   top: 0;
   left: -2%;
+}
+
+@media (max-width: 767px) {
+  .logo {
+    font-size: 3rem;
+  }
+
+  .logo-cover {
+    width: 10rem;
+  }
 }
