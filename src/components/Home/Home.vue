@@ -1,6 +1,24 @@
 <template>
   <div class="home-container">
-    <font-awesome-icon :icon="['fab', 'github-square']" class="fa-3x" />
+    <div class="logo d-flex flex-row justify-content-center">
+      <div class="logo-container">
+        <svg class="logo-cover">
+          <rect/>
+        </svg>
+
+        <div class="alex">
+          alex
+        </div>
+
+        <div class="hutman">
+          hutman
+        </div>
+      </div>
+    </div>
+
+    <div class="links d-flex flex-row justify-content-center">
+      <font-awesome-icon :icon="['fab', 'github-square']" class="fa-3x" />
+    </div>
   </div>
 </template>
 

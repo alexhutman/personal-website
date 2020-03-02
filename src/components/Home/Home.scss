@@ -3,3 +3,58 @@
 .home-container {
     background-color: $main-background-color;
 }
+
+.logo-container {
+  position: relative;
+}
+
+.logo-cover {
+  background-color: $main-background-color;
+  position: relative;
+
+  width: 20rem;
+  z-index: 2;
+}
+
+.alex {
+  color: #0080FF;
+  font-size: 6rem;
+
+  z-index: 1;
+  position: absolute;
+
+  top: 0;
+  left: -1%;
+
+  -webkit-animation-duration: 4s;
+  animation-duration: 4s;
+  -webkit-animation-name: logo-translate;
+  animation-name: logo-translate;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes logo-translate {
+  0% { }
+  100% {
+    transform: translate(-104%, 0%);
+  }
+}
+
+@keyframes logo-translate {
+  0% { }
+  100% {
+    transform: translate(-104%, 0%);
+  }
+}
+
+.hutman {
+  color: white;
+  font-size: 6rem;
+
+  z-index: 3;
+  position: absolute;
+
+  top: 0;
+  left: -2%;
+}
