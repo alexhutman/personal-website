@@ -17,7 +17,10 @@
     </div>
 
     <div class="links d-flex flex-row justify-content-center">
-      <font-awesome-icon :icon="['fab', 'github-square']" class="fa-3x" />
+      <a href="https://github.com/alexhutman/" target="_blank" rel="noopener" class="company-logo-caption">
+        alexhutman
+        <font-awesome-icon :icon="['fab', 'github-square']" class="fa-3x company-logo" />
+      </a>
     </div>
   </div>
 </template>
