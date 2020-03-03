@@ -36,7 +36,7 @@
             </li>
             <li class="nav-item"
                 v-for="(link, index) in links.slice(-1)"
-                :key="index"
+                :key="`A-${index}`"
                 @click="toggleHamburgerActive()">
               <router-link
                 :data-toggle="isMobile() ? 'collapse' : null"
