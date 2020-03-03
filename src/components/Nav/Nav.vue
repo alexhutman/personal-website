@@ -7,7 +7,7 @@
         </router-link>
         <button
           :class="hamburgerClasses"
-          @click="hamburgerClasses['active-hamburger'] = !hamburgerClasses['active-hamburger']"
+          @click="toggleHamburgerActive()"
           type="button"
           data-toggle="collapse"
           data-target="#navbarResponsive"
@@ -16,7 +16,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item" v-for="(link, index) in links" :key="index">
+            <li class="nav-item"
+                v-for="(link, index) in links"
+                :key="index"
+                @click="toggleHamburgerActive()">
               <router-link
                 :data-toggle="isMobile() ? 'collapse' : null"
                 :data-target="isMobile() ? '#navbarResponsive' : null"
@@ -72,6 +75,9 @@ export default Vue.extend({
   methods: {
     isCurPageActive(pageName: string): boolean {
       return this.$route.name === pageName.toLowerCase();
+    },
+    toggleHamburgerActive(): void {
+      this.hamburgerClasses['active-hamburger'] = !this.hamburgerClasses['active-hamburger'];
     },
   },
 });
