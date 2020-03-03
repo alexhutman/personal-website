@@ -6,7 +6,8 @@
         <span class="logo alex">alex</span><span class="logo">hutman</span>
         </router-link>
         <button
-          class="navbar-toggler"
+          :class="hamburgerClasses"
+          @click="hamburgerClasses['active-hamburger'] = !hamburgerClasses['active-hamburger']"
           type="button"
           data-toggle="collapse"
           data-target="#navbarResponsive"
@@ -38,6 +39,10 @@ export default Vue.extend({
   name: 'NavBar',
   data() {
     return {
+      hamburgerClasses: {
+        'navbar-toggler': true,
+        'active-hamburger': false,
+      },
       links: [
         // Ensure that the 'name' property for each link is identical to that of the corresponding
         // entry in router/index.ts (casing can be different here though)
