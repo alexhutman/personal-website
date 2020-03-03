@@ -10,12 +10,8 @@ $logo-animation-duration: 4s;
 .logo-container {
   position: relative;
 
-  -webkit-animation-duration: $logo-animation-duration;
-  animation-duration: $logo-animation-duration;
-  -webkit-animation-name: logo-container-translate;
-  animation-name: logo-container-translate;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
+  animation: logo-container-translate $logo-animation-duration ease forwards;
+  -webkit-animation: logo-container-translate $logo-animation-duration ease forwards;
 }
 
 .logo-cover {
@@ -41,38 +37,42 @@ $logo-animation-duration: 4s;
   top: 0;
   left: -1%;
 
-  -webkit-animation-duration: $logo-animation-duration;
-  animation-duration: $logo-animation-duration;
-  -webkit-animation-name: logo-translate;
-  animation-name: logo-translate;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
+  animation: logo-translate $logo-animation-duration ease forwards;
+  -webkit-animation: logo-translate $logo-animation-duration ease forwards;
 }
 
 @-webkit-keyframes logo-translate {
-  0% { }
-  100% {
+  from {
+
+  }
+  to {
     transform: translate(-102%, 0%);
   }
 }
 
 @keyframes logo-translate {
-  0% { }
-  100% {
+  from {
+
+  }
+  to {
     transform: translate(-102%, 0%);
   }
 }
 
 @-webkit-keyframes logo-container-translate {
-  0% { }
-  100% {
+  from {
+
+  }
+  to {
     transform: translate(26%, 0%);
   }
 }
 
 @keyframes logo-container-translate {
-  0% { }
-  100% {
+  from {
+    
+  }
+  to {
     transform: translate(26%, 0%);
   }
 }
