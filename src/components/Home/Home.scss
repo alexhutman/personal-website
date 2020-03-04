@@ -5,21 +5,10 @@ $logo-animation-duration: 4s;
 
 .home-container {
     background-color: $main-background-color;
-}
 
-.logo-container {
-  position: relative;
-
-  animation: logo-container-translate $logo-animation-duration ease forwards;
-  -webkit-animation: logo-container-translate $logo-animation-duration ease forwards;
-}
-
-.logo-cover {
-  background-color: $main-background-color;
-  position: relative;
-
-  width: 20.6rem;
-  z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .logo {
@@ -32,10 +21,6 @@ $logo-animation-duration: 4s;
   color: $accent-color;
 
   z-index: 1;
-  position: absolute;
-
-  top: 0;
-  left: -1%;
 
   animation: logo-translate $logo-animation-duration ease forwards;
   -webkit-animation: logo-translate $logo-animation-duration ease forwards;
@@ -43,50 +28,30 @@ $logo-animation-duration: 4s;
 
 @-webkit-keyframes logo-translate {
   from {
-
+    transform: translate(102%, 0%);
   }
   to {
-    transform: translate(-102%, 0%);
+    transform: translate(0%, 0%);
   }
 }
 
 @keyframes logo-translate {
   from {
-
+    transform: translate(102%, 0%);
   }
   to {
-    transform: translate(-102%, 0%);
-  }
-}
-
-@-webkit-keyframes logo-container-translate {
-  from {
-
-  }
-  to {
-    transform: translate(26%, 0%);
-  }
-}
-
-@keyframes logo-container-translate {
-  from {
-    
-  }
-  to {
-    transform: translate(26%, 0%);
+    transform: translate(0%, 0%);
   }
 }
 
 .hutman {
   font-family: 'Raleway', ;
 
+  background-color: $main-background-color;
   color: white;
+  // text-shadow: -3px 2px 2px rgba(0,0,0,0.87);
 
   z-index: 3;
-  position: absolute;
-
-  top: 0;
-  left: -2%;
 }
 
 @media (max-width: 767px) {

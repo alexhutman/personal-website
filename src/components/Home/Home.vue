@@ -1,11 +1,6 @@
 <template>
   <div class="home-container">
     <div class="logo d-flex flex-row justify-content-center no-select">
-      <div class="logo-container no-select">
-        <svg class="logo-cover no-select">
-          <rect/>
-        </svg>
-
         <div class="logo alex no-select">
           alex
         </div>
@@ -13,7 +8,6 @@
         <div class="logo hutman no-select">
           hutman
         </div>
-      </div>
     </div>
 
   </div>
