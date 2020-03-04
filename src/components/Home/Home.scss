@@ -3,10 +3,6 @@
 
 $logo-animation-duration: 4s;
 
-a, u {
-  text-decoration: none !important;
-}
-
 .home-container {
     background-color: $main-background-color;
 }
@@ -91,20 +87,6 @@ a, u {
 
   top: 0;
   left: -2%;
-}
-
-.company-logo-caption {
-  color: white;
-}
-
-a {
-  .company-logo {
-    color: white;
-  }
-
-  &:hover > .company-logo {
-      color: $accent-color;
-  }
 }
 
 @media (max-width: 767px) {

@@ -16,25 +16,6 @@
       </div>
     </div>
 
-    <div class="links d-flex flex-row justify-content-center">
-      <a href="https://github.com/alexhutman/" target="_blank" rel="noopener" class="company-logo-caption">
-        alexhutman
-        <font-awesome-icon :icon="['fab', 'github-square']" class="fa-3x company-logo" />
-      </a>
-    </div>
-    <div class="links d-flex flex-row justify-content-center">
-      <a href="https://www.linkedin.com/in/alexhutman/" target="_blank" rel="noopener" class="company-logo-caption">
-        alexhutman
-        <font-awesome-icon :icon="['fab', 'linkedin']" class="fa-3x company-logo" />
-      </a>
-    </div>
-    <div class="links d-flex flex-row justify-content-center">
-      <a href="mailto:alexhutman@gmail.com" target="_blank" rel="noopener"
-        class="company-logo-caption">
-        alexhutman@gmail.com
-        <font-awesome-icon :icon="['fas', 'envelope']" class="fa-3x company-logo" />
-      </a>
-    </div>
   </div>
 </template>
 
