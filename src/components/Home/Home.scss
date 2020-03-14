@@ -1,6 +1,7 @@
 @import "../../variables";
 @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
 
+$fade-in-duration: 7s;
 $logo-animation-duration: 4s;
 
 .home-container {
@@ -9,6 +10,13 @@ $logo-animation-duration: 4s;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.logo-container {
+  opacity: 0%;
+
+  animation: logo-fade-in $fade-in-duration ease forwards;
+  -webkit-animation: logo-fade-in $fade-in-duration ease forwards;
 }
 
 .logo {
@@ -24,6 +32,30 @@ $logo-animation-duration: 4s;
 
   animation: logo-translate $logo-animation-duration ease forwards;
   -webkit-animation: logo-translate $logo-animation-duration ease forwards;
+}
+
+@-webkit-keyframes logo-fade-in {
+  0% {
+    opacity: 0%;
+  }
+  50% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0%;
+  }
+}
+
+@keyframes logo-fade-in {
+  0% {
+    opacity: 0%;
+  }
+  50% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0%;
+  }
 }
 
 @-webkit-keyframes logo-translate {

@@ -1,6 +1,6 @@
 <template>
   <div class="home-container">
-    <div class="logo d-flex flex-row justify-content-center no-select">
+    <div id="logo" class="logo-container d-flex flex-row justify-content-center no-select">
         <div class="logo alex no-select">
           alex
         </div>
@@ -16,6 +16,18 @@
 <script lang="ts">
 export default {
   name: 'Home',
+  data() {
+    return {
+      fadeInDelay: 7,
+    };
+  },
+  mounted() {
+    const logo = document.getElementById('logo');
+
+    setTimeout(() => {
+      logo!.remove();
+    }, (this as any).fadeInDelay * 1000 + 50);
+  },
 };
 </script>
 
