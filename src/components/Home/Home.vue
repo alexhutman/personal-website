@@ -1,13 +1,16 @@
 <template>
   <div class="home-container">
     <div id="about" class="card text-white border-light bg-dark mb-3 d-none">
-      <h1 class="card-header font-weight-bold">About Me</h1>
       <div class="card-body">
-        <h5 class="card-title">Dark card title</h5>
-        <p class="card-text lead">
-          Some quick example text to build on the card title and make up the bulk of the card's
-          content.
-        </p>
+        <blockquote class="card-text lead blockquote text-center">
+          <p class="mb-0">
+            There exists in the world a single path along which no one can go except you:
+            whither does it lead? Do not ask, go along it.
+          </p>
+          <footer class="blockquote-footer">
+            F. Nietzsche
+          </footer>
+        </blockquote>
       </div>
     </div>
     <div id="logo" class="logo-container d-flex flex-row justify-content-center no-select">
