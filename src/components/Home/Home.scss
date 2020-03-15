@@ -13,7 +13,7 @@ $logo-animation-duration: 3s;
 }
 
 .logo-container {
-  opacity: 0%;
+  opacity: 0;
 
   animation: logo-fade-in $fade-in-duration ease forwards;
   -webkit-animation: logo-fade-in $fade-in-duration ease forwards;
@@ -36,25 +36,25 @@ $logo-animation-duration: 3s;
 
 @-webkit-keyframes logo-fade-in {
   0% {
-    opacity: 0%;
+    opacity: 0;
   }
   50% {
-    opacity: 100%;
+    opacity: 100;
   }
   100% {
-    opacity: 0%;
+    opacity: 0;
   }
 }
 
 @keyframes logo-fade-in {
   0% {
-    opacity: 0%;
+    opacity: 0;
   }
   50% {
-    opacity: 100%;
+    opacity: 100;
   }
   100% {
-    opacity: 0%;
+    opacity: 0;
   }
 }
 
