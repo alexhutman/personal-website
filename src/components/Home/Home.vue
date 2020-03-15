@@ -38,6 +38,7 @@ export default {
     setTimeout(() => {
       logo!.remove();
       about!.classList.remove('d-none');
+      about!.classList.add('about-anim');
     }, (this as any).fadeInDelay * 1000 + 50); //  5s * 1000ms/s + 50 ms to be safe
   },
 };

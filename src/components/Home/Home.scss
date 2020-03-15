@@ -1,8 +1,9 @@
 @import "../../variables";
 @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
 
-$fade-in-duration: 5s;
+$logo-fade-in-duration: 5s;
 $logo-animation-duration: 3s;
+$about-fade-in-duration: 2s;
 
 .home-container {
     background-color: $main-background-color;
@@ -15,8 +16,8 @@ $logo-animation-duration: 3s;
 .logo-container {
   opacity: 0;
 
-  animation: logo-fade-in $fade-in-duration ease forwards;
-  -webkit-animation: logo-fade-in $fade-in-duration ease forwards;
+  animation: logo-fade-in $logo-fade-in-duration ease forwards;
+  -webkit-animation: logo-fade-in $logo-fade-in-duration ease forwards;
 }
 
 .logo {
@@ -32,6 +33,25 @@ $logo-animation-duration: 3s;
 
   animation: logo-translate $logo-animation-duration ease forwards;
   -webkit-animation: logo-translate $logo-animation-duration ease forwards;
+}
+
+.hutman {
+  font-family: 'Raleway', ;
+
+  background-color: $main-background-color;
+  color: white;
+  // text-shadow: -3px 2px 2px rgba(0,0,0,0.87);
+
+  z-index: 3;
+}
+
+#about {
+  opacity: 0;
+}
+
+.about-anim {
+  animation: about-fade-in $about-fade-in-duration ease forwards;
+  -webkit-animation: about-fade-in $about-fade-in-duration ease forwards;
 }
 
 @-webkit-keyframes logo-fade-in {
@@ -76,14 +96,22 @@ $logo-animation-duration: 3s;
   }
 }
 
-.hutman {
-  font-family: 'Raleway', ;
+@-webkit-keyframes about-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100;
+  }
+}
 
-  background-color: $main-background-color;
-  color: white;
-  // text-shadow: -3px 2px 2px rgba(0,0,0,0.87);
-
-  z-index: 3;
+@keyframes about-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100;
+  }
 }
 
 @media (max-width: 767px) {
