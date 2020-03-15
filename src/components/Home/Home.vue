@@ -1,5 +1,15 @@
 <template>
   <div class="home-container">
+    <div id="about" class="card text-white border-light bg-dark mb-3 d-none">
+      <h1 class="card-header font-weight-bold">About Me</h1>
+      <div class="card-body">
+        <h5 class="card-title">Dark card title</h5>
+        <p class="card-text lead">
+          Some quick example text to build on the card title and make up the bulk of the card's
+          content.
+        </p>
+      </div>
+    </div>
     <div id="logo" class="logo-container d-flex flex-row justify-content-center no-select">
         <div class="logo alex no-select">
           alex
@@ -23,9 +33,11 @@ export default {
   },
   mounted() {
     const logo = document.getElementById('logo');
+    const about = document.getElementById('about');
 
     setTimeout(() => {
       logo!.remove();
+      about!.classList.remove('d-none');
     }, (this as any).fadeInDelay * 1000 + 50); //  5s * 1000ms/s + 50 ms to be safe
   },
 };
