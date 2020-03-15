@@ -1,17 +1,15 @@
 <template>
   <div class="home-container">
-    <div id="about" class="card text-white border-light bg-dark mb-3 d-none">
-      <div class="card-body">
-        <blockquote class="card-text lead blockquote text-center">
-          <p class="mb-0">
-            There exists in the world a single path along which no one can go except you:
-            whither does it lead? Do not ask, go along it.
-          </p>
-          <footer class="blockquote-footer">
-            F. Nietzsche
-          </footer>
-        </blockquote>
-      </div>
+    <div id="quote" class="d-none mx-2">
+      <blockquote class="lead text-white blockquote text-center">
+        <p class="mb-0">
+          There exists in the world a single path along which no one can go except you:
+          whither does it lead? Do not ask, go along it.
+        </p>
+        <footer class="blockquote-footer">
+          F. Nietzsche
+        </footer>
+      </blockquote>
     </div>
     <div id="logo" class="logo-container d-flex flex-row justify-content-center no-select">
         <div class="logo alex no-select">
@@ -36,12 +34,12 @@ export default {
   },
   mounted() {
     const logo = document.getElementById('logo');
-    const about = document.getElementById('about');
+    const quote = document.getElementById('quote');
 
     setTimeout(() => {
       logo!.remove();
-      about!.classList.remove('d-none');
-      about!.classList.add('about-anim');
+      quote!.classList.remove('d-none');
+      quote!.classList.add('quote-anim');
     }, (this as any).fadeInDelay * 1000 + 50); //  5s * 1000ms/s + 50 ms to be safe
   },
 };

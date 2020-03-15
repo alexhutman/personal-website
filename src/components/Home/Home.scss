@@ -3,7 +3,7 @@
 
 $logo-fade-in-duration: 5s;
 $logo-animation-duration: 3s;
-$about-fade-in-duration: 2s;
+$quote-fade-in-duration: 2s;
 
 .home-container {
     background-color: $main-background-color;
@@ -45,13 +45,13 @@ $about-fade-in-duration: 2s;
   z-index: 3;
 }
 
-#about {
+#quote {
   opacity: 0;
 }
 
-.about-anim {
-  animation: about-fade-in $about-fade-in-duration ease forwards;
-  -webkit-animation: about-fade-in $about-fade-in-duration ease forwards;
+.quote-anim {
+  animation: quote-fade-in $quote-fade-in-duration ease forwards;
+  -webkit-animation: quote-fade-in $quote-fade-in-duration ease forwards;
 }
 
 @-webkit-keyframes logo-fade-in {
@@ -96,7 +96,7 @@ $about-fade-in-duration: 2s;
   }
 }
 
-@-webkit-keyframes about-fade-in {
+@-webkit-keyframes quote-fade-in {
   0% {
     opacity: 0;
   }
@@ -105,7 +105,7 @@ $about-fade-in-duration: 2s;
   }
 }
 
-@keyframes about-fade-in {
+@keyframes quote-fade-in {
   0% {
     opacity: 0;
   }
