@@ -3,4 +3,18 @@
 .about-container {
     background-color: $main-background-color;
     color: white;
+    overflow-y: auto;
+}
+
+.text-container {
+  width: 100%;
+}
+
+.about-text {
+  width: 75%;
+}
+
+hr {
+  border-color: $accent-color;
+  width: 75%;
 }
