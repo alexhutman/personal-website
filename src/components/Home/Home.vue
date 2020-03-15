@@ -1,6 +1,6 @@
 <template>
   <div class="home-container">
-    <div id="quote" class="d-none mx-2">
+    <div id="quote" class="d-none mx-2 no-select">
       <blockquote class="lead text-white blockquote text-center">
         <p class="mb-0">
           There exists in the world a single path along which no one can go except you:
