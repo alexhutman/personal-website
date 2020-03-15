@@ -18,7 +18,7 @@ export default {
   name: 'Home',
   data() {
     return {
-      fadeInDelay: 7,
+      fadeInDelay: 5, // in seconds
     };
   },
   mounted() {
@@ -26,7 +26,7 @@ export default {
 
     setTimeout(() => {
       logo!.remove();
-    }, (this as any).fadeInDelay * 1000 + 50);
+    }, (this as any).fadeInDelay * 1000 + 50); //  5s * 1000ms/s + 50 ms to be safe
   },
 };
 </script>
