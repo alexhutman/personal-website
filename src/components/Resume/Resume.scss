@@ -1,0 +1,15 @@
+@import "../../variables";
+
+.resume-container {
+  background-color: $main-background-color;
+}
+
+.pdf-aspect {
+  padding-bottom: 110%;
+}
+
+@media (max-width: 767px) {
+  .pdf-aspect {
+    padding-bottom: 141.42%;
+  }
+}

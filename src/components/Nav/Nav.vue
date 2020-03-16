@@ -17,26 +17,8 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item"
-                v-for="(link, index) in links.slice(0, -1)"
+                v-for="(link, index) in links"
                 :key="index"
-                @click="toggleHamburgerActive()">
-              <router-link
-                :data-toggle="isMobile() ? 'collapse' : null"
-                :data-target="isMobile() ? '#navbarResponsive' : null"
-                class="nav-link"
-                :class="{'active': isCurPageActive(link.name)}"
-                :to="{path: link.link}"
-              >{{ link.name }}</router-link>
-            </li>
-            <li class="nav-item"
-                @click="toggleHamburgerActive()">
-                <a class="nav-link" href="alex-hutman-resume-mar-2-2020.pdf">
-                  Resume
-                </a>
-            </li>
-            <li class="nav-item"
-                v-for="(link, index) in links.slice(-1)"
-                :key="`A-${index}`"
                 @click="toggleHamburgerActive()">
               <router-link
                 :data-toggle="isMobile() ? 'collapse' : null"
@@ -78,6 +60,10 @@ export default Vue.extend({
         {
           name: 'Projects',
           link: '/projects',
+        },
+        {
+          name: 'Resume',
+          link: '/resume',
         },
         {
           name: 'Contact',

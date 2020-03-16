@@ -34,6 +34,14 @@ const routes = [
     },
   },
   {
+    path: '/resume',
+    name: 'resume',
+    component: () => import(/* webpackChunkName: "resume" */ '../components/Resume/Resume.vue'),
+    meta: {
+      title: `${baseTitle} Resume`,
+    },
+  },
+  {
     path: '/contact',
     name: 'contact',
     component: () => import(/* webpackChunkName: "contact" */ '../components/Contact/Contact.vue'),
