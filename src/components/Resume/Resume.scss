@@ -6,11 +6,19 @@
 
 .pdf-aspect {
   padding-bottom: 110%;
+  background-color: white;
+}
+
+.mobile-warning {
+  color: white;
+
+  a {
+    color: $accent-color;
+  }
 }
 
 @media (max-width: 767px) {
   .pdf-aspect {
     padding-bottom: 141.42%;
-    background-color: white;
   }
 }
