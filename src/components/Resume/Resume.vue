@@ -4,7 +4,7 @@
       <div class="embed-responsive pdf-aspect">
           <object class="embed-responsive-item"
           data="alex-hutman-resume-mar-2-2020.pdf"
-          type="application/pdf" internalinstanceid="9" title="">
+          type="application/pdf">
               <p>Your browser doesn't support embedded PDF files. You can download the file
             <a href="alex-hutman-resume-mar-2-2020.pdf">here</a>.</p>
           </object>
