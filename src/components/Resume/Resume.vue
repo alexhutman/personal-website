@@ -3,7 +3,7 @@
     <div class="mobile-warning col-12 text-center">
       If the links aren't clickable, please click
       <a href="alex-hutman-resume-mar-2-2020.pdf" target="_blank">here</a>
-      to my resume in a new tab and they will be clickable.
+      to open my resume in a new tab and they will be clickable.
     </div>
 
     <div class="container">
