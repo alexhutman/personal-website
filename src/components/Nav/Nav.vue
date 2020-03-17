@@ -3,7 +3,10 @@
     <nav id="nav" class="navbar navbar-expand-md navbar-dark bg-dark sticky-top py-3">
       <div class="container-fluid">
         <router-link class="navbar-brand" to="/">
-        <span class="logo alex">alex</span><span class="logo">hutman</span>
+          <div @click="collapseHamburger()">
+            <span class="logo alex">alex</span>
+            <span class="logo">hutman</span>
+          </div>
         </router-link>
         <button
           :class="hamburgerClasses"
@@ -37,6 +40,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+// @ts-ignore
+import $ from 'jquery';
 
 export default Vue.extend({
   name: 'NavBar',
@@ -78,6 +83,9 @@ export default Vue.extend({
     },
     toggleHamburgerActive(): void {
       this.hamburgerClasses['active-hamburger'] = !this.hamburgerClasses['active-hamburger'];
+    },
+    collapseHamburger(): void {
+      $('.navbar-collapse').collapse('hide');
     },
   },
 });
