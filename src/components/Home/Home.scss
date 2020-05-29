@@ -3,7 +3,8 @@
 
 $logo-fade-in-duration: 5s;
 $logo-animation-duration: 3s;
-$quote-fade-in-duration: 2s;
+$quote-fade-duration: 6s;
+$home-page-fade-in-duration: 3s;
 
 .home-container {
     background-color: $main-background-color;
@@ -50,8 +51,18 @@ $quote-fade-in-duration: 2s;
 }
 
 .quote-anim {
-  animation: quote-fade-in $quote-fade-in-duration ease forwards;
-  -webkit-animation: quote-fade-in $quote-fade-in-duration ease forwards;
+  animation: quote-fade-in $quote-fade-duration ease forwards;
+  -webkit-animation: quote-fade-in $quote-fade-duration ease forwards;
+}
+
+.home-page-anim {
+  animation: home-page-fade-in $home-page-fade-in-duration ease forwards;
+  -webkit-animation: home-page-fade-in $home-page-fade-in-duration ease forwards;
+}
+
+#home-page {
+  font-size: 6rem;
+  color: white;
 }
 
 @-webkit-keyframes logo-fade-in {
@@ -100,12 +111,36 @@ $quote-fade-in-duration: 2s;
   0% {
     opacity: 0;
   }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes quote-fade-in {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes home-page-fade-in {
+  0% {
+    opacity: 0;
+  }
   100% {
     opacity: 1;
   }
 }
 
-@keyframes quote-fade-in {
+@keyframes home-page-fade-in {
   0% {
     opacity: 0;
   }
