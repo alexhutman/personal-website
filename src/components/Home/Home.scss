@@ -6,12 +6,14 @@ $logo-animation-duration: 3s;
 $quote-fade-duration: 6s;
 $home-page-fade-in-duration: 3s;
 
-.home-container {
-    background-color: $main-background-color;
-
+.center-contents {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.background {
+    background-color: $main-background-color;
 }
 
 .logo-container {
@@ -63,6 +65,27 @@ $home-page-fade-in-duration: 3s;
 #home-page {
   font-size: 6rem;
   color: white;
+}
+
+.about-container {
+    background-color: $main-background-color;
+    color: white;
+    overflow-y: auto;
+}
+
+.text-container {
+  width: 100%;
+}
+
+.about-text {
+  width: 75%;
+
+  font-size: 1.5rem;
+}
+
+hr {
+  border-color: $accent-color;
+  width: 75%;
 }
 
 @-webkit-keyframes logo-fade-in {
