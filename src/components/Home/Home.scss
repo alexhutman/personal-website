@@ -67,25 +67,6 @@ $home-page-fade-in-duration: 3s;
   color: white;
 }
 
-.about-container {
-    background-color: $main-background-color;
-    color: white;
-    overflow-y: auto;
-}
-
-.text-container {
-  width: 75%;
-}
-
-.about-text {
-  font-size: 1.5rem;
-}
-
-hr {
-  border-color: $accent-color;
-  width: 75%;
-}
-
 @-webkit-keyframes logo-fade-in {
   0% {
     opacity: 0;
