@@ -1,6 +1,6 @@
 <template>
   <div class="projects-container d-flex justify-content-center align-items-center">
-    <h1 class="display-4 coming no-select">Coming Soon</h1>
+    <h1 class="display-4">Coming Soon</h1>
   </div>
 </template>
 
