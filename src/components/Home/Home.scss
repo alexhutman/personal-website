@@ -24,7 +24,7 @@ $home-page-fade-in-duration: 3s;
 }
 
 .logo {
-  font-size: 6rem;
+  font-size: 6vmax;
 }
 
 .alex {
@@ -60,11 +60,6 @@ $home-page-fade-in-duration: 3s;
 .home-page-anim {
   animation: home-page-fade-in $home-page-fade-in-duration ease forwards;
   -webkit-animation: home-page-fade-in $home-page-fade-in-duration ease forwards;
-}
-
-#home-page {
-  font-size: 6rem;
-  color: white;
 }
 
 @-webkit-keyframes logo-fade-in {
@@ -152,15 +147,4 @@ $home-page-fade-in-duration: 3s;
 }
 
 @media (max-width: 767px) {
-  .logo {
-    font-size: 4rem;
-  }
-
-  .logo-cover {
-    width: 10rem;
-  }
-
-  .text-container {
-    width: 90%;
-  }
 }
