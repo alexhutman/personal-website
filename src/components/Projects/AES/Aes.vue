@@ -610,13 +610,13 @@ export default Vue.extend({
   },
   mounted() {
     this.numSlides = document.getElementsByClassName('carousel-item').length;
-    console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
+    // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
   },
   methods: {
     getCurSlide(): void {
       const activeSlide = document.getElementsByClassName('carousel-item active')[0];
       const slideNum = activeSlide.id.match(slideNumRegex)![1];
-      console.log(slideNum);
+      // console.log(slideNum);
     },
     onPrevSlide(): void {
       this.curSlide = (((this.curSlide - 1) % this.numSlides) + this.numSlides) % this.numSlides;
@@ -633,7 +633,7 @@ export default Vue.extend({
         // TODO: reset the key to the original value too
       } else {
         this.populateState(0, this.textToMatrix(this.msg.text));
-        console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
+        // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
     },
     onKeyChange():void {
@@ -647,7 +647,7 @@ export default Vue.extend({
         this.populateState(0, this.textToMatrix(this.msg.text));
 
         this.key.intArr = this.strToIntArr(this.key.text);
-        console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
+        // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
     },
     onTrySlide(): boolean {
