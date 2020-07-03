@@ -74,12 +74,10 @@ $home-page-fade-in-duration: 3s;
 }
 
 .text-container {
-  width: 100%;
+  width: 75%;
 }
 
 .about-text {
-  width: 75%;
-
   font-size: 1.5rem;
 }
 
@@ -179,5 +177,9 @@ hr {
 
   .logo-cover {
     width: 10rem;
+  }
+
+  .text-container {
+    width: 90%;
   }
 }

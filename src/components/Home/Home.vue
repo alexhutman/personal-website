@@ -30,9 +30,9 @@
         </div>
       </div>
 
-      <div class="text-container d-flex flex-column justify-content-center">
+      <div class="text-container row justify-content-center mx-auto">
         <div class="p-2">
-          <p class="about-text text-center m-0">
+          <p class="about-text text-center">
           I have been interested in technology since I was very young, but I was originally a
           mechanical engineering major when I entered college. I had a change of heart and graduated
           from Quinnipiac University in 2019 with a B.S. in computer science and a B.A. in
