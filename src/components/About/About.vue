@@ -31,7 +31,6 @@
 </template>
 
 <script lang="ts">
-// @ts-ignore
 import HeaderPage from '../HeaderPage/HeaderPage.vue';
 
 export default {
