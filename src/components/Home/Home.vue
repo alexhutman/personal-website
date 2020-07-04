@@ -43,15 +43,19 @@ export default Vue.extend({
     const logoDelayMs = (this as any).logoFadeInDuration * 1000 + 50;
     const aboutPageDelayMs = (this as any).quoteFadeInDuration * 1000 + 50;
 
-    setTimeout(() => {
+    (this as any).removeLogoTimeout = setTimeout(() => {
       logo!.remove();
       quote!.classList.remove('d-none');
       quote!.classList.add('quote-anim');
 
-      setTimeout(() => {
+      (this as any).goToAboutTimeout = setTimeout(() => {
         this.$router.push({ name: 'about' });
       }, aboutPageDelayMs); //  5s * 1000ms/s + 50 ms to be safe
     }, logoDelayMs); //  5s * 1000ms/s + 50 ms to be safe
+  },
+  beforeDestroy() {
+    clearTimeout((this as any).removeLogoTimeout);
+    clearTimeout((this as any).goToAboutTimeout);
   },
 });
 </script>
