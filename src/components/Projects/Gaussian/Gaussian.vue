@@ -1,13 +1,5 @@
 <template>
-    <div class="gaussian-container">
-      <div class="container-fluid">
-        <div class="row welcome text-center">
-          <div class="col-12">
-            <h1 class="display-4">Gaussian Blur</h1>
-          </div>
-        </div>
-      </div>
-
+  <header-page :page-title="title">
       <div class="container-fluid">
         <div class="row">
           <!-- <div class="explanation col-md-4 text-center"> -->
@@ -185,7 +177,7 @@
 
         </div>
       </div>
-    </div>
+  </header-page>
 </template>
 
 <script lang="ts">
@@ -194,11 +186,13 @@ import Vue from 'vue';
 import P5 from 'p5';
 import GaussianBlur from './GaussianBlur';
 
+import HeaderPage from '../../HeaderPage/HeaderPage.vue';
 
 export default Vue.extend({
   name: 'Gaussian',
   data() {
     return {
+      title: 'Gaussian',
       gb: GaussianBlur.prototype,
       kernelSliderValue: 1,
     };
@@ -207,6 +201,9 @@ export default Vue.extend({
     this.gb = new GaussianBlur(this.kernelSliderValue);
   },
   methods: {
+  },
+  components: {
+    HeaderPage,
   },
 });
 </script>
