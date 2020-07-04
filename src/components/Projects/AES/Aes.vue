@@ -1,5 +1,5 @@
 <template>
-  <header-page page-title="AES">
+  <header-page :page-title="title">
       <div class="container-fluid">
         <div class="row">
           <div class="explanation col-md-12 text-center vertical-center">
@@ -582,6 +582,7 @@ export default Vue.extend({
   },
   data() {
     return {
+      title: 'AES',
       numSlides: 0,
       curSlide: 0,
       aesInstance: new AES(128),
