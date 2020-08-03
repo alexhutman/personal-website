@@ -13,6 +13,7 @@
               <hr />
               <div class="card-body">
                 <h4 class="card-title">AES</h4>
+                <hr class="mb-1"/>
                 <p class="card-text">
                   Every time you go on a website with the little green padlock in the corner, it is
                   likely that your browser is using AES to secure your data. This interactive
@@ -40,6 +41,7 @@
               <hr />
               <div class="card-body">
                 <h4 class="card-title">Gaussian</h4>
+                <hr class="mb-1"/>
                 <p class="card-text">
                   Have you ever wondered exactly how programs like Photoshop blur your images?
                   This interactive project explains how Gaussian blurs are performed, and allows

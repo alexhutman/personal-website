@@ -19,7 +19,14 @@
     margin: 0;
     width: 100%;
     border-width: 2px;
-    color: white;
+    border-color: black;
+  }
+
+  .card-body {
+    hr {
+      border-width: 1px;
+      border-color: $accent-color;
+    }
   }
 
   button {
