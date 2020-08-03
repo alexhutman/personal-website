@@ -1,7 +1,7 @@
 @import "variables";
 
 .main-container {
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -9,4 +9,17 @@
 .router-outlet {
     flex: 1;
     flex-grow: 1;
+}
+
+.no-select {
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+@media (max-width: 767px) {
+  html, body {
+    overflow: hidden;
+  }
 }

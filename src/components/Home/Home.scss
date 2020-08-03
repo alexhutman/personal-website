@@ -1,5 +1,150 @@
 @import "../../variables";
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
 
-.home-container {
+$logo-fade-in-duration: 5s;
+$logo-animation-duration: 3s;
+$quote-fade-duration: 6s;
+$home-page-fade-in-duration: 3s;
+
+.center-contents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.background {
     background-color: $main-background-color;
+}
+
+.logo-container {
+  opacity: 0;
+
+  animation: logo-fade-in $logo-fade-in-duration ease forwards;
+  -webkit-animation: logo-fade-in $logo-fade-in-duration ease forwards;
+}
+
+.logo {
+  font-size: 6vmax;
+}
+
+.alex {
+  font-family: 'Raleway', ;
+
+  color: $accent-color;
+
+  z-index: 1;
+
+  animation: logo-translate $logo-animation-duration ease forwards;
+  -webkit-animation: logo-translate $logo-animation-duration ease forwards;
+}
+
+.hutman {
+  font-family: 'Raleway', ;
+
+  background-color: $main-background-color;
+  color: white;
+  // text-shadow: -3px 2px 2px rgba(0,0,0,0.87);
+
+  z-index: 3;
+}
+
+#quote {
+  opacity: 0;
+}
+
+.quote-anim {
+  animation: quote-fade-in $quote-fade-duration ease forwards;
+  -webkit-animation: quote-fade-in $quote-fade-duration ease forwards;
+}
+
+.home-page-anim {
+  animation: home-page-fade-in $home-page-fade-in-duration ease forwards;
+  -webkit-animation: home-page-fade-in $home-page-fade-in-duration ease forwards;
+}
+
+@-webkit-keyframes logo-fade-in {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes logo-fade-in {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes logo-translate {
+  from {
+    transform: translate(102%, 0%);
+  }
+  to {
+    transform: translate(0%, 0%);
+  }
+}
+
+@keyframes logo-translate {
+  from {
+    transform: translate(102%, 0%);
+  }
+  to {
+    transform: translate(0%, 0%);
+  }
+}
+
+@-webkit-keyframes quote-fade-in {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes quote-fade-in {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes home-page-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes home-page-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 767px) {
 }

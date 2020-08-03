@@ -3,4 +3,32 @@
 .contact-container {
     background-color: $main-background-color;
     color: white;
+    overflow-y: auto;
+}
+
+.text-container {
+  width: 100%;
+}
+
+.contact-text {
+  width: 75%;
+}
+
+.contact-link {
+  a {
+    text-decoration: none !important;
+    color: white;
+  }
+
+  &:hover {
+    //.icon {
+    * {
+      color: $accent-color !important;
+    }
+  }
+}
+
+hr {
+  border-color: $accent-color;
+  width: 75%;
 }

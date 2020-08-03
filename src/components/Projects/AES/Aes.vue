@@ -1,15 +1,5 @@
 <template>
-    <div class="aes-container">
-      <div class="container-fluid">
-        <div class="row welcome text-center">
-          <div class="col-12">
-            <h1 class="display-4">
-              {{ isMobile() ? "AES" : "Advanced Encryption Standard (AES)" }}
-            </h1>
-          </div>
-        </div>
-      </div>
-
+  <header-page :page-title="title">
       <div class="container-fluid">
         <div class="row">
           <div class="explanation col-md-12 text-center vertical-center">
@@ -34,7 +24,8 @@
                     <div class="carousel-caption">
                       <h5>What is AES?</h5>
                       <p>
-                        AES is a block cipher used to encrypt data with a given key. A <b>cipher
+                        The <u>A</u>dvanced <u>E</u>ncryption <u>S</u>tandard is a block cipher
+                        used to encrypt data with a given key. A <b>cipher
                         </b> is just an algorithm used for encrypting or decrypting data. A <b>block
                         cipher</b> is a cipher that splits the plaintext up into <b>blocks</b> of
                         data, and operates on these blocks to turn the plaintext into ciphertext, as
@@ -546,12 +537,14 @@ return w
 
         </div>
       </div>
-    </div>
+  </header-page>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import AES from './AES';
+
+import HeaderPage from '../../HeaderPage/HeaderPage.vue';
 
 const slideNumRegex = new RegExp('^slide-([0-9]+)$');
 // const origMsg = [
@@ -584,8 +577,12 @@ const origKey = [
 
 export default Vue.extend({
   name: 'AES',
+  components: {
+    HeaderPage,
+  },
   data() {
     return {
+      title: 'AES',
       numSlides: 0,
       curSlide: 0,
       aesInstance: new AES(128),
@@ -610,13 +607,13 @@ export default Vue.extend({
   },
   mounted() {
     this.numSlides = document.getElementsByClassName('carousel-item').length;
-    console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
+    // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
   },
   methods: {
     getCurSlide(): void {
       const activeSlide = document.getElementsByClassName('carousel-item active')[0];
       const slideNum = activeSlide.id.match(slideNumRegex)![1];
-      console.log(slideNum);
+      // console.log(slideNum);
     },
     onPrevSlide(): void {
       this.curSlide = (((this.curSlide - 1) % this.numSlides) + this.numSlides) % this.numSlides;
@@ -633,7 +630,7 @@ export default Vue.extend({
         // TODO: reset the key to the original value too
       } else {
         this.populateState(0, this.textToMatrix(this.msg.text));
-        console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
+        // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
     },
     onKeyChange():void {
@@ -647,7 +644,7 @@ export default Vue.extend({
         this.populateState(0, this.textToMatrix(this.msg.text));
 
         this.key.intArr = this.strToIntArr(this.key.text);
-        console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
+        // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
     },
     onTrySlide(): boolean {

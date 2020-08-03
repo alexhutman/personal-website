@@ -1,24 +1,31 @@
 @import "../../variables";
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
 
 // Extra small devices (portrait phones, less than 576px)
 // No media query for `xs` since this is the default in Bootstrap
 
 nav {
-  background-color: $main-background-color !important;
+  background-color: #212121 !important;
 }
 
-// Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) {}
+.alex {
+  color: $accent-color;
+}
+
+.logo {
+  font-family: $logo-font;
+  font-size: 1.5rem;
+}
+
+.active-hamburger .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8, %3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.active-hamburger.navbar-toggler { 
+    border-color: white; 
+} 
 
 // Medium devices (tablets, 768px and up)
 @media (max-width: 767px) {
-  nav {
-    background-color: black !important;
-  }
+
 }
-
-// Large devices (desktops, 992px and up)
-@media (min-width: 992px) {}
-
-// Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {}

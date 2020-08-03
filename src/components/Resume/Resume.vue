@@ -1,39 +1,31 @@
 <template>
   <div class="resume-container">
-    <iframe
-      @load="onResumeLoad"
-      v-show="iframeLoaded"
-      id="resume-iframe"
-      type="application/pdf"
-      src="./assets/resume/jeff.pdf#view=FitV&toolbar=0"
-      scale="tofit"
-    >
-    </iframe>
+    <div class="mobile-warning col-12 text-center">
+      If the links aren't clickable, please click
+      <a href="alex-hutman-resume-mar-2-2020.pdf" target="_blank">here</a>
+      to open my resume in a new tab and they will be clickable.
+    </div>
+
+    <div class="container">
+      <div class="embed-responsive pdf-aspect">
+        <object class="embed-responsive-item"
+        data="alex-hutman-resume-mar-2-2020.pdf"
+        type="application/pdf">
+          <p>
+            Your browser doesn't support embedded PDF files. You can download the file
+            <a href="alex-hutman-resume-mar-2-2020.pdf">here</a>.
+          </p>
+        </object>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-/*eslint-disable*/
-import Vue from 'vue';
-
-// window.addEventListener('load', (event) => {
-//   const theURL = '';
-//   window.open(theURL, 'resumeee');
-// });
-
-export default Vue.extend({
+export default {
   name: 'Resume',
-  data() {
-    return {
-      iframeLoaded: false,
-    };
-  },
-  methods: {
-    onResumeLoad: function() {
-      this.iframeLoaded = true;
-    },
-  },
-});
+  methods: {},
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

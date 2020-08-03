@@ -1,0 +1,21 @@
+@import "../../variables";
+
+.page-container {
+    background-color: $main-background-color;
+    color: white;
+    overflow-y: auto;
+
+}
+
+.content-container {
+  width: 85%;
+}
+
+html {
+  font-size: 1.35vmax;
+}
+
+hr {
+  border-color: $accent-color;
+  width: max(75%, 75vmin);
+}
