@@ -4,8 +4,9 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-6">
-            <div class="card">
+            <div class="card text-white mb-5">
               <img class="card-img-top" src="assets/img/aes.png" />
+              <hr />
               <div class="card-body">
                 <h4 class="card-title">AES</h4>
                 <p class="card-text">This is the description for AES xd</p>
@@ -17,11 +18,12 @@
           </div>
 
           <div class="col-md-6">
-            <div class="card">
+            <div class="card text-white mb-5">
               <img
                 class="card-img-top"
                 src="assets/gaussian/gaussian-main.png"
               />
+              <hr />
               <div class="card-body">
                 <h4 class="card-title">Gaussian</h4>
                 <p class="card-text">This is the description for Gaussian xd</p>
