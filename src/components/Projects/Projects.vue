@@ -5,6 +5,10 @@
         <div class="row">
           <div class="col-md-6">
             <div class="card text-white mb-5">
+              <!--
+                This image was taken from
+                https://crypto.stackexchange.com/questions/2711/does-the-mixcolumns-step-come-before-or-after-addroundkey-in-aes-decryption
+              -->
               <img class="card-img-top" src="assets/img/aes.png" />
               <hr />
               <div class="card-body">
@@ -19,6 +23,10 @@
 
           <div class="col-md-6">
             <div class="card text-white mb-5">
+              <!--
+                This image was taken from https://learnopengl.com/Advanced-Lighting/Bloom
+                and modified to fit better on this page
+              -->
               <img
                 class="card-img-top"
                 src="assets/gaussian/gaussian-main.png"
