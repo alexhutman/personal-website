@@ -1,10 +1,11 @@
 @import "../../variables";
 
-.about-text {
-  font-size: 1.35vmax;
-}
-
 hr {
   border-color: $accent-color;
   width: 75%;
+}
+
+.card {
+  background-color: #4D4D4D;
+  width: 60vmax;
 }
