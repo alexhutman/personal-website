@@ -13,7 +13,7 @@
 }
 
 .card {
-  background-color: #4D4D4D;
+  background-color: $secondary-background-color;
 
   hr {
     margin: 0;
@@ -32,7 +32,7 @@
   button {
     background-color: $main-background-color;
     a {
-      color: #2E97FF;
+      color: $secondary-accent-color;
     }
 
     &:hover {

@@ -4,6 +4,7 @@
     background-color: $main-background-color;
     color: white;
     overflow-y: auto;
+    width: 75%;
 }
 
 .text-container {
@@ -11,20 +12,20 @@
 }
 
 .contact-text {
-  width: 75%;
-}
+  width: 100%;
 
-.contact-link {
   a {
     text-decoration: none !important;
     color: white;
   }
+}
 
+.contact-link {
   &:hover {
-    //.icon {
-    * {
-      color: $accent-color !important;
-    }
+    background-color: $secondary-background-color;
+    // * {
+    //   color: $accent-color !important;
+    // }
   }
 }
 
