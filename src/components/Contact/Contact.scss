@@ -20,6 +20,25 @@
   }
 }
 
+.contact-title {
+  font-family: $logo-font;
+  padding-left: 5px;
+  font-size: 1.5vmax;
+}
+
+.icon {
+  width: 10%;
+  height: auto;
+}
+
+.black-icon {
+  filter: brightness(0%);
+}
+
+.pretentious {
+  color: $accent-color;
+}
+
 .contact-link {
   &:hover {
     background-color: $secondary-background-color;

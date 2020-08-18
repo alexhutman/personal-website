@@ -8,32 +8,41 @@
           <a href="mailto:alex@alexhutman.com" class="col-md-6 contact-link mail py-3"
           target="_blank">
             <div class="text-center">
-                <font-awesome-icon :icon="['fa', 'envelope']" class="fa-3x icon align-middle"/>
-                alex@alexhutman.com
+              <img
+              src="../../../public/assets/icons/spinking/email.svg"
+              class="align-middle icon email-icon black-icon">
+                <span class="contact-title">
+                  alex@<span class="pretentious">alex</span>hutman.com</span>
             </div>
           </a>
 
           <a href="mailto:alex@alexhutman.com?subject=Phone%20Number
-          &body=Hi%20Alex,%20please%20give%20me%20your%20phone%20number!"
+&body=Hi%20Alex,%20please%20give%20me%20your%20phone%20number!"
           class="col-md-6 contact-link phone py-3"
           target="_blank">
             <div>
-                <font-awesome-icon :icon="['fa', 'phone']" class="fa-3x icon align-middle"/>
-                Please email for phone number
+              <img
+              src="../../../public/assets/icons/Dave_Gandy/phone.svg"
+              class="align-middle icon">
+                <span class="contact-title">Please email for phone number</span>
             </div>
           </a>
 
           <a href="https://github.com/alexhutman" class="col-md-6 contact-link github py-3" target="_blank">
             <div>
-              <font-awesome-icon :icon="['fab', 'github-square']" class="fa-3x icon align-middle"/>
-                alexhutman
+              <img
+              src="../../../public/assets/icons/PixelBazaar/github.svg"
+              class="align-middle icon black-icon">
+                <span class="contact-title"><span class="pretentious">alex</span>hutman</span>
             </div>
           </a>
 
           <a href="https://linkedin.com/in/alexhutman" class="col-md-6 contact-link linkedin py-3" target="_blank">
             <div>
-              <font-awesome-icon :icon="['fab', 'linkedin']" class="fa-3x icon align-middle"/>
-                alexhutman
+              <img
+              src="../../../public/assets/icons/PixelBazaar/linkedin.svg"
+              class="align-middle icon">
+                <span class="contact-title"><span class="pretentious">alex</span>hutman</span>
             </div>
           </a>
 
