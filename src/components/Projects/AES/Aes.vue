@@ -174,8 +174,8 @@
                             We treat each byte like a polynomial in the above Galois Field. For
                             example, <code>C6<sub>16</sub> = 11000110<sub>2</sub></code> represents
                             <br><code> 1*x<sup>7</sup> + 1*x<sup>6</sup> + 0*x<sup>5</sup> +
-                            0*x<sup>4</sup> + 0*x<sup>3</sup> + x<sup>2</sup> + x + 0*1</code> =
-                            <code>x<sup> 7</sup> + x<sup>6 </sup> + x<sup>2</sup> + x</code>
+                            0*x<sup>4</sup> + 0*x<sup>3</sup> + 1*x<sup>2</sup> + 1*x + 0*1</code> =
+                            <code>x<sup>7</sup> + x<sup>6 </sup> + x<sup>2</sup> + x</code>
                           </dd>
                           <dt>Addition (<code>&#8853;</code>)</dt>
                           <dd>
@@ -185,16 +185,53 @@
                             <code>b<sub>1</sub></code> and <code>b<sub>2</sub></code> produces
                             <code>1</code> <u>only if either</u> <code>b<sub>1</sub></code>
                             &nbsp;<u>or</u> <code>b<sub>2</sub></code> are <code>1</code>.
-                            Otherwise, the result is <code>0</code>. <br><a href="https://en.wikipedia.org/wiki/Exclusive_or" target="_blank">Click here</a>
+                            Otherwise, the result is <code>0</code>. So,
+                            <br>
+                            0 &#8853; 0 = 0
+                            <br>
+                            0 &#8853; 1 = 1
+                            <br>
+                            1 &#8853; 0 = 1
+                            <br>
+                            1 &#8853; 1 = 0
+                            <br>
+                            <a href="https://en.wikipedia.org/wiki/Exclusive_or" target="_blank">Click here</a>
                             to learn more about the XOR operator.
+                            <br>
+                            When we talk about addition for our computations, we are referring to
+                            bitwise XOR, which means you just XOR the corresponding bits in each
+                            position of the input bitstrings. For example,
+                            <br>
+                            10001011
+                            <br>
+                            &#8853;
+                            <br>
+                            11101001
+                            <br>
+                            -----------
+                            <br>
+                            01100010
                           </dd>
                           <dt>Multiplication (<code>•</code>)</dt>
                           <dd>
                             Multiplication modulo a polynomial is similar to multiplication in
-                            &#8484;<sub>n</sub>. In &#8484;<sub>5</sub> for example, if we
-                            calculate <code>4*3</code>, we can just take the result in &#8484;
-                            and take the remainder modulo <code>5</code>, which would be <code>
-                            2</code>, to get a result in &#8484;<sub>5</sub>. The same goes for the
+                            &#8484;<code><sub>n</sub></code>. In essence, we can just calculate the
+                            result in &#8484;,
+                            and then take the remainder modulo <code>n</code>.
+                            To calculate
+                            4*3 in &#8484;<sub><code>5</code></sub> for example, we would get 12,
+                            then reduce
+                            that modulo <code>5</code>, which is 2. The numbers 12 and 2 are the
+                            essentially the same thing in &#8484;<sub>5</sub>, but in
+                            our case,
+                            we want the smallest nonnegative remainder (called the <b>least residue
+                            modulo n</b>). The reason we want this is because if the results of one
+                            of our
+                            multiplications ended up having an x<sup>9</sup> term in it, then its
+                            binary representation would become 9 bits long. However, we would like
+                            to keep our results within 8 bits so that they can be stored as a
+                            single byte when being computed.
+                            The same goes for the
                             above Galois Field. If we took 2 polynomials (which we represent as 2
                             binary numbers) and multiplied them, we would do normal polynomial
                             multiplication, but would then have to do polynomial division (in our
@@ -459,7 +496,8 @@ return w
                         alt="mix-columns">
                       </a>
                       <p>
-                        The details of the simplification would be too involved to go over here,
+                        The details as to why the simplification works would be too involved to go
+                        over here,
                         but if you'd like to learn more, please click the image above to navigate
                         to the standard. The details are located in <b>Section 4.3</b>.
                       </p>
