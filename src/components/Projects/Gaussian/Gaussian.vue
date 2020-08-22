@@ -150,6 +150,11 @@
           <div class="interactive col-md-8 text-center">
 
             <div id="canvas-col">
+              <div v-if="gb.gaussianImg && gb.gaussianImg.loading" :key="gb.gaussianImg.loading"
+              class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+
               <img id="dom-image" class="img-fluid">
               <!--
                 The canvas gets injected here on page load.
@@ -198,7 +203,7 @@ export default Vue.extend({
     };
   },
   mounted() {
-    this.gb = new GaussianBlur(this.kernelSliderValue);
+    this.gb = new GaussianBlur();
   },
   methods: {
   },

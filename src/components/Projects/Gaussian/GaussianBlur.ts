@@ -2,12 +2,17 @@ import P5 from 'p5';
 
 const path = require('../../../../public/assets/img/papabiceps.jpg');
 
+export type GaussianImg = {
+  domImg: P5.Element|null,
+  loading: boolean
+}
+
 export default class GaussianBlur {
   public p5: P5;
 
   public canvas: any;
 
-  private domImg: P5.Element|null;
+  public gaussianImg: GaussianImg;
 
   public sigma = 1;
 
@@ -15,10 +20,10 @@ export default class GaussianBlur {
 
   private kernelwidth!: number;
 
-  constructor(initialKernelSize: number) {
+  constructor() {
     this.p5 = new P5(this.sketch);
-    this.domImg = this.p5.select('#dom-image');
-    this.setKernelSize(initialKernelSize);
+    this.gaussianImg = { domImg: this.p5.select('#dom-image'), loading: true };
+    this.setKernelSize(1);
   }
 
   public setKernelSize(n: number): void {
@@ -124,6 +129,7 @@ export default class GaussianBlur {
 
     p5.preload = () => {
       img = p5.loadImage(path);
+      this.gaussianImg.loading = false;
     };
     /* eslint no-param-reassign: ["error", { "props": false }] */
     p5.setup = () => {
@@ -137,14 +143,21 @@ export default class GaussianBlur {
       if (sigmaSlider) {
         // @TODO: maybe use a promise somehow to not make the page lag on change
         sigmaSlider.changed(() => {
-          gaussianBlur();
+          this.gaussianImg.loading = true;
+          Promise.resolve(gaussianBlur()).then(() => {
+            this.gaussianImg.loading = false;
+          });
         });
       }
 
       if (kernelSlider) {
         // @TODO: maybe use a promise somehow to not make the page lag on change
         kernelSlider.changed(() => {
-          gaussianBlur();
+          this.gaussianImg.loading = true;
+
+          Promise.resolve(gaussianBlur()).then(() => {
+            this.gaussianImg.loading = false;
+          });
         });
       }
 
@@ -161,14 +174,18 @@ export default class GaussianBlur {
   };
 
   private updateImg(): void {
-    if (this.domImg) {
-      this.domImg.attribute('src', this.getImgURL());
+    if (this.gaussianImg.domImg) {
+      this.gaussianImg.domImg.attribute('src', this.getImgURL());
     }
   }
 
   private getImgURL(): string {
     const urlToReturn = (this.canvas && this.canvas.elt) ? this.canvas.elt.toDataURL() : '';
     return urlToReturn;
+  }
+
+  public sigmaChanged(): Promise<string> {
+    return Promise.resolve(this.sketch.gaussianBlur())
   }
 
   private blur(x: number, y: number) {
