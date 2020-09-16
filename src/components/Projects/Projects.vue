@@ -44,7 +44,8 @@
                 <hr class="mb-1"/>
                 <p class="card-text">
                   Have you ever wondered exactly how programs like Photoshop blur your images?
-                  This interactive project explains how Gaussian blurs are performed, and allows
+                  This interactive project explains how Gaussian blurs are performed, and in the
+                  near future, will allow
                   users to submit their own images to perform the blur on. There is
                   not as much math required as in AES, so this is a great project to show students
                   in order to demonstrate a real-world application of mathematics.
