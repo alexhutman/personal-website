@@ -8,10 +8,6 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <!--
-    <div class="mobile-warning col-12 text-center">
-    </div>
-    -->
 
     <div class="container">
       <div class="embed-responsive pdf-aspect">
