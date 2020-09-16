@@ -1,10 +1,17 @@
 <template>
   <div class="resume-container">
-    <div class="mobile-warning col-12 text-center">
+    <div class="alert alert-warning text-center" role="alert">
       If the links aren't clickable, please click
-      <a href="alex_hutman_resume_sept_16_2020.pdf" target="_blank">here</a>
+      <a class="alert-link" href="alex_hutman_resume_sept_16_2020.pdf" target="_blank">here</a>
       to open my resume in a new tab and they will be clickable.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
+    <!--
+    <div class="mobile-warning col-12 text-center">
+    </div>
+    -->
 
     <div class="container">
       <div class="embed-responsive pdf-aspect">
