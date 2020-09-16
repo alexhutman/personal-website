@@ -2,18 +2,18 @@
   <div class="resume-container">
     <div class="mobile-warning col-12 text-center">
       If the links aren't clickable, please click
-      <a href="alex-hutman-resume-mar-2-2020.pdf" target="_blank">here</a>
+      <a href="alex_hutman_resume_sept_16_2020.pdf" target="_blank">here</a>
       to open my resume in a new tab and they will be clickable.
     </div>
 
     <div class="container">
       <div class="embed-responsive pdf-aspect">
         <object class="embed-responsive-item"
-        data="alex-hutman-resume-mar-2-2020.pdf"
+        data="alex_hutman_resume_sept_16_2020.pdf"
         type="application/pdf">
           <p>
             Your browser doesn't support embedded PDF files. You can download the file
-            <a href="alex-hutman-resume-mar-2-2020.pdf">here</a>.
+            <a href="alex_hutman_resume_sept_16_2020.pdf">here</a>.
           </p>
         </object>
       </div>
