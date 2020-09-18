@@ -1,4 +1,4 @@
-@import "../../../variables";
+@import '../../../variables';
 
 .gaussian-container {
   background-color: $main-background-color;
@@ -54,11 +54,10 @@ canvas {
   }
 }
 
-
 .carousel-caption {
-    position: relative;
-    left: auto;
-    right: auto;
+  position: relative;
+  left: auto;
+  right: auto;
 }
 
 .fit-carousel-img {
@@ -72,9 +71,15 @@ canvas {
 
 .vertical-center {
   // From https://stackoverflow.com/a/22196760/6708303
-  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100%; /* Fallback for browsers do NOT support vh unit */
   // min-height: 100vh; /* These two lines are counted as one :-)       */
 
   display: flex;
   align-items: center;
+}
+
+@media (max-width: 767px) {
+  .explanation {
+    height: 100vh !important;
+  }
 }
