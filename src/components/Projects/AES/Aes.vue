@@ -1054,8 +1054,9 @@ export default Vue.extend({
 29
 30
 31
-32</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #cccccc">N_b</span> <span style="color: #3399cc">=</span> <span style="color: #cd00cd">4</span> <span style="color: #808080"># Number of columns (32-bit words comprising the state).</span>
+32</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #808080"># Number of columns (32-bit words comprising the state).</span>
 <span style="color: #808080"># N_b = 4 for AES128, AES192, and AES256</span>
+<span style="color: #cccccc">N_b</span> <span style="color: #3399cc">=</span> <span style="color: #cd00cd">4</span>
 
 <span style="color: #808080"># The following 2 declarations are only true for AES128</span>
 <span style="color: #cccccc">N_k</span> <span style="color: #3399cc">=</span> <span style="color: #cd00cd">4</span>   <span style="color: #808080"># Number of 32-bit words comprising the key</span>
@@ -1075,9 +1076,15 @@ export default Vue.extend({
 <span style="color: #cdcd00">if</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">&lt;</span> <span style="color: #cccccc">N_k:</span>
 <span style="color: #cccccc">w</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append(key[</span><span style="color: #cd00cd">4</span><span style="color: #3399cc">*</span><span style="color: #cccccc">i:</span><span style="color: #cd00cd">4</span><span style="color: #3399cc">*</span><span style="color: #cccccc">(i</span><span style="color: #3399cc">+</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">)])</span>
 <span style="color: #cdcd00">elif</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">&gt;=</span> <span style="color: #cccccc">N_k</span> <span style="color: #cdcd00">and</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">%</span> <span style="color: #cccccc">N_k</span> <span style="color: #3399cc">==</span> <span style="color: #cd00cd">0</span><span style="color: #cccccc">:</span>
-<span style="color: #cccccc">temp_col</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">rot_word(w[i</span> <span style="color: #3399cc">-</span> <span style="color: #cd00cd">1</span><span style="color: #cccccc">],</span> <span style="color: #cd00cd">1</span><span style="color: #cccccc">)</span> <span style="color: #808080"># Circular left shift w[i-1] by 1 position</span>
-<span style="color: #cccccc">temp_col</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">[s_box[x]</span> <span style="color: #cdcd00">for</span> <span style="color: #cccccc">x</span> <span style="color: #cdcd00">in</span> <span style="color: #cccccc">temp_col]</span> <span style="color: #808080"># Then substitute the bytes</span>
-<span style="color: #cccccc">temp_col[</span><span style="color: #cd00cd">0</span><span style="color: #cccccc">]</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">temp_col[</span><span style="color: #cd00cd">0</span><span style="color: #cccccc">]</span> <span style="color: #3399cc">^</span> <span style="color: #cccccc">Rcon[(i</span> <span style="color: #3399cc">//</span> <span style="color: #cccccc">N_k)</span> <span style="color: #3399cc">-</span> <span style="color: #cd00cd">1</span><span style="color: #cccccc">]</span> <span style="color: #808080"># Then XOR first byte with round constant</span>
+
+<span style="color: #808080"># Circular left shift w[i-1] by 1 position</span>
+<span style="color: #cccccc">temp_col</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">rot_word(w[i</span> <span style="color: #3399cc">-</span> <span style="color: #cd00cd">1</span><span style="color: #cccccc">],</span> <span style="color: #cd00cd">1</span><span style="color: #cccccc">)</span>
+
+<span style="color: #808080"># Then substitute the bytes</span>
+<span style="color: #cccccc">temp_col</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">[s_box[x]</span> <span style="color: #cdcd00">for</span> <span style="color: #cccccc">x</span> <span style="color: #cdcd00">in</span> <span style="color: #cccccc">temp_col]</span>
+
+<span style="color: #808080"># Then XOR first byte with round constant</span>
+<span style="color: #cccccc">temp_col[</span><span style="color: #cd00cd">0</span><span style="color: #cccccc">]</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">temp_col[</span><span style="color: #cd00cd">0</span><span style="color: #cccccc">]</span> <span style="color: #3399cc">^</span> <span style="color: #cccccc">Rcon[(i</span> <span style="color: #3399cc">//</span> <span style="color: #cccccc">N_k)</span> <span style="color: #3399cc">-</span> <span style="color: #cd00cd">1</span><span style="color: #cccccc">]</span>
 
 <span style="color: #cccccc">w</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append(xor_col(w[i</span> <span style="color: #3399cc">-</span> <span style="color: #cccccc">N_k],</span> <span style="color: #cccccc">temp_col)</span>
 <span style="color: #cdcd00">elif</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">&gt;=</span> <span style="color: #cccccc">N_k</span> <span style="color: #cdcd00">and</span> <span style="color: #cccccc">N_k</span> <span style="color: #3399cc">&gt;</span> <span style="color: #cd00cd">6</span> <span style="color: #cdcd00">and</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">%</span> <span style="color: #cccccc">N_k</span> <span style="color: #3399cc">==</span> <span style="color: #cd00cd">4</span><span style="color: #cccccc">:</span>
