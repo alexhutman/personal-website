@@ -805,7 +805,7 @@ export default Vue.extend({
             `,
         },
         {
-          title: '<h2 class="mb-3">Preliminaries:</h2>',
+          title: '<h2 class="mb-3">Preliminaries</h2>',
           content: `
             <p>
               Most calculations in AES occur in <code>GF(2<sup>8</sup>) /
@@ -884,6 +884,298 @@ export default Vue.extend({
                 </code>) to get an element in the field.
               </dd>
             </dl>
+            `,
+        },
+        {
+          title: '<h2 class="mb-3">Try it out!:</h2>',
+          content: `
+            <p class="carousel-text">
+              Enter your own message and key below!
+              We will go over each operation using your message and key to make the
+              learning more hands-on.
+            </p>
+
+
+            <form class="needs-validation" novalidate>
+              <label for="messageInputBox">Message:</label>
+              <div class="input-group mb-2 mr-sm-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <font-awesome-icon :icon="[ 'fas', 'comment-dots' ]"/>
+                  </div>
+                </div>
+                <input type="text"
+                      :disabled="!onTrySlide()"
+                      maxlength="16"
+                      class="form-control"
+                      :class="{ 'is-invalid': msg.isInvalid }"
+                      id="messageInputBox"
+                      placeholder="The message you'd like to encrypt"
+                      v-model="msg.text"
+                      v-on:input="onMsgChange()">
+                <div class="invalid-feedback">
+                  Please ensure that the message contains only ASCII characters.
+                  Support for other characters will be added!
+                </div>
+              </div>
+
+              <label for="keyInputBox">Key:</label>
+              <div class="input-group mb-2 mr-sm-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <font-awesome-icon :icon="[ 'fas', 'key' ]"/>
+                  </div>
+                </div>
+                <input type="text"
+                      :disabled="!onTrySlide()"
+                      maxlength="16"
+                      class="form-control"
+                      :class="{ 'is-invalid': key.isInvalid }"
+                      id="keyInputBox"
+                      placeholder="The key to encrypt the message with"
+                      v-model="key.text"
+                      v-on:input="onKeyChange()">
+                <div class="invalid-feedback">
+                  Please ensure that the key is 16 ASCII characters long.
+                </div>
+              </div>
+            </form>
+
+            <div class="text-center">
+              <h3>State:</h3>
+              <div class="state justify-content-center">
+                <div class="state-grid">
+                    <div class="cell-00 hbb hrb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][0][0]) }}
+                    </div>
+                    <div class="cell-01 hbb hrb hlb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][1][0]) }}
+                    </div>
+                    <div class="cell-02 hbb hrb hlb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][2][0]) }}
+                    </div>
+                    <div class="cell-03 hbb hlb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][3][0]) }}
+                    </div>
+                    <div class="cell-10 hbb htb hrb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][0][1]) }}
+                    </div>
+                    <div class="cell-11 hbb htb hrb hlb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][1][1]) }}
+                    </div>
+                    <div class="cell-12 hbb htb hrb hlb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][2][1]) }}
+                    </div>
+                    <div class="cell-13 hbb htb hlb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][3][1]) }}
+                    </div>
+                    <div class="cell-20 hbb htb hrb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][0][2]) }}
+                    </div>
+                    <div class="cell-21 hbb htb hrb hlb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][1][2]) }}
+                    </div>
+                    <div class="cell-22 hbb htb hrb hlb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][2][2]) }}
+                    </div>
+                    <div class="cell-23 hbb htb hlb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][3][2]) }}
+                    </div>
+                    <div class="cell-30 htb hrb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][0][3]) }}
+                    </div>
+                    <div class="cell-31 htb hrb hlb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][1][3]) }}
+                    </div>
+                    <div class="cell-32 htb hrb hlb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][2][3]) }}
+                    </div>
+                    <div class="cell-33 htb hlb"
+                      :class="vhCenter">
+                      {{ toHex(msg.blocks[0][3][3]) }}
+                    </div>
+                </div>
+              </div>
+            `,
+        },
+        {
+          title: '<h2 class="mb-3">AddRoundKey</h2>',
+          content: `
+            <p>
+              AddRoundKey simply consists of XORing the state matrix with entries in the
+              key schedule. The key schedule is not really something that deserves going
+              into detail over, as it is just an algorithm that uses some of the concepts
+              that were already explained. Below is Python code to generate the key
+              schedule, <code>w</code>:
+            </p>
+<div style="background: #000000; overflow:hidden;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em; text-align: left !important;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #cccccc">N_b</span> <span style="color: #3399cc">=</span> <span style="color: #cd00cd">4</span> <span style="color: #808080"># Number of columns (32-bit words comprising the state).</span>
+<span style="color: #808080"># N_b = 4 for AES128, AES192, and AES256</span>
+
+<span style="color: #808080"># The following 2 declarations are only true for AES128</span>
+<span style="color: #cccccc">N_k</span> <span style="color: #3399cc">=</span> <span style="color: #cd00cd">4</span>   <span style="color: #808080"># Number of 32-bit words comprising the key</span>
+<span style="color: #cccccc">N_r</span> <span style="color: #3399cc">=</span> <span style="color: #cd00cd">10</span>  <span style="color: #808080"># Number of rounds</span>
+
+<span style="color: #cccccc">Rcon</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">[]</span>
+<span style="color: #cdcd00">for</span> <span style="color: #cccccc">i</span> <span style="color: #cdcd00">in</span> <span style="color: #cd00cd">range</span><span style="color: #cccccc">(</span><span style="color: #cd00cd">10</span><span style="color: #cccccc">):</span>
+<span style="color: #cdcd00">if</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">==</span> <span style="color: #cd00cd">0</span><span style="color: #cccccc">:</span>
+<span style="color: #cccccc">rc</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append(</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">)</span>
+<span style="color: #cdcd00">elif</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">&gt;</span> <span style="color: #cd00cd">0</span> <span style="color: #cdcd00">and</span> <span style="color: #cccccc">rc[i</span><span style="color: #3399cc">-</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">]</span> <span style="color: #3399cc">&lt;</span> <span style="color: #cd00cd">0x80</span><span style="color: #cccccc">:</span>
+<span style="color: #cccccc">rc</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append(</span><span style="color: #cd00cd">2</span><span style="color: #3399cc">*</span><span style="color: #cccccc">rc[i</span><span style="color: #3399cc">-</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">])</span>
+<span style="color: #cdcd00">elif</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">&gt;</span> <span style="color: #cd00cd">0</span> <span style="color: #cdcd00">and</span> <span style="color: #cccccc">rc[i</span> <span style="color: #3399cc">-</span> <span style="color: #cd00cd">1</span><span style="color: #cccccc">]</span> <span style="color: #3399cc">&gt;=</span> <span style="color: #cd00cd">0x80</span><span style="color: #cccccc">:</span>
+<span style="color: #cccccc">rc</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append((</span><span style="color: #cd00cd">2</span><span style="color: #3399cc">*</span><span style="color: #cccccc">rc[i</span><span style="color: #3399cc">-</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">])</span> <span style="color: #3399cc">^</span> <span style="color: #cd00cd">0x1B</span><span style="color: #cccccc">)</span>
+
+<span style="color: #cccccc">w</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">[]</span>
+<span style="color: #cdcd00">for</span> <span style="color: #cccccc">i</span> <span style="color: #cdcd00">in</span> <span style="color: #cd00cd">range</span><span style="color: #cccccc">(</span><span style="color: #cd00cd">4</span><span style="color: #3399cc">*</span><span style="color: #cccccc">(N_r</span><span style="color: #3399cc">+</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">)):</span>
+<span style="color: #cdcd00">if</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">&lt;</span> <span style="color: #cccccc">N_k:</span>
+<span style="color: #cccccc">w</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append(key[</span><span style="color: #cd00cd">4</span><span style="color: #3399cc">*</span><span style="color: #cccccc">i:</span><span style="color: #cd00cd">4</span><span style="color: #3399cc">*</span><span style="color: #cccccc">(i</span><span style="color: #3399cc">+</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">)])</span>
+<span style="color: #cdcd00">elif</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">&gt;=</span> <span style="color: #cccccc">N_k</span> <span style="color: #cdcd00">and</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">%</span> <span style="color: #cccccc">N_k</span> <span style="color: #3399cc">==</span> <span style="color: #cd00cd">0</span><span style="color: #cccccc">:</span>
+<span style="color: #cccccc">temp_col</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">rot_word(w[i</span> <span style="color: #3399cc">-</span> <span style="color: #cd00cd">1</span><span style="color: #cccccc">],</span> <span style="color: #cd00cd">1</span><span style="color: #cccccc">)</span> <span style="color: #808080"># Circular left shift w[i-1] by 1 position</span>
+<span style="color: #cccccc">temp_col</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">[s_box[x]</span> <span style="color: #cdcd00">for</span> <span style="color: #cccccc">x</span> <span style="color: #cdcd00">in</span> <span style="color: #cccccc">temp_col]</span> <span style="color: #808080"># Then substitute the bytes</span>
+<span style="color: #cccccc">temp_col[</span><span style="color: #cd00cd">0</span><span style="color: #cccccc">]</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">temp_col[</span><span style="color: #cd00cd">0</span><span style="color: #cccccc">]</span> <span style="color: #3399cc">^</span> <span style="color: #cccccc">Rcon[(i</span> <span style="color: #3399cc">//</span> <span style="color: #cccccc">N_k)</span> <span style="color: #3399cc">-</span> <span style="color: #cd00cd">1</span><span style="color: #cccccc">]</span> <span style="color: #808080"># Then XOR first byte with round constant</span>
+
+<span style="color: #cccccc">w</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append(xor_col(w[i</span> <span style="color: #3399cc">-</span> <span style="color: #cccccc">N_k],</span> <span style="color: #cccccc">temp_col)</span>
+<span style="color: #cdcd00">elif</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">&gt;=</span> <span style="color: #cccccc">N_k</span> <span style="color: #cdcd00">and</span> <span style="color: #cccccc">N_k</span> <span style="color: #3399cc">&gt;</span> <span style="color: #cd00cd">6</span> <span style="color: #cdcd00">and</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">%</span> <span style="color: #cccccc">N_k</span> <span style="color: #3399cc">==</span> <span style="color: #cd00cd">4</span><span style="color: #cccccc">:</span>
+<span style="color: #cccccc">w</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append(xor_col(w[i</span> <span style="color: #3399cc">-</span> <span style="color: #cccccc">N_k],</span> <span style="color: #cccccc">[s_box[x]</span> <span style="color: #cdcd00">for</span> <span style="color: #cccccc">x</span> <span style="color: #cdcd00">in</span> <span style="color: #cccccc">w[i</span><span style="color: #3399cc">-</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">]]))</span>
+<span style="color: #cdcd00">else</span><span style="color: #cccccc">:</span>
+<span style="color: #cccccc">w</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append(xor_col(w[i</span> <span style="color: #3399cc">-</span> <span style="color: #cccccc">N_k],</span> <span style="color: #cccccc">w[i</span><span style="color: #3399cc">-</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">]))</span>
+
+<span style="color: #cdcd00">return</span> <span style="color: #cccccc">w</span>
+</pre></td></tr></table></div>
+
+
+            <p>
+              We only need to generate this key schedule once, and can use it throughout
+              the rest of the cipher. AddRoundKey simply consists of element-wise XORing
+              the state with 4 consecutive columns of the key schedule, shifting by 4
+              on each successive round. So for round <code>r</code>, <code>0 &lt; r &le;
+              N<sub>r</sub></code>, we XOR the state with <code>w[r*N_b,
+              (r+1)*N_b-1]</code>.
+            </p>
+            `,
+        },
+        {
+          title: '<h2 class="mb-3">SubBytes</h2>',
+          content: `
+            <p>
+              SubBytes has only 2 steps. For a number <code>n</code> with bits
+              <code>n<sub>0...7</sub></code>:
+              <ol>
+                <li>
+                  Invert <code>n</code> in GF(2<sup>8</sup>).
+                  <p>
+                    This is similar to inverting a number in &#8484;<sub>n</sub>. In
+                    &#8484;<sub>5</sub> for example, to invert <code>4</code>, we must
+                    find a number <code>x</code> such that <code>4*x &equiv; 1 mod
+                    5</code>. In this case, <code>4</code>'s inverse is itself because
+                    <code>4*4 &equiv; 16 &equiv; 1 mod 5</code>. We do the same thing in
+                    GF(2<sup>8</sup>). To find the inverse to a polynomial <code>
+                    p(x)</code>, we must find <code>q(x)</code> such that <code>p(x)•q(x)
+                    &equiv; 1 mod m(x)</code>, where <code>m(x) = x<sup>8</sup> +
+                    x<sup>4</sup> + x<sup>3</sup> + x + 1</code>, as described in the
+                    "Preliminaries" slide. We won't get into specifically how to find
+                    the inverse, but this is the general idea.
+                  </p>
+                </li>
+                <li>Apply the following affine transformation:</li>
+                <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf#page=20"
+                target="_blank">
+                  <img src="assets/aes/subbytes.png" class="img-fluid no-select"
+                  alt="affine-transformation">
+                </a>
+                <p>
+                  where <code>b<sub>0...7</sub> = (n<sup>-1</sup>)<sub>0...7</sub></code>.
+                  &nbsp;&nbsp; <code>b<sup>'</sup><sub style="position: relative; left:
+                  -.5em;">0...7</sub></code> will be the value to substitute
+                    <code>n</code> by.
+                </p>
+              </ol>
+            </p>
+          `,
+        },
+        {
+          title: '<h2 class="mb-3">ShiftRows</h2>',
+          content: `
+            <p>
+              To reiterate the "Summary" slide, ShiftRows is fairly straightforward. For
+              <code>0 &lt; i &lt; 4</code>, this step performs a circular left shift
+              of row <code>i</code> of the state matrix by <code>i</code> positions.
+              Here is a graphic from FIPS 197 to help visualize it:
+            </p>
+            <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf#page=21"
+            target="_blank">
+              <img src="assets/aes/shiftrows.png" class="img-fluid no-select"
+              alt="shift-rows">
+            </a>
+            `,
+        },
+        {
+          title: '<h2 class="mb-3">MixColumns</h2>',
+          content: `
+            <p>
+              MixColumns operates on the state matrix on a column-by-column basis. It
+              treats each column as a polynomial over GF(2<sup>8</sup>), and we multiply
+              them <code>modulo x<sup>4</sup>+1</code> by <code>3x<sup>3</sup> +
+              x<sup>2</sup> + x + 2</code>. Luckily, this transformation simplifies to
+              the something easier to comprehend -- for <code>0 &lt; c &lt; 4</code> we
+              perform the following transformation to column<sub>c</sub> of the state:
+            </p>
+            <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf#page=22"
+            target="_blank">
+              <img src="assets/aes/mixcolumns.png" class="img-fluid no-select"
+              alt="mix-columns">
+            </a>
+            <p>
+              The details as to why the simplification works would be too involved to go
+              over here,
+              but if you'd like to learn more, please click the image above to navigate
+              to the standard. The details are located in <b>Section 4.3</b>.
+            </p>
             `,
         },
       ],
