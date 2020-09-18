@@ -13,8 +13,8 @@
           >
             <vueper-slide
             style="overflow: auto;"
-              v-for="slide in slides"
-              :key="slide.id"
+              v-for="(slide,i) in slides"
+              :key="i"
               :title="slide.title"
               :content="slide.content"
             />
@@ -674,8 +674,7 @@ export default Vue.extend({
       },
       slides: [
         {
-          id: 'aes1',
-          title: '<h3 class="mb-3">What is AES?</h3>',
+          title: '<h2 class="mb-3">What is AES?</h2>',
           content: `
             <p>
               The <u>A</u>dvanced <u>E</u>ncryption <u>S</u>tandard is a block cipher
@@ -708,8 +707,7 @@ export default Vue.extend({
             `,
         },
         {
-          id: 'aes2',
-          title: '<h3 class="mb-3">What makes AES so secure?</h3>',
+          title: '<h2 class="mb-3">What makes AES so secure?</h2>',
           content: `
             <p>
               A <a href="https://en.wikipedia.org/wiki/Caesar_cipher" target="_blank">
@@ -759,6 +757,133 @@ export default Vue.extend({
               impossible. Keep the contents of this slide in mind when looking at the
               next one which describes a brief summary of the subroutines used in AES.
             </p>
+            `,
+        },
+        {
+          title: '<h2 class="mb-3">Summary</h2>',
+          content: `
+            <p>
+              All calculations are applied to the <b>state</b> in AES. At first we
+              will populate the state with the binary representation of our message. In
+              our case, each entry in the state matrix will become the hexadecimal ASCII
+              representation of each character entered. There are 4 major
+              transformations of the state as defined by the AES standard:
+            </p>
+            <dl class="dl-horizontal">
+              <dt>AddRoundKey</dt>
+              <dd>
+                AddRoundKey simply adds each element in the state matrix with its
+                corresponding element in the <b>key schedule</b>.
+              </dd>
+
+              <dt>SubBytes</dt>
+              <dd>
+                This step substitutes bytes of the state matrix with bytes of a
+                substitution table (commonly referred to as an <b>S-box</b>). It is
+                essentially a table that maps (more specifically, <b>affinely
+                transforms</b>) one byte to another (ex. <code>0xC6 -> 0xB4</code>).
+              </dd>
+
+              <dt>ShiftRows</dt>
+              <dd>
+                ShiftRows is fairly straightforward. For
+                <code>0 &lt; i &lt; 4</code>, this step performs a circular left shift
+                of row <code>i</code> of the state matrix by <code>i</code> positions.
+              </dd>
+
+              <dt>MixColumns</dt>
+              <dd>
+                MixColumns is arguably the most complex step in AES. It treats
+                each column of the state as a polynomial over a <b>Galois Field of order
+                256 modulo x<sup>4</sup> + 1</b> and multiplies each one by another
+                polynomial.
+              </dd>
+            </dl>
+            <p>
+              Each step will be explained in further detail in upcoming slides.
+            </p>
+            `,
+        },
+        {
+          title: '<h2 class="mb-3">Preliminaries:</h2>',
+          content: `
+            <p>
+              Most calculations in AES occur in <code>GF(2<sup>8</sup>) /
+              (x<sup>8</sup> + x<sup>4</sup> + x<sup>3</sup> + x + 1)</code>.
+              It would take a fair bit of time to explain everything about Galois
+              Fields, but we will go over what is needed for the algorithm.
+            </p>
+            <dl class="dl-horizontal">
+              <dt>Representation</dt>
+              <dd>
+                We treat each byte like a polynomial in the above Galois Field. For
+                example, <code>C6<sub>16</sub> = 11000110<sub>2</sub></code> represents
+                <br><code> 1*x<sup>7</sup> + 1*x<sup>6</sup> + 0*x<sup>5</sup> +
+                0*x<sup>4</sup> + 0*x<sup>3</sup> + 1*x<sup>2</sup> + 1*x + 0*1</code> =
+                <code>x<sup>7</sup> + x<sup>6 </sup> + x<sup>2</sup> + x</code>
+              </dd>
+              <dt>Addition (<code>&#8853;</code>)</dt>
+              <dd>
+                You may have seen this symbol before. It is commonly used for the XOR
+                (e<u>x</u>clusive <u>or</u>) operator in Boolean logic. In
+                GF(2<sup>8</sup>), adding is equivalent to XORing. XORing 2 bits,
+                <code>b<sub>1</sub></code> and <code>b<sub>2</sub></code> produces
+                <code>1</code> <u>only if either</u> <code>b<sub>1</sub></code>
+                &nbsp;<u>or</u> <code>b<sub>2</sub></code> are <code>1</code>.
+                Otherwise, the result is <code>0</code>. So,
+                <br>
+                0 &#8853; 0 = 0
+                <br>
+                0 &#8853; 1 = 1
+                <br>
+                1 &#8853; 0 = 1
+                <br>
+                1 &#8853; 1 = 0
+                <br>
+                <a href="https://en.wikipedia.org/wiki/Exclusive_or" target="_blank">Click here</a>
+                to learn more about the XOR operator.
+                <br>
+                When we talk about addition for our computations, we are referring to
+                bitwise XOR, which means you just XOR the corresponding bits in each
+                position of the input bitstrings. For example,
+                <br>
+                10001011
+                <br>
+                &#8853;
+                <br>
+                11101001
+                <br>
+                -----------
+                <br>
+                01100010
+              </dd>
+              <dt>Multiplication (<code>•</code>)</dt>
+              <dd>
+                Multiplication modulo a polynomial is similar to multiplication in
+                &#8484;<code><sub>n</sub></code>. In essence, we can just calculate the
+                result in &#8484;,
+                and then take the remainder modulo <code>n</code>.
+                To calculate
+                4*3 in &#8484;<sub><code>5</code></sub> for example, we would get 12,
+                then reduce
+                that modulo <code>5</code>, which is 2. The numbers 12 and 2 are the
+                essentially the same thing in &#8484;<sub>5</sub>, but in
+                our case,
+                we want the smallest nonnegative remainder (called the <b>least residue
+                modulo n</b>). The reason we want this is because if the results of one
+                of our
+                multiplications ended up having an x<sup>9</sup> term in it, then its
+                binary representation would become 9 bits long. However, we would like
+                to keep our results within 8 bits so that they can be stored as a
+                single byte when being computed.
+                The same goes for the
+                above Galois Field. If we took 2 polynomials (which we represent as 2
+                binary numbers) and multiplied them, we would do normal polynomial
+                multiplication, but would then have to do polynomial division (in our
+                case, by <code>x<sup>8</sup> + x<sup>4</sup> + x<sup>3</sup> + x + 1
+                </code>) to get an element in the field.
+              </dd>
+            </dl>
             `,
         },
       ],
