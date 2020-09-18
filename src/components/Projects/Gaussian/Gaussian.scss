@@ -1,5 +1,8 @@
 @import "../../../variables";
 
+@import url('../../../../node_modules/reveal.js/dist/reveal.css');
+@import url('../../../../node_modules/reveal.js/dist/theme/black.css');
+
 .gaussian-container {
   background-color: $main-background-color;
   color: white;
@@ -62,7 +65,7 @@ canvas {
 }
 
 .fit-carousel-img {
-  height: 330px;
+  max-height: 100%;
   width: auto;
 }
 
