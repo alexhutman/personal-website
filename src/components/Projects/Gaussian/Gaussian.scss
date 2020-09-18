@@ -1,9 +1,5 @@
 @import '../../../variables';
-
-.gaussian-container {
-  background-color: $main-background-color;
-  color: white;
-}
+@import '../../../../node_modules/vueperslides/dist/vueperslides.css';
 
 .explanation {
   background: #737373;
@@ -49,37 +45,13 @@ canvas {
     border-radius: 5px;
 
     &::-webkit-slider-thumb {
-      background: red;
+      background: $secondary-accent-color;
     }
   }
 }
 
-.carousel-caption {
-  position: relative;
-  left: auto;
-  right: auto;
-}
-
-.fit-carousel-img {
-  height: 330px;
-  width: auto;
-}
-
-.carousel-text {
-  padding-top: 10px;
-}
-
-.vertical-center {
-  // From https://stackoverflow.com/a/22196760/6708303
-  min-height: 100%; /* Fallback for browsers do NOT support vh unit */
-  // min-height: 100vh; /* These two lines are counted as one :-)       */
-
-  display: flex;
-  align-items: center;
-}
-
 @media (max-width: 767px) {
   .explanation {
-    height: 100vh !important;
+    height: 75vh !important;
   }
 }
