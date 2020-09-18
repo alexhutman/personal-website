@@ -1,8 +1,26 @@
 @import "../../../variables";
+@import '../../../../node_modules/vueperslides/dist/vueperslides.css';
 
 $border-color: white;
 $border-stroke: 1px;
 $outside-border-stroke: 2*$border-stroke;
+
+.vueperslide__content-wrapper.parallax-fixed-content,
+.vueperslide__content-wrapper:not(.vueperslide__content-wrapper--outside-top):not(.vueperslide__content-wrapper--outside-bottom) {
+  display: block;
+}
+
+ol::before {color: red}
+ol {
+  /*
+  // For some reason, this is not getting set unless I do it in the style attribute of the element itself.
+  // Unless I'm missing something, I don't think it's possible to style elements in a Vueper Slide other
+  // than in their own style attributes.
+
+  display: inline-block !important;
+  text-align: left !important;
+  */
+}
 
 .aes-container {
   background-color: $main-background-color;

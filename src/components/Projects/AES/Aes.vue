@@ -1,8 +1,25 @@
-<template>
+<!-- eslint-disable max-len --><template>
   <header-page :page-title="title">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="explanation col-md-12 text-center vertical-center">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="explanation col-12">
+          <vueper-slides
+          style="height: 75vh !important;"
+            :arrows="false"
+            :dragging-distance="70"
+            class="no-shadow"
+            fixed-height="100%"
+            :gap="100"
+          >
+            <vueper-slide
+            style="overflow: auto;"
+              v-for="slide in slides"
+              :key="slide.id"
+              :title="slide.title"
+              :content="slide.content"
+            />
+          </vueper-slides>
+          <!--
             <div class="container-fluid">
               <div id="aesCarousel" class="carousel slide" data-ride="carousel"
                 data-interval="false">
@@ -19,7 +36,6 @@
                   <li data-target="#aesCarousel" data-slide-to="8" @click="curSlide = 8"></li>
                 </ol>
                 <div class="carousel-inner">
-                <!-- <div class="carousel-inner" style="height: 500px !important;"> -->
                   <div id="slide-0" class="carousel-item active">
                     <div class="carousel-caption">
                       <h5>What is AES?</h5>
@@ -55,7 +71,6 @@
                   </div>
                   <div id="slide-1" class="carousel-item">
                     <div class="carousel-caption">
-                      <!-- <h5>Second slide label</h5> -->
                       <div class="carousel-text">
                         <h3>What makes AES so secure?</h3>
                         <p>
@@ -111,7 +126,6 @@
                   </div>
                   <div id="slide-2" class="carousel-item">
                     <div class="carousel-caption">
-                      <!-- <h5>Second slide label</h5> -->
                       <div class="carousel-text">
                       <h3>Summary</h3>
                         <p>
@@ -159,7 +173,6 @@
                   </div>
                   <div id="slide-3" class="carousel-item">
                     <div class="carousel-caption">
-                      <!-- <h5>Third slide label</h5> -->
                       <div class="carousel-text">
                         <h3>Preliminaries:</h3>
                         <p>
@@ -379,8 +392,7 @@
                         into detail over, as it is just an algorithm that uses some of the concepts
                         that were already explained. Below is Python code to generate the key
                         schedule, <code>w</code>:
-<!-- eslint-disable max-len -->
-<!-- HTML generated using hilite.me --><div style="background: #000000; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em; text-align: left !important;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+<div style="background: #000000; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em; text-align: left !important;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
  2
  3
  4
@@ -537,8 +549,9 @@
                 </div>
               </div>
             </div>
-          </div>
-              <!-- <div class="row key">
+            -->
+        </div>
+        <!-- <div class="row key">
                 <div class="col text-center">
                   <h3>Key:</h3>
                     <div class="state-grid">
@@ -593,14 +606,17 @@
                     </div>
                 </div>
               </div> -->
-
-        </div>
       </div>
+    </div>
   </header-page>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+
+// @ts-ignore
+import { VueperSlides, VueperSlide } from 'vueperslides';
+
 import AES from './AES';
 
 import HeaderPage from '../../HeaderPage/HeaderPage.vue';
@@ -627,17 +643,14 @@ const origMsg = [
 //   0xc, 0xd, 0xe, 0xf,
 // ];
 
-const origKey = [
-  0x0, 0x0, 0x0, 0x0,
-  0x0, 0x0, 0x0, 0x0,
-  0x0, 0x0, 0x0, 0x0,
-  0x0, 0x0, 0x0, 0x0,
-];
+const origKey = [0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0];
 
 export default Vue.extend({
   name: 'AES',
   components: {
     HeaderPage,
+    VueperSlides,
+    VueperSlide,
   },
   data() {
     return {
@@ -648,24 +661,111 @@ export default Vue.extend({
       msg: {
         text: '',
         isInvalid: false,
-        blocks: [
-          origMsg,
-        ],
+        blocks: [origMsg],
       },
       key: {
         text: '',
         isInvalid: false,
-        intArr: origKey
-        ,
+        intArr: origKey,
       },
       vhCenter: {
         'vertical-center': true,
         'justify-content-center': true,
       },
+      slides: [
+        {
+          id: 'aes1',
+          title: '<h3 class="mb-3">What is AES?</h3>',
+          content: `
+            <p>
+              The <u>A</u>dvanced <u>E</u>ncryption <u>S</u>tandard is a block cipher
+              used to encrypt data with a given key. A <b>cipher
+              </b> is just an algorithm used for encrypting or decrypting data. A <b>block
+              cipher</b> is a cipher that splits the plaintext up into <b>blocks</b> of
+              data, and operates on these blocks to turn the plaintext into ciphertext, as
+              opposed to <b>stream ciphers</b>, which encrypt one bit or byte of plaintext
+              at a time to produce the ciphertext. <br><br>
+              Before AES, the United States was using <b>DES</b>, the Data Encryption
+              Standard, for protecting sensitive government data. When it was developed,
+              DES was adequate for its purpose, but as
+              time went on, weaknesses in DES were being discovered and faster hardware
+              was making attacks even easier. This was sort of jury-rigged by applying DES
+              3 times, spawning an algorithm suitably called Triple DES. Triple DES was
+              better, but a new, more secure encryption standard was definitely needed.
+              In 1997, the U.S. National Institute of Standards and Technology called
+              upon anyone and everyone to submit proposals for the new standard. <br><br>
+              There were a few heavyweight contenders but <b>Rijndael</b>, created by
+              Belgian cryptographers Vincent Rijmen and Joan Daemen, ended up becoming
+              the victor. The NIST chose a subset of the proposed Rijndael specification
+              to become AES: each block is 128 bits long and keys
+              can have lengths of 128, 192, or 256 bits. We will demonstrate AES128 to
+              get the general idea, but the 192 and 256 bit key versions are very similar.
+              Each ASCII character is 8 bits long, so for the purpose of the
+              demonstration, we will only work with 1 message block which
+              is comprised of 16 ASCII characters <code>(8 bits/character * 16 characters
+              = 128 bits)</code>. The same is true for the key.
+            </p>
+            `,
+        },
+        {
+          id: 'aes2',
+          title: '<h3 class="mb-3">What makes AES so secure?</h3>',
+          content: `
+            <p>
+              A <a href="https://en.wikipedia.org/wiki/Caesar_cipher" target="_blank">
+              Caesar Cipher</a> is a cipher that just shifts letters in the alphabet by
+              a fixed number of positions.
+              For example, a valid Caesar Cipher would be mapping each letter to the
+              next one, so A -> B, B -> C, etc. -- "Hello" would become "Ifmmp" in this
+              example. This is known as a <b>substitution cipher</b>. This cipher is
+              very weak for a couple of reasons.
+              <ol class="lol" style="display: inline-block; text-align: left;" >
+                <li>
+                  It can be brute forced easily. Since there are only 25 possible
+                  values to shift by, we can simply try all of them, taking very little
+                  time, and then check each one.
+                </li>
+                <li>
+                  Even without brute forcing, we can use other techniques to help us.
+                  In the above example, notice how there were 2 consecutive Ms.
+                  There are not that many cases (in English at least) where 2
+                  consecutive letters occur, so this can give us a great deal of
+                  information while trying to decode the ciphertext. We can use
+                  this and other techniques of frequency analysis to crack the Caesar
+                  Cipher very easily.
+                </li>
+              </ol>
+              Substitution ciphers by themselves are not very secure. Some get a bit
+              more complex, but can still be cracked with not very much effort. AES
+              solves this by using a <b>substitution-permutation (SP) network</b>. SP
+              networks work by taking the plaintext, substituting blocks of it with
+              other predefined blocks, permuting them, that is, shifting them around
+              in a "random" fashion, and then adding a round key, which is just a mini
+              key that is derived from the original given key.
+              We do all of these steps multiple times and we call each set of 1.)
+              performing the substitution, 2.) permutation, then 3.) round key addition
+              a <b>round</b>. Adding the round key is the most important part of SP
+              networks. Without adding the round key,
+              someone would just be able to look at the implementation details of the
+              cipher and just reverse the substitutions and permutations. However by
+              adding the round key, we make it so that neither the plaintext nor the
+              key are recoverable. <br> Now, there have been some attacks on AES, but
+              they are not dependent on the algorithm itself, rather, its
+              implementation. These are known as <b>side channel attacks</b>. For
+              example, if not implemented correctly, it is possible to look at the heat
+              signatures of CPUs to gain information about the code being executed.
+              Most CPUs nowadays have AES instructions baked into their instruction
+              sets, making computations incredibly fast, and attacks virtually
+              impossible. Keep the contents of this slide in mind when looking at the
+              next one which describes a brief summary of the subroutines used in AES.
+            </p>
+            `,
+        },
+      ],
     };
   },
   mounted() {
-    this.numSlides = document.getElementsByClassName('carousel-item').length;
+    // this.numSlides = document.getElementsByClassName('carousel-item').length;
     // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
   },
   methods: {
@@ -683,7 +783,7 @@ export default Vue.extend({
     onMsgChange(): void {
       this.msg.isInvalid = !(this.isASCII(this.msg.text) && this.isInputLengthValid(this.msg.text));
 
-      if (this.msg.isInvalid || (!this.msg.text)) {
+      if (this.msg.isInvalid || !this.msg.text) {
         this.populateState(0, origMsg);
 
         // TODO: reset the key to the original value too
@@ -692,10 +792,10 @@ export default Vue.extend({
         // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
     },
-    onKeyChange():void {
+    onKeyChange(): void {
       this.key.isInvalid = !(this.isASCII(this.key.text) && this.key.text.length === 16);
 
-      if (this.key.isInvalid || (!this.key.text)) {
+      if (this.key.isInvalid || !this.key.text) {
         this.populateState(0, origMsg);
 
         this.key.intArr = origKey;
@@ -707,13 +807,13 @@ export default Vue.extend({
       }
     },
     onTrySlide(): boolean {
-      return (this.curSlide === 4);
+      return this.curSlide === 4;
     },
     toHex(n: number): string {
       return n.toString(16).toUpperCase();
     },
     isASCII(str: string): boolean {
-      return (/^[\x20-\x7E]*$/).test(str);
+      return /^[\x20-\x7E]*$/.test(str);
     },
     isInputLengthValid(msg: string): boolean {
       return msg.length <= 16;
@@ -728,7 +828,7 @@ export default Vue.extend({
         toInts.push(txt.charCodeAt(i));
       }
 
-      for (let i = 0; i < (16 - txt.length); i += 1) {
+      for (let i = 0; i < 16 - txt.length; i += 1) {
         toInts.push(0);
       }
 
@@ -745,9 +845,9 @@ export default Vue.extend({
     arrToMatrix(arr: number[]): number[][] {
       const matrixRowLen = 4;
 
-      if (arr.length === (matrixRowLen * matrixRowLen)) {
+      if (arr.length === matrixRowLen * matrixRowLen) {
         const matrix: number[][] = [];
-        for (let i = 0; i < (arr.length / matrixRowLen); i += 1) {
+        for (let i = 0; i < arr.length / matrixRowLen; i += 1) {
           matrix.push(arr.slice(i * matrixRowLen, (i + 1) * matrixRowLen));
         }
         return matrix;
@@ -760,5 +860,4 @@ export default Vue.extend({
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped src="./Aes.scss" lang="scss">
-</style>
+<style scoped src="./Aes.scss" lang="scss"></style>
