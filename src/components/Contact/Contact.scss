@@ -4,6 +4,7 @@
     background-color: $main-background-color;
     color: white;
     overflow-y: auto;
+    width: 75%;
 }
 
 .text-container {
@@ -11,20 +12,39 @@
 }
 
 .contact-text {
-  width: 75%;
-}
+  width: 100%;
 
-.contact-link {
   a {
     text-decoration: none !important;
     color: white;
   }
+}
 
+.contact-title {
+  font-family: $logo-font;
+  padding-left: 5px;
+  font-size: 1.5vmax;
+}
+
+.icon {
+  width: 10%;
+  height: auto;
+}
+
+.black-icon {
+  filter: brightness(0%);
+}
+
+.pretentious {
+  color: $accent-color;
+}
+
+.contact-link {
   &:hover {
-    //.icon {
-    * {
-      color: $accent-color !important;
-    }
+    background-color: $secondary-background-color;
+    // * {
+    //   color: $accent-color !important;
+    // }
   }
 }
 

@@ -13,7 +13,14 @@
               <hr />
               <div class="card-body">
                 <h4 class="card-title">AES</h4>
-                <p class="card-text">This is the description for AES xd</p>
+                <hr class="mb-1"/>
+                <p class="card-text">
+                  Every time you go on a website with the little green padlock in the corner, it is
+                  likely that your browser is using AES to secure your data. This interactive
+                  project will teach you how each of the steps of AES works, as well as some of the
+                  intuition behind the intermediary steps. As much math is explained as possible,
+                  but links with further information are also provided.
+                  </p>
                 <button class="btn btn-outline-secondary">
                   <router-link to="/projects/aes">See Project</router-link>
                 </button>
@@ -34,7 +41,15 @@
               <hr />
               <div class="card-body">
                 <h4 class="card-title">Gaussian</h4>
-                <p class="card-text">This is the description for Gaussian xd</p>
+                <hr class="mb-1"/>
+                <p class="card-text">
+                  Have you ever wondered exactly how programs like Photoshop blur your images?
+                  This interactive project explains how Gaussian blurs are performed, and in the
+                  near future, will allow
+                  users to submit their own images to perform the blur on. There is
+                  not as much math required as in AES, so this is a great project to show students
+                  in order to demonstrate a real-world application of mathematics.
+                  </p>
                 <button class="btn btn-outline-secondary">
                   <router-link to="/projects/gaussian">See Project</router-link>
                 </button>
