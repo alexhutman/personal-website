@@ -4,7 +4,7 @@
       <div class="row">
         <div class="explanation col-12">
           <vueper-slides
-          style="height: 75vh !important;"
+            style="height: 75vh !important;"
             :arrows="false"
             :dragging-distance="70"
             class="no-shadow"
@@ -12,12 +12,71 @@
             :gap="100"
           >
             <vueper-slide
-            style="overflow: auto;"
-              v-for="(slide,i) in slides"
+              style="overflow: auto;"
+              v-for="(slide, i) in slides"
               :key="i"
               :title="slide.title"
               :content="slide.content"
             />
+            <vueper-slide>
+              <template v-slot:content>
+                <div class="vueperslide__content-wrapper">
+                  <div class="vueperslide__title"></div>
+                  <div class="state justify-content-center">
+                    <div class="state-grid">
+                      <div class="cell-00 hbb hrb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][0][0]) }}
+                      </div>
+                      <div class="cell-01 hbb hrb hlb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][1][0]) }}
+                      </div>
+                      <div class="cell-02 hbb hrb hlb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][2][0]) }}
+                      </div>
+                      <div class="cell-03 hbb hlb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][3][0]) }}
+                      </div>
+                      <div class="cell-10 hbb htb hrb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][0][1]) }}
+                      </div>
+                      <div class="cell-11 hbb htb hrb hlb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][1][1]) }}
+                      </div>
+                      <div class="cell-12 hbb htb hrb hlb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][2][1]) }}
+                      </div>
+                      <div class="cell-13 hbb htb hlb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][3][1]) }}
+                      </div>
+                      <div class="cell-20 hbb htb hrb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][0][2]) }}
+                      </div>
+                      <div class="cell-21 hbb htb hrb hlb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][1][2]) }}
+                      </div>
+                      <div class="cell-22 hbb htb hrb hlb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][2][2]) }}
+                      </div>
+                      <div class="cell-23 hbb htb hlb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][3][2]) }}
+                      </div>
+                      <div class="cell-30 htb hrb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][0][3]) }}
+                      </div>
+                      <div class="cell-31 htb hrb hlb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][1][3]) }}
+                      </div>
+                      <div class="cell-32 htb hrb hlb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][2][3]) }}
+                      </div>
+                      <div class="cell-33 htb hlb" :class="vhCenter">
+                        {{ toHex(msg.blocks[0][3][3]) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </vueper-slide>
           </vueper-slides>
           <!--
             <div class="container-fluid">
