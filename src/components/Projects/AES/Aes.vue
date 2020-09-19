@@ -1020,10 +1020,10 @@ export default Vue.extend({
               AddRoundKey simply consists of XORing the state matrix with entries in the
               key schedule. The key schedule is not really something that deserves going
               into detail over, as it is just an algorithm that uses some of the concepts
-              that were already explained. Below is Python code to generate the key
-              schedule, <code>w</code>:
+              that were already explained. Below is Python code to generate the entire key
+              schedule for all rounds, <code>w</code>.
             </p>
-<div style="background: #000000; overflow:hidden;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em; text-align: left !important;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+<!-- HTML generated using hilite.me --><div style="background: #272822; text-align: left !important;overflow:auto !important;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="color: #a1a1a1;margin: 0;margin-right: 5px; line-height: 125%">1
 2
 3
 4
@@ -1054,55 +1054,59 @@ export default Vue.extend({
 29
 30
 31
-32</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #808080"># Number of columns (32-bit words comprising the state).</span>
-<span style="color: #808080"># N_b = 4 for AES128, AES192, and AES256</span>
-<span style="color: #cccccc">N_b</span> <span style="color: #3399cc">=</span> <span style="color: #cd00cd">4</span>
+32
+33
+34
+35
+36
+37
+38</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #75715e"># Number of columns (32-bit words comprising the state).</span>
+<span style="color: #75715e"># N_b = 4 for AES128, AES192, and AES256</span>
+<span style="color: #f8f8f2">N_b</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">4</span>
 
-<span style="color: #808080"># The following 2 declarations are only true for AES128</span>
-<span style="color: #cccccc">N_k</span> <span style="color: #3399cc">=</span> <span style="color: #cd00cd">4</span>   <span style="color: #808080"># Number of 32-bit words comprising the key</span>
-<span style="color: #cccccc">N_r</span> <span style="color: #3399cc">=</span> <span style="color: #cd00cd">10</span>  <span style="color: #808080"># Number of rounds</span>
+<span style="color: #75715e"># The following 2 declarations are only true for AES128</span>
+<span style="color: #f8f8f2">N_k</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">4</span>   <span style="color: #75715e"># Number of 32-bit words comprising the key</span>
+<span style="color: #f8f8f2">N_r</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">10</span>  <span style="color: #75715e"># Number of rounds</span>
 
-<span style="color: #cccccc">Rcon</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">[]</span>
-<span style="color: #cdcd00">for</span> <span style="color: #cccccc">i</span> <span style="color: #cdcd00">in</span> <span style="color: #cd00cd">range</span><span style="color: #cccccc">(</span><span style="color: #cd00cd">10</span><span style="color: #cccccc">):</span>
-<span style="color: #cdcd00">if</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">==</span> <span style="color: #cd00cd">0</span><span style="color: #cccccc">:</span>
-<span style="color: #cccccc">rc</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append(</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">)</span>
-<span style="color: #cdcd00">elif</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">&gt;</span> <span style="color: #cd00cd">0</span> <span style="color: #cdcd00">and</span> <span style="color: #cccccc">rc[i</span><span style="color: #3399cc">-</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">]</span> <span style="color: #3399cc">&lt;</span> <span style="color: #cd00cd">0x80</span><span style="color: #cccccc">:</span>
-<span style="color: #cccccc">rc</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append(</span><span style="color: #cd00cd">2</span><span style="color: #3399cc">*</span><span style="color: #cccccc">rc[i</span><span style="color: #3399cc">-</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">])</span>
-<span style="color: #cdcd00">elif</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">&gt;</span> <span style="color: #cd00cd">0</span> <span style="color: #cdcd00">and</span> <span style="color: #cccccc">rc[i</span> <span style="color: #3399cc">-</span> <span style="color: #cd00cd">1</span><span style="color: #cccccc">]</span> <span style="color: #3399cc">&gt;=</span> <span style="color: #cd00cd">0x80</span><span style="color: #cccccc">:</span>
-<span style="color: #cccccc">rc</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append((</span><span style="color: #cd00cd">2</span><span style="color: #3399cc">*</span><span style="color: #cccccc">rc[i</span><span style="color: #3399cc">-</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">])</span> <span style="color: #3399cc">^</span> <span style="color: #cd00cd">0x1B</span><span style="color: #cccccc">)</span>
+<span style="color: #f8f8f2">Rcon</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">[]</span>
+<span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">i</span> <span style="color: #f92672">in</span> <span style="color: #f8f8f2">range(</span><span style="color: #ae81ff">10</span><span style="color: #f8f8f2">):</span>
+<span style="color: #66d9ef">&nbsp;&nbsp;if</span> <span style="color: #f8f8f2">i</span> <span style="color: #f92672">==</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">:</span>
+<span style="color: #f8f8f2">&nbsp;&nbsp;&nbsp;&nbsp;rc</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">append(</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">)</span>
+<span style="color: #66d9ef">&nbsp;&nbsp;elif</span> <span style="color: #f8f8f2">i</span> <span style="color: #f92672">&gt;</span> <span style="color: #ae81ff">0</span> <span style="color: #f92672">and</span> <span style="color: #f8f8f2">rc[i</span><span style="color: #f92672">-</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">]</span> <span style="color: #f92672">&lt;</span> <span style="color: #ae81ff">0x80</span><span style="color: #f8f8f2">:</span>
+<span style="color: #f8f8f2">&nbsp;&nbsp;&nbsp;&nbsp;rc</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">append(</span><span style="color: #ae81ff">2</span><span style="color: #f92672">*</span><span style="color: #f8f8f2">rc[i</span><span style="color: #f92672">-</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">])</span>
+<span style="color: #66d9ef">&nbsp;&nbsp;elif</span> <span style="color: #f8f8f2">i</span> <span style="color: #f92672">&gt;</span> <span style="color: #ae81ff">0</span> <span style="color: #f92672">and</span> <span style="color: #f8f8f2">rc[i</span> <span style="color: #f92672">-</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">]</span> <span style="color: #f92672">&gt;=</span> <span style="color: #ae81ff">0x80</span><span style="color: #f8f8f2">:</span>
+<span style="color: #f8f8f2">&nbsp;&nbsp;&nbsp;&nbsp;rc</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">append((</span><span style="color: #ae81ff">2</span><span style="color: #f92672">*</span><span style="color: #f8f8f2">rc[i</span><span style="color: #f92672">-</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">])</span> <span style="color: #f92672">^</span> <span style="color: #ae81ff">0x1B</span><span style="color: #f8f8f2">)</span>
 
-<span style="color: #cccccc">w</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">[]</span>
-<span style="color: #cdcd00">for</span> <span style="color: #cccccc">i</span> <span style="color: #cdcd00">in</span> <span style="color: #cd00cd">range</span><span style="color: #cccccc">(</span><span style="color: #cd00cd">4</span><span style="color: #3399cc">*</span><span style="color: #cccccc">(N_r</span><span style="color: #3399cc">+</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">)):</span>
-<span style="color: #cdcd00">if</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">&lt;</span> <span style="color: #cccccc">N_k:</span>
-<span style="color: #cccccc">w</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append(key[</span><span style="color: #cd00cd">4</span><span style="color: #3399cc">*</span><span style="color: #cccccc">i:</span><span style="color: #cd00cd">4</span><span style="color: #3399cc">*</span><span style="color: #cccccc">(i</span><span style="color: #3399cc">+</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">)])</span>
-<span style="color: #cdcd00">elif</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">&gt;=</span> <span style="color: #cccccc">N_k</span> <span style="color: #cdcd00">and</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">%</span> <span style="color: #cccccc">N_k</span> <span style="color: #3399cc">==</span> <span style="color: #cd00cd">0</span><span style="color: #cccccc">:</span>
+<span style="color: #f8f8f2">w</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">[]</span>
+<span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">i</span> <span style="color: #f92672">in</span> <span style="color: #f8f8f2">range(</span><span style="color: #ae81ff">4</span><span style="color: #f92672">*</span><span style="color: #f8f8f2">(N_r</span><span style="color: #f92672">+</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">)):</span>
+<span style="color: #66d9ef">&nbsp;&nbsp;if</span> <span style="color: #f8f8f2">i</span> <span style="color: #f92672">&lt;</span> <span style="color: #f8f8f2">N_k:</span>
+<span style="color: #f8f8f2">&nbsp;&nbsp;&nbsp;&nbsp;w</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">append(key[</span><span style="color: #ae81ff">4</span><span style="color: #f92672">*</span><span style="color: #f8f8f2">i:</span><span style="color: #ae81ff">4</span><span style="color: #f92672">*</span><span style="color: #f8f8f2">(i</span><span style="color: #f92672">+</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">)])</span>
+<span style="color: #66d9ef">&nbsp;&nbsp;elif</span> <span style="color: #f8f8f2">i</span> <span style="color: #f92672">&gt;=</span> <span style="color: #f8f8f2">N_k</span> <span style="color: #f92672">and</span> <span style="color: #f8f8f2">i</span> <span style="color: #f92672">%</span> <span style="color: #f8f8f2">N_k</span> <span style="color: #f92672">==</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">:</span>
+<span style="color: #75715e">&nbsp;&nbsp;&nbsp;&nbsp;# Circular left shift w[i-1] by 1 position</span>
+<span style="color: #f8f8f2">&nbsp;&nbsp;&nbsp;&nbsp;temp_col</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">rot_word(w[i</span> <span style="color: #f92672">-</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">],</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">)</span>
 
-<span style="color: #808080"># Circular left shift w[i-1] by 1 position</span>
-<span style="color: #cccccc">temp_col</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">rot_word(w[i</span> <span style="color: #3399cc">-</span> <span style="color: #cd00cd">1</span><span style="color: #cccccc">],</span> <span style="color: #cd00cd">1</span><span style="color: #cccccc">)</span>
+<span style="color: #75715e">&nbsp;&nbsp;&nbsp;&nbsp;# Then substitute the bytes</span>
+<span style="color: #f8f8f2">&nbsp;&nbsp;&nbsp;&nbsp;temp_col</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">[s_box[x]</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">x</span> <span style="color: #f92672">in</span> <span style="color: #f8f8f2">temp_col]</span>
 
-<span style="color: #808080"># Then substitute the bytes</span>
-<span style="color: #cccccc">temp_col</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">[s_box[x]</span> <span style="color: #cdcd00">for</span> <span style="color: #cccccc">x</span> <span style="color: #cdcd00">in</span> <span style="color: #cccccc">temp_col]</span>
+<span style="color: #75715e">&nbsp;&nbsp;&nbsp;&nbsp;# Then XOR first byte with round constant</span>
+<span style="color: #f8f8f2">&nbsp;&nbsp;&nbsp;&nbsp;temp_col[</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">]</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">temp_col[</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">]</span> <span style="color: #f92672">^</span> <span style="color: #f8f8f2">Rcon[(i</span> <span style="color: #f92672">//</span> <span style="color: #f8f8f2">N_k)</span> <span style="color: #f92672">-</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">]</span>
 
-<span style="color: #808080"># Then XOR first byte with round constant</span>
-<span style="color: #cccccc">temp_col[</span><span style="color: #cd00cd">0</span><span style="color: #cccccc">]</span> <span style="color: #3399cc">=</span> <span style="color: #cccccc">temp_col[</span><span style="color: #cd00cd">0</span><span style="color: #cccccc">]</span> <span style="color: #3399cc">^</span> <span style="color: #cccccc">Rcon[(i</span> <span style="color: #3399cc">//</span> <span style="color: #cccccc">N_k)</span> <span style="color: #3399cc">-</span> <span style="color: #cd00cd">1</span><span style="color: #cccccc">]</span>
+<span style="color: #f8f8f2">&nbsp;&nbsp;&nbsp;&nbsp;w</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">append(xor_col(w[i</span> <span style="color: #f92672">-</span> <span style="color: #f8f8f2">N_k],</span> <span style="color: #f8f8f2">temp_col)</span>
+<span style="color: #66d9ef">&nbsp;&nbsp;elif</span> <span style="color: #f8f8f2">i</span> <span style="color: #f92672">&gt;=</span> <span style="color: #f8f8f2">N_k</span> <span style="color: #f92672">and</span> <span style="color: #f8f8f2">N_k</span> <span style="color: #f92672">&gt;</span> <span style="color: #ae81ff">6</span> <span style="color: #f92672">and</span> <span style="color: #f8f8f2">i</span> <span style="color: #f92672">%</span> <span style="color: #f8f8f2">N_k</span> <span style="color: #f92672">==</span> <span style="color: #ae81ff">4</span><span style="color: #f8f8f2">:</span>
+<span style="color: #f8f8f2">&nbsp;&nbsp;&nbsp;&nbsp;w</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">append(xor_col(w[i</span> <span style="color: #f92672">-</span> <span style="color: #f8f8f2">N_k],</span> <span style="color: #f8f8f2">[s_box[x]</span> <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">x</span> <span style="color: #f92672">in</span> <span style="color: #f8f8f2">w[i</span><span style="color: #f92672">-</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">]]))</span>
+<span style="color: #66d9ef">&nbsp;&nbsp;else</span><span style="color: #f8f8f2">:</span>
+<span style="color: #f8f8f2">&nbsp;&nbsp;&nbsp;&nbsp;w</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">append(xor_col(w[i</span> <span style="color: #f92672">-</span> <span style="color: #f8f8f2">N_k],</span> <span style="color: #f8f8f2">w[i</span><span style="color: #f92672">-</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">]))</span>
 
-<span style="color: #cccccc">w</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append(xor_col(w[i</span> <span style="color: #3399cc">-</span> <span style="color: #cccccc">N_k],</span> <span style="color: #cccccc">temp_col)</span>
-<span style="color: #cdcd00">elif</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">&gt;=</span> <span style="color: #cccccc">N_k</span> <span style="color: #cdcd00">and</span> <span style="color: #cccccc">N_k</span> <span style="color: #3399cc">&gt;</span> <span style="color: #cd00cd">6</span> <span style="color: #cdcd00">and</span> <span style="color: #cccccc">i</span> <span style="color: #3399cc">%</span> <span style="color: #cccccc">N_k</span> <span style="color: #3399cc">==</span> <span style="color: #cd00cd">4</span><span style="color: #cccccc">:</span>
-<span style="color: #cccccc">w</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append(xor_col(w[i</span> <span style="color: #3399cc">-</span> <span style="color: #cccccc">N_k],</span> <span style="color: #cccccc">[s_box[x]</span> <span style="color: #cdcd00">for</span> <span style="color: #cccccc">x</span> <span style="color: #cdcd00">in</span> <span style="color: #cccccc">w[i</span><span style="color: #3399cc">-</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">]]))</span>
-<span style="color: #cdcd00">else</span><span style="color: #cccccc">:</span>
-<span style="color: #cccccc">w</span><span style="color: #3399cc">.</span><span style="color: #cccccc">append(xor_col(w[i</span> <span style="color: #3399cc">-</span> <span style="color: #cccccc">N_k],</span> <span style="color: #cccccc">w[i</span><span style="color: #3399cc">-</span><span style="color: #cd00cd">1</span><span style="color: #cccccc">]))</span>
-
-<span style="color: #cdcd00">return</span> <span style="color: #cccccc">w</span>
+<span style="color: #75715e"># w now contains the key schedule for round i</span>
 </pre></td></tr></table></div>
-
 
             <p>
               We only need to generate this key schedule once, and can use it throughout
               the rest of the cipher. AddRoundKey simply consists of element-wise XORing
-              the state with 4 consecutive columns of the key schedule, shifting by 4
-              on each successive round. So for round <code>r</code>, <code>0 &lt; r &le;
-              N<sub>r</sub></code>, we XOR the state with <code>w[r*N_b,
-              (r+1)*N_b-1]</code>.
+              the state with N_b (which is always 4) consecutive columns of the key schedule,
+              shifting by N_b (4) on each successive round. So for round <code>r</code>,
+              <code>0 &lt; r &le; N<sub>r</sub></code>, we XOR the state with
+              <code>w[r*N_b : (r+1)*N_b]</code>.
             </p>
             `,
         },
