@@ -140,9 +140,10 @@ export default Vue.extend({
             <img src="assets/gaussian/matrix3.png" class="img-fluid mb-3 no-select" alt="..." style="width: 45vmin; height: auto">
             <p>
               We're done! Each pixel is averaged according to the pixels around it,
-              producing a Gaussian blur. As you can see, σ = 1.5 and a radius size of 3
-              does not produce a very intense blur. Try changing the σ and Radius values
-              to get a blurrier image!
+              producing a Gaussian blur. Try changing σ = 1.5 and a radius size of 3!
+              As you can see, does not produce a very intense blur.
+              Play around with the values to find a blur that you like! Please be aware
+              that large radius values can take a couple seconds to finish.
               <!--
                 You can also upload your own picture and blur it by hitting the Choose
                 File button!
