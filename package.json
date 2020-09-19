@@ -23,9 +23,10 @@
         "p5": "^0.10.2",
         "popper.js": "^1.16.1",
         "vue": "^2.6.12",
-        "vue-class-component": "^7.2.5",
+        "vue-class-component": "^7.2.6",
         "vue-property-decorator": "^8.4.0",
-        "vue-router": "^3.4.3"
+        "vue-router": "^3.4.3",
+        "vueperslides": "^2.10.8"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^4.5.6",
