@@ -9,6 +9,9 @@ $outside-border-stroke: 2 * $border-stroke;
 .vueperslide__content-wrapper:not(.vueperslide__content-wrapper--outside-top):not(.vueperslide__content-wrapper--outside-bottom) {
   // display: block;
 }
+.vueperslide__content-wrapper.parallax-fixed-content, .vueperslide__content-wrapper:not(.vueperslide__content-wrapper--outside-top):not(.vueperslide__content-wrapper--outside-bottom) {
+  display: -webkit-box;
+}
 
 ol {
   list-style-position: inside;
