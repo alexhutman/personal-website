@@ -11,7 +11,7 @@
             fixed-height="100%"
             :gap="100"
           >
-            <vueper-slide class="aes-slide" style="overflow: auto !important;">
+            <vueper-slide class="aes-slide" style="overflow: auto !important; height: 100% !important;">
               <template v-slot:content>
                 <div class="vueperslide__content-wrapper">
                   <div class="vueperslide__title">
@@ -66,8 +66,9 @@
               <ol class="lol" style="display: inline-block; text-align: left;" >
                 <li>
                   It can be brute forced easily. Since there are only 25 possible
-                  values to shift by, we can simply try all of them, taking very little
-                  time, and then check each one.
+                  values to shift by, we can simply try all of them. Trying only
+                  25 values takes very little time on modern computers, so we can
+                  check each one with no problems.
                 </li>
                 <li>
                   Even without brute forcing, we can use other techniques to help us.
@@ -83,19 +84,23 @@
               more complex, but can still be cracked with not very much effort. AES
               solves this by using a <b>substitution-permutation (SP) network</b>. SP
               networks work by taking the plaintext, substituting blocks of it with
-              other predefined blocks, permuting them, that is, shifting them around
-              in a "random" fashion, and then adding a round key, which is just a mini
-              key that is derived from the original given key.
-              We do all of these steps multiple times and we call each set of 1.)
-              performing the substitution, 2.) permutation, then 3.) round key addition
-              a <b>round</b>. Adding the round key is the most important part of SP
+              other predefined blocks, permuting them (that is, shifting them around
+              in a "random" fashion), and then adding a <b>round key</b>. A round key
+              is just a mini key that is derived from the original given key.
+              A <b>round</b> is a set of the following steps: 1.)
+              substitution, 2.) permutation, then 3.) round key addition. We perform
+              multiple rounds to ensure that the data is sufficiently transformed and
+              different from the plaintext.
+              <br>
+              Adding the round key is arguably the most important part of SP
               networks. Without adding the round key,
               someone would just be able to look at the implementation details of the
               cipher and just reverse the substitutions and permutations. However by
               adding the round key, we make it so that neither the plaintext nor the
-              key are recoverable. <br> Now, there have been some attacks on AES, but
-              they are not dependent on the algorithm itself, rather, its
-              implementation. These are known as <b>side channel attacks</b>. For
+              key are recoverable. <br> There have most certainly been attacks on AES, but
+              the successful ones have not been dependent on the algorithm itself;
+              they have depended on its specific implementation of AES.
+              These are known as <b>side channel attacks</b>. For
               example, if not implemented correctly, it is possible to look at the heat
               signatures of CPUs to gain information about the code being executed.
               Most CPUs nowadays have AES instructions baked into their instruction
@@ -183,7 +188,7 @@
                 You may have seen this symbol before. It is commonly used for the XOR
                 (e<u>x</u>clusive <u>or</u>) operator in Boolean logic. In
                 GF(2<sup>8</sup>), adding is equivalent to XORing. XORing 2 bits,
-                <code>b<sub>1</sub></code> and <code>b<sub>2</sub></code> produces
+                <code>b<sub>1</sub></code> and <code>b<sub>2</sub></code>, produces
                 <code>1</code> <u>only if either</u> <code>b<sub>1</sub></code>
                 &nbsp;<u>or</u> <code>b<sub>2</sub></code> are <code>1</code>.
                 Otherwise, the result is <code>0</code>. So,
@@ -486,9 +491,9 @@
             <p>
               SubBytes has only 2 steps. For a number <code>n</code> with bits
               <code>n<sub>0...7</sub></code>:
-              <ol>
-                <li>
-                  Invert <code>n</code> in GF(2<sup>8</sup>).
+            </p>
+              <ol style="padding-left: 0;">
+                <h4><li>Invert <code>n</code> in GF(2<sup>8</sup>):</li></h4>
                   <p>
                     This is similar to inverting a number in &#8484;<sub>n</sub>. In
                     &#8484;<sub>5</sub> for example, to invert <code>4</code>, we must
@@ -502,8 +507,7 @@
                     "Preliminaries" slide. We won't get into specifically how to find
                     the inverse, but this is the general idea.
                   </p>
-                </li>
-                <li>Apply the following affine transformation:</li>
+                <h4><li>Apply the following affine transformation:</li></h4>
                 <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf#page=20"
                 target="_blank">
                   <img src="assets/aes/subbytes.png" class="img-fluid no-select"
@@ -516,7 +520,6 @@
                     <code>n</code> by.
                 </p>
               </ol>
-            </p>
                 </div>
               </template>
             </vueper-slide>
@@ -553,7 +556,7 @@
               treats each column as a polynomial over GF(2<sup>8</sup>), and we multiply
               them <code>modulo x<sup>4</sup>+1</code> by <code>3x<sup>3</sup> +
               x<sup>2</sup> + x + 2</code>. Luckily, this transformation simplifies to
-              the something easier to comprehend -- for <code>0 &lt; c &lt; 4</code> we
+              something easier to comprehend -- for <code>0 &lt; c &lt; 4</code> we
               perform the following transformation to column<sub>c</sub> of the state:
             </p>
             <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf#page=22"

@@ -7,7 +7,22 @@ $outside-border-stroke: 2 * $border-stroke;
 
 .vueperslide__content-wrapper.parallax-fixed-content,
 .vueperslide__content-wrapper:not(.vueperslide__content-wrapper--outside-top):not(.vueperslide__content-wrapper--outside-bottom) {
-  //  display: block;
+  // display: block;
+}
+
+ol {
+  list-style-position: inside;
+  counter-reset: item;
+
+  li {
+    display: block;
+  }
+
+  li:before {
+    content: counter(item) ". ";
+    counter-increment: item;
+    // color: $accent-color;
+  }
 }
 
 .aes-slide::-webkit-scrollbar {
@@ -45,14 +60,8 @@ ol {
 }
 
 .explanation {
-  background: #737373;
-}
-
-@media (max-width: 767px) {
-  .fit-carousel-img {
-    width: 90%;
-    height: auto;
-  }
+  border: 5px solid black;
+  background: #3a3a3a;
 }
 
 .vertical-center {
@@ -165,4 +174,10 @@ ol {
 }
 .cell-33 {
   grid-area: cell-33;
+}
+
+@media (max-width: 767px) {
+  vueper-slides {
+    height: 100vh !important;
+  }
 }

@@ -141,7 +141,7 @@ export default Vue.extend({
             <p>
               We're done! Each pixel is averaged according to the pixels around it,
               producing a Gaussian blur. Try changing σ = 1.5 and a radius size of 3!
-              As you can see, does not produce a very intense blur.
+              As you can see, it does not produce a very intense blur.
               Play around with the values to find a blur that you like! Please be aware
               that large radius values can take a couple seconds to finish.
               <!--
