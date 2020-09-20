@@ -258,123 +258,6 @@
               <template v-slot:content>
                 <div class="vueperslide__content-wrapper">
                   <div class="vueperslide__title">
-                    <h2 class="mb-3">Try it out!:</h2>
-                  </div>
-                  <p>
-                    Enter your own message and key below! We will go over each operation using your
-                    message and key to make the learning more hands-on.
-                  </p>
-
-                  <form class="needs-validation state-form" novalidate>
-                    <label for="messageInputBox">Message:</label>
-                    <div class="input-group mb-2 mr-sm-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <font-awesome-icon :icon="['fas', 'comment-dots']" />
-                        </div>
-                      </div>
-                      <input
-                        type="text"
-                        maxlength="16"
-                        class="form-control"
-                        :class="{ 'is-invalid': msg.isInvalid }"
-                        id="messageInputBox"
-                        placeholder="The message you'd like to encrypt"
-                        v-model="msg.text"
-                        v-on:input="onMsgChange()"
-                      />
-                      <div class="invalid-feedback">
-                        Please ensure that the message contains only ASCII characters. Support for
-                        other characters will be added!
-                      </div>
-                    </div>
-
-                    <label for="keyInputBox">Key:</label>
-                    <div class="input-group mb-2 mr-sm-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          <font-awesome-icon :icon="['fas', 'key']" />
-                        </div>
-                      </div>
-                      <input
-                        type="text"
-                        maxlength="16"
-                        class="form-control"
-                        :class="{ 'is-invalid': key.isInvalid }"
-                        id="keyInputBox"
-                        placeholder="The key to encrypt the message with"
-                        v-model="key.text"
-                        v-on:input="onKeyChange()"
-                      />
-                      <div class="invalid-feedback">
-                        Please ensure that the key is 16 ASCII characters long.
-                      </div>
-                    </div>
-                  </form>
-
-                  <div class="text-center state-container">
-                    <h3>State:</h3>
-                    <div class="state justify-content-center">
-                      <div class="state-grid">
-                        <div class="cell-00 hbb hrb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][0][0]) }}
-                        </div>
-                        <div class="cell-01 hbb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][1][0]) }}
-                        </div>
-                        <div class="cell-02 hbb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][2][0]) }}
-                        </div>
-                        <div class="cell-03 hbb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][3][0]) }}
-                        </div>
-                        <div class="cell-10 hbb htb hrb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][0][1]) }}
-                        </div>
-                        <div class="cell-11 hbb htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][1][1]) }}
-                        </div>
-                        <div class="cell-12 hbb htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][2][1]) }}
-                        </div>
-                        <div class="cell-13 hbb htb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][3][1]) }}
-                        </div>
-                        <div class="cell-20 hbb htb hrb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][0][2]) }}
-                        </div>
-                        <div class="cell-21 hbb htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][1][2]) }}
-                        </div>
-                        <div class="cell-22 hbb htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][2][2]) }}
-                        </div>
-                        <div class="cell-23 hbb htb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][3][2]) }}
-                        </div>
-                        <div class="cell-30 htb hrb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][0][3]) }}
-                        </div>
-                        <div class="cell-31 htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][1][3]) }}
-                        </div>
-                        <div class="cell-32 htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][2][3]) }}
-                        </div>
-                        <div class="cell-33 htb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][3][3]) }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </template>
-            </vueper-slide>
-
-            <vueper-slide class="aes-slide" style="overflow: auto !important;">
-              <template v-slot:content>
-                <div class="vueperslide__content-wrapper">
-                  <div class="vueperslide__title">
                     <h2 class="mb-3">AddRoundKey</h2>
                   </div>
                   <p>
@@ -547,6 +430,11 @@
                         ></code
                       >
                       will be the value to substitute <code>n</code> by.
+                      <br>
+                      <br>
+                      Luckily, a majority of this step does not
+                      need to be done at runtime. This is because a precomputed table of substitution values exists
+                      and SubBytes is as simple as replacing the initial byte with the precomputed substitution byte in this table.
                     </p>
                   </ol>
                 </div>
@@ -609,6 +497,123 @@
                     here, but if you'd like to learn more, please click the image above to navigate
                     to the standard. The details are located in <b>Section 4.3</b>.
                   </p>
+                </div>
+              </template>
+            </vueper-slide>
+
+            <vueper-slide class="aes-slide" style="overflow: auto !important;">
+              <template v-slot:content>
+                <div class="vueperslide__content-wrapper">
+                  <div class="vueperslide__title">
+                    <h2 class="mb-3">Try it out!:</h2>
+                  </div>
+                  <p>
+                    Enter your own message and key below! We will go over each operation using your
+                    message and key to make the learning more hands-on.
+                  </p>
+
+                  <form class="needs-validation state-form" novalidate>
+                    <label for="messageInputBox">Message:</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <font-awesome-icon :icon="['fas', 'comment-dots']" />
+                        </div>
+                      </div>
+                      <input
+                        type="text"
+                        maxlength="16"
+                        class="form-control"
+                        :class="{ 'is-invalid': msg.isInvalid }"
+                        id="messageInputBox"
+                        placeholder="The message you'd like to encrypt"
+                        v-model="msg.text"
+                        v-on:input="onMsgChange()"
+                      />
+                      <div class="invalid-feedback">
+                        Please ensure that the message contains only ASCII characters. Support for
+                        other characters will be added!
+                      </div>
+                    </div>
+
+                    <label for="keyInputBox">Key:</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <font-awesome-icon :icon="['fas', 'key']" />
+                        </div>
+                      </div>
+                      <input
+                        type="text"
+                        maxlength="16"
+                        class="form-control"
+                        :class="{ 'is-invalid': key.isInvalid }"
+                        id="keyInputBox"
+                        placeholder="The key to encrypt the message with"
+                        v-model="key.text"
+                        v-on:input="onKeyChange()"
+                      />
+                      <div class="invalid-feedback">
+                        Please ensure that the key is 16 ASCII characters long.
+                      </div>
+                    </div>
+                  </form>
+
+                  <div class="text-center state-container">
+                    <h3>State:</h3>
+                    <div class="state justify-content-center">
+                      <div class="state-grid">
+                        <div class="cell-00 hbb hrb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][0][0]) }}
+                        </div>
+                        <div class="cell-01 hbb hrb hlb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][1][0]) }}
+                        </div>
+                        <div class="cell-02 hbb hrb hlb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][2][0]) }}
+                        </div>
+                        <div class="cell-03 hbb hlb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][3][0]) }}
+                        </div>
+                        <div class="cell-10 hbb htb hrb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][0][1]) }}
+                        </div>
+                        <div class="cell-11 hbb htb hrb hlb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][1][1]) }}
+                        </div>
+                        <div class="cell-12 hbb htb hrb hlb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][2][1]) }}
+                        </div>
+                        <div class="cell-13 hbb htb hlb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][3][1]) }}
+                        </div>
+                        <div class="cell-20 hbb htb hrb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][0][2]) }}
+                        </div>
+                        <div class="cell-21 hbb htb hrb hlb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][1][2]) }}
+                        </div>
+                        <div class="cell-22 hbb htb hrb hlb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][2][2]) }}
+                        </div>
+                        <div class="cell-23 hbb htb hlb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][3][2]) }}
+                        </div>
+                        <div class="cell-30 htb hrb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][0][3]) }}
+                        </div>
+                        <div class="cell-31 htb hrb hlb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][1][3]) }}
+                        </div>
+                        <div class="cell-32 htb hrb hlb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][2][3]) }}
+                        </div>
+                        <div class="cell-33 htb hlb" :class="vhCenter">
+                          {{ toHex(msg.blocks[0][3][3]) }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </template>
             </vueper-slide>
