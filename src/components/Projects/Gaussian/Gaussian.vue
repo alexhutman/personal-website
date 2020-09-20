@@ -125,11 +125,21 @@ export default Vue.extend({
         {
           title: '',
           content: `
-            <img src="assets/gaussian/matrix3.png" class="img-fluid mb-3 no-select" alt="..." style="width: 45vmin; height: auto">
+            <img src="assets/gaussian/matrix3.png" class="img-fluid mb-3 no-select" alt="..." style="width: 35vmin; height: auto">
             <p>
-              Now we must weigh each pixel according to this matrix. This means the
-              center pixel's new R value is (top-left pixel's R value)*(0.0947416) +
-              (top-center pixel's R value)*(0.118318) + ... We do this for the G,B, and A
+              Now we must weigh each pixel according to this matrix. To make things
+              easier, let's call each pixel P(x,y), where x and y are the horizontal
+              and vertical distances from the bottom-left pixel, respectively. 
+              For example the bottom-left pixel would become P(0,0), and the pixel
+              that is 5 to the right would be P(5,0). P<sub>R</sub>(x,y)
+              will denote P(x,y)'s R value, and the same will be applicable for G and B values.<br><br>
+              Essentially what we
+              are doing is "placing" the above matrix over P(x,y) such that the center of
+              the matrix corresponds with P(x,y). We then multiply P(x,y)'s surrounding
+              pixels' R, G, and B values with the weights in this matrix. P(x,y)'s new
+              R, G, B values are now the sum of the results of these multiplications.
+              In other words, P<sub>R</sub>(x,y)'s new value is (P<sub>R</sub>(x-1,y+1))*(0.0947416) +
+              (P<sub>R</sub>(x,y+1))*(0.118318) + ... We do this for the G,B, and A
               values of each pixel as well.
             </p>
           `,
