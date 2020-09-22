@@ -524,7 +524,7 @@
                         type="text"
                         maxlength="16"
                         class="form-control"
-                        :class="{ 'is-invalid': msg.isInvalid }"
+                        :class="{ 'is-invalid': !msg.isValid }"
                         id="messageInputBox"
                         placeholder="The message you'd like to encrypt"
                         v-model="msg.text"
@@ -547,7 +547,7 @@
                         type="text"
                         maxlength="16"
                         class="form-control"
-                        :class="{ 'is-invalid': key.isInvalid }"
+                        :class="{ 'is-invalid': !key.isValid }"
                         id="keyInputBox"
                         placeholder="The key to encrypt the message with"
                         v-model="key.text"
@@ -671,12 +671,12 @@ export default Vue.extend({
       aesInstance: new AES(128),
       msg: {
         text: '',
-        isInvalid: false,
+        isValid: true,
         blocks: [origMsg],
       },
       key: {
         text: '',
-        isInvalid: false,
+        isValid: true,
         intArr: origKey,
       },
       vhCenter: {
@@ -690,9 +690,9 @@ export default Vue.extend({
   },
   methods: {
     onMsgChange(): void {
-      this.msg.isInvalid = !(this.isASCII(this.msg.text) && this.isInputLengthValid(this.msg.text));
+      this.msg.isValid = this.isASCII(this.msg.text) && this.isInputLengthValid(this.msg.text);
 
-      if (this.msg.isInvalid || !this.msg.text) {
+      if (!(this.msg.isValid && this.msg.text)) {
         this.populateState(0, origMsg);
 
         // TODO: reset the key to the original value too
@@ -702,9 +702,9 @@ export default Vue.extend({
       }
     },
     onKeyChange(): void {
-      this.key.isInvalid = !(this.isASCII(this.key.text) && this.key.text.length === 16);
+      this.key.isValid = this.isASCII(this.key.text) && this.key.text.length === 16;
 
-      if (this.key.isInvalid || !this.key.text) {
+      if (!(this.key.isValid && this.key.text)) {
         this.populateState(0, origMsg);
 
         this.key.intArr = origKey;
