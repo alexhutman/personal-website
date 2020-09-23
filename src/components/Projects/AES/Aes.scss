@@ -38,8 +38,14 @@ ol {
   scrollbar-width: none;  /* Firefox */
 }
 
+.state {
+  width: 50%;
+  margin-left: 25%;
+}
+
 .state-form,
-.state-container {
+.state-container,
+.state-row {
   width: 100%;
 }
 
@@ -110,8 +116,6 @@ ol {
     // Half right border
     border-right: $border-stroke solid $border-color;
   }
-
-  width: 20%;
 
   &::before {
     content: '';

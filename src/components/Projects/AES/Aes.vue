@@ -430,11 +430,12 @@
                         ></code
                       >
                       will be the value to substitute <code>n</code> by.
-                      <br>
-                      <br>
-                      Luckily, a majority of this step does not
-                      need to be done at runtime. This is because a precomputed table of substitution values exists
-                      and SubBytes is as simple as replacing the initial byte with the precomputed substitution byte in this table.
+                      <br />
+                      <br />
+                      Luckily, a majority of this step does not need to be done at runtime. This is
+                      because a precomputed table of substitution values exists and SubBytes is as
+                      simple as replacing the initial byte with the precomputed substitution byte in
+                      this table.
                     </p>
                   </ol>
                 </div>
@@ -559,57 +560,115 @@
                     </div>
                   </form>
 
-                  <div class="text-center state-container">
-                    <h3>State:</h3>
-                    <div class="state justify-content-center">
-                      <div class="state-grid">
-                        <div class="cell-00 hbb hrb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][0][0]) }}
+                  <div class="row state-row">
+                    <div class="col-6 state-container">
+                      <h3>State:</h3>
+                      <div class="state justify-content-center text-center">
+                        <div class="state-grid">
+                          <div class="cell-00 hbb hrb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][0][0]) }}
+                          </div>
+                          <div class="cell-01 hbb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][1][0]) }}
+                          </div>
+                          <div class="cell-02 hbb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][2][0]) }}
+                          </div>
+                          <div class="cell-03 hbb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][3][0]) }}
+                          </div>
+                          <div class="cell-10 hbb htb hrb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][0][1]) }}
+                          </div>
+                          <div class="cell-11 hbb htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][1][1]) }}
+                          </div>
+                          <div class="cell-12 hbb htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][2][1]) }}
+                          </div>
+                          <div class="cell-13 hbb htb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][3][1]) }}
+                          </div>
+                          <div class="cell-20 hbb htb hrb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][0][2]) }}
+                          </div>
+                          <div class="cell-21 hbb htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][1][2]) }}
+                          </div>
+                          <div class="cell-22 hbb htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][2][2]) }}
+                          </div>
+                          <div class="cell-23 hbb htb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][3][2]) }}
+                          </div>
+                          <div class="cell-30 htb hrb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][0][3]) }}
+                          </div>
+                          <div class="cell-31 htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][1][3]) }}
+                          </div>
+                          <div class="cell-32 htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][2][3]) }}
+                          </div>
+                          <div class="cell-33 htb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][3][3]) }}
+                          </div>
                         </div>
-                        <div class="cell-01 hbb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][1][0]) }}
-                        </div>
-                        <div class="cell-02 hbb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][2][0]) }}
-                        </div>
-                        <div class="cell-03 hbb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][3][0]) }}
-                        </div>
-                        <div class="cell-10 hbb htb hrb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][0][1]) }}
-                        </div>
-                        <div class="cell-11 hbb htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][1][1]) }}
-                        </div>
-                        <div class="cell-12 hbb htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][2][1]) }}
-                        </div>
-                        <div class="cell-13 hbb htb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][3][1]) }}
-                        </div>
-                        <div class="cell-20 hbb htb hrb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][0][2]) }}
-                        </div>
-                        <div class="cell-21 hbb htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][1][2]) }}
-                        </div>
-                        <div class="cell-22 hbb htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][2][2]) }}
-                        </div>
-                        <div class="cell-23 hbb htb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][3][2]) }}
-                        </div>
-                        <div class="cell-30 htb hrb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][0][3]) }}
-                        </div>
-                        <div class="cell-31 htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][1][3]) }}
-                        </div>
-                        <div class="cell-32 htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][2][3]) }}
-                        </div>
-                        <div class="cell-33 htb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][3][3]) }}
+                      </div>
+                    </div>
+
+                    <div class="col-6 state-container">
+                      <h3>{{ curExample }}</h3>
+                      <div class="state justify-content-center text-center">
+                        <div class="state-grid">
+                          <div class="cell-00 hbb hrb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][0][0]) }}
+                          </div>
+                          <div class="cell-01 hbb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][1][0]) }}
+                          </div>
+                          <div class="cell-02 hbb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][2][0]) }}
+                          </div>
+                          <div class="cell-03 hbb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][3][0]) }}
+                          </div>
+                          <div class="cell-10 hbb htb hrb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][0][1]) }}
+                          </div>
+                          <div class="cell-11 hbb htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][1][1]) }}
+                          </div>
+                          <div class="cell-12 hbb htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][2][1]) }}
+                          </div>
+                          <div class="cell-13 hbb htb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][3][1]) }}
+                          </div>
+                          <div class="cell-20 hbb htb hrb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][0][2]) }}
+                          </div>
+                          <div class="cell-21 hbb htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][1][2]) }}
+                          </div>
+                          <div class="cell-22 hbb htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][2][2]) }}
+                          </div>
+                          <div class="cell-23 hbb htb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][3][2]) }}
+                          </div>
+                          <div class="cell-30 htb hrb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][0][3]) }}
+                          </div>
+                          <div class="cell-31 htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][1][3]) }}
+                          </div>
+                          <div class="cell-32 htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][2][3]) }}
+                          </div>
+                          <div class="cell-33 htb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][3][3]) }}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -641,6 +700,14 @@ const slideNumRegex = new RegExp('^slide-([0-9]+)$');
 //   [0x88, 0x99, 0xaa, 0xbb],
 //   [0xcc, 0xdd, 0xee, 0xff],
 // ];
+
+const enum HandsOnState {
+  INPUT = '(Input)',
+  ARK = 'AddRoundKey',
+  SUB = 'SubBytes',
+  SHIFT = 'ShiftRows',
+  MIX = 'MixColumns',
+}
 
 const origMsg = [
   [0x00, 0x00, 0x00, 0x00],
@@ -679,6 +746,7 @@ export default Vue.extend({
         isValid: true,
         intArr: origKey,
       },
+      curExample: HandsOnState.INPUT,
       vhCenter: {
         'vertical-center': true,
         'justify-content-center': true,
