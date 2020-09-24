@@ -184,6 +184,11 @@ ol {
   grid-area: cell-33;
 }
 
+.exArrow {
+  color: $secondary-accent-color;
+  cursor: pointer;
+}
+
 @media (max-width: 767px) {
   vueper-slides {
     height: 100vh !important;

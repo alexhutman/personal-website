@@ -526,6 +526,7 @@
                         maxlength="16"
                         class="form-control"
                         :class="{ 'is-invalid': !msg.isValid }"
+                        :disabled="curExampleSlide != 0"
                         id="messageInputBox"
                         placeholder="The message you'd like to encrypt"
                         v-model="msg.text"
@@ -549,6 +550,7 @@
                         maxlength="16"
                         class="form-control"
                         :class="{ 'is-invalid': !key.isValid }"
+                        :disabled="curExampleSlide != 0"
                         id="keyInputBox"
                         placeholder="The key to encrypt the message with"
                         v-model="key.text"
@@ -562,7 +564,19 @@
 
                   <div class="row state-row">
                     <div class="col-6 state-container">
-                      <h3>State:</h3>
+                      <h3>
+                        <font-awesome-icon
+                        :icon="['fas', 'arrow-left']"
+                        class="exArrow mr-5"
+                        @click="exSlideDec()" />
+
+                        {{ stateNumbers[curExampleSlide] }}
+
+                        <font-awesome-icon
+                        :icon="['fas', 'arrow-right']"
+                        class="exArrow ml-5"
+                        @click="exSlideInc" />
+                        </h3>
                       <div class="state justify-content-center text-center">
                         <div class="state-grid">
                           <div class="cell-00 hbb hrb" :class="vhCenter">
@@ -618,7 +632,7 @@
                     </div>
 
                     <div class="col-6 state-container">
-                      <h3>{{ curExample }}</h3>
+                      <h3>State:</h3>
                       <div class="state justify-content-center text-center">
                         <div class="state-grid">
                           <div class="cell-00 hbb hrb" :class="vhCenter">
@@ -746,7 +760,14 @@ export default Vue.extend({
         isValid: true,
         intArr: origKey,
       },
-      curExample: HandsOnState.INPUT,
+      curExampleSlide: 0,
+      stateNumbers: [
+        HandsOnState.INPUT,
+        HandsOnState.ARK,
+        HandsOnState.SUB,
+        HandsOnState.SHIFT,
+        HandsOnState.MIX,
+      ],
       vhCenter: {
         'vertical-center': true,
         'justify-content-center': true,
@@ -828,6 +849,20 @@ export default Vue.extend({
       }
 
       throw new Error(`Array needs to be ${matrixRowLen * matrixRowLen} (got ${arr.length})`);
+    },
+    exSlideInc(): void {
+      if (this.curExampleSlide === this.stateNumbers.length - 1) {
+        this.curExampleSlide = 0;
+      } else {
+        this.curExampleSlide += 1;
+      }
+    },
+    exSlideDec(): void {
+      if (this.curExampleSlide === 0) {
+        this.curExampleSlide = this.stateNumbers.length - 1;
+      } else {
+        this.curExampleSlide -= 1;
+      }
     },
   },
 });
