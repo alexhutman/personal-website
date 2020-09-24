@@ -564,19 +564,21 @@
 
                   <div class="row state-row">
                     <div class="col-6 state-container">
-                      <h3>
+                      <h4 class="controls">
                         <font-awesome-icon
-                        :icon="['fas', 'arrow-left']"
-                        class="exArrow mr-5"
-                        @click="exSlideDec()" />
+                          :icon="['fas', 'arrow-left']"
+                          class="exArrow mr-1"
+                          @click="exSlideDec()"
+                        />
 
-                        {{ stateNumbers[curExampleSlide] }}
+                        {{ curSlideName() }}
 
                         <font-awesome-icon
-                        :icon="['fas', 'arrow-right']"
-                        class="exArrow ml-5"
-                        @click="exSlideInc" />
-                        </h3>
+                          :icon="['fas', 'arrow-right']"
+                          class="exArrow ml-1"
+                          @click="exSlideInc()"
+                        />
+                      </h4>
                       <div class="state justify-content-center text-center">
                         <div class="state-grid">
                           <div class="cell-00 hbb hrb" :class="vhCenter">
@@ -632,7 +634,7 @@
                     </div>
 
                     <div class="col-6 state-container">
-                      <h3>State:</h3>
+                      <h3>State</h3>
                       <div class="state justify-content-center text-center">
                         <div class="state-grid">
                           <div class="cell-00 hbb hrb" :class="vhCenter">
@@ -716,7 +718,7 @@ const slideNumRegex = new RegExp('^slide-([0-9]+)$');
 // ];
 
 const enum HandsOnState {
-  INPUT = '(Input)',
+  INPUT = 'Input',
   ARK = 'AddRoundKey',
   SUB = 'SubBytes',
   SHIFT = 'ShiftRows',
@@ -863,6 +865,17 @@ export default Vue.extend({
       } else {
         this.curExampleSlide -= 1;
       }
+    },
+    curSlideName(): string {
+      const width = window.innerWidth > 0 ? window.innerWidth : window.screen.width;
+      if (width < 768) {
+        if (this.curExampleSlide === 0) {
+          return this.stateNumbers[0];
+        }
+        return (this.stateNumbers[this.curExampleSlide] as string).replace(/[a-z]/g, '');
+      }
+
+      return this.stateNumbers[this.curExampleSlide];
     },
   },
 });
