@@ -609,13 +609,32 @@
                           After we generate the key schedule, we simply XOR the round key with the
                           current state. To the right is the result of doing so. For example, the
                           first byte (in hex) of the state is
-                          <code>{{ toHex(msg.blocks[0][0][0]) }}</code
+                          <code>{{ toHex(exampleStates[0][0][0]) }}</code
                           >. The first byte in the first round's key is
                           <code> {{ toHex(aesInstance.displayFirstKSNum(key.intArr)) }}</code> in
-                          hex.
+                          hex. Click the following button to perform the AddRoundKey step, which
+                          just XORs the round key with the state.
+
                           <button @click="addFirstRound()">
-                            JEFFFFFFF
+                            XOR
                           </button>
+
+                          <br /><br />
+
+                          As a sanity check, the first value should be
+                          <code
+                            >{{ toHex(exampleStates[0][0][0]) }}
+                            &#8853;
+                            {{ toHex(aesInstance.displayFirstKSNum(key.intArr)) }}
+                            =
+                            {{
+                              toHex(
+                                exampleStates[0][0][0] ^ aesInstance.displayFirstKSNum(key.intArr)
+                              )
+                            }}</code
+                          >. Checking on
+                          <a :href="getWolframURL()" target="_blank">WolframAlpha</a>, we can see
+                          that this is the correct value.
                         </div>
 
                         <div v-if="curExampleSlide === 2">
@@ -762,6 +781,7 @@ export default Vue.extend({
         intArr: origKey,
       },
       curExampleSlide: 0,
+      exampleStates: [origMsg, origMsg, origMsg, origMsg, origMsg],
       stateNumbers: [
         HandsOnState.INPUT,
         HandsOnState.ARK,
@@ -784,10 +804,12 @@ export default Vue.extend({
 
       if (!(this.msg.isValid && this.msg.text)) {
         this.populateState(0, origMsg);
+        this.exampleStates[0] = origMsg;
 
         // TODO: reset the key to the original value too
       } else {
         this.populateState(0, this.textToMatrix(this.msg.text));
+        this.exampleStates[0] = this.textToMatrix(this.msg.text);
         // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
     },
@@ -796,10 +818,12 @@ export default Vue.extend({
 
       if (!(this.key.isValid && this.key.text)) {
         this.populateState(0, origMsg);
+        this.exampleStates[0] = origMsg;
 
         this.key.intArr = origKey;
       } else {
         this.populateState(0, this.textToMatrix(this.msg.text));
+        this.exampleStates[0] = this.textToMatrix(this.msg.text);
 
         this.key.intArr = this.strToIntArr(this.key.text);
         // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
@@ -877,20 +901,10 @@ export default Vue.extend({
       return this.stateNumbers[this.curExampleSlide];
     },
     addFirstRound(): void {
-      console.log(this.msg.blocks[0]);
-      this.msg.blocks[0] = this.aesInstance.getFirstRoundAdd(this.msg.blocks[0]);
-      console.log(this.msg.blocks[0]);
-      // console.log('in button');
+      this.msg.blocks = [this.aesInstance.getFirstRoundAdd(this.exampleStates[0])];
     },
-  },
-  watch: {
-    msg: {
-      // eslint-disable-next-line
-      handler: function(_newValue, _oldValue) {
-        console.log('in watch');
-      },
-      deep: true,
-      immediate: true,
+    getWolframURL(): string {
+      return encodeURI(`https://www.wolframalpha.com/input/?i=ToUpperCase[IntegerString[BitXor[${this.exampleStates[0][0][0]}, ${this.aesInstance.displayFirstKSNum(this.key.intArr)}], 16]]`);
     },
   },
 });
