@@ -207,6 +207,12 @@ ol {
   cursor: pointer;
 }
 
+button {
+  text-decoration: none;
+  color: white !important;
+  background-color: $accent-color !important;
+}
+
 @media (max-width: 767px) {
   vueper-slides {
     height: 100vh !important;

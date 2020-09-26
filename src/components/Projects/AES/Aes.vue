@@ -624,11 +624,13 @@
                             <code> {{ toHex(aesInstance.displayFirstKSNum(key.intArr)) }}</code> in
                             hex. Click the following button to perform the AddRoundKey step, which
                             just XORs the round key with the state.
-
-                            <button @click="addFirstRound()">
-                              ARK
-                            </button>
                           </p>
+
+                          <button
+                          class="btn"
+                          @click="addFirstRound()">
+                            ARK
+                          </button>
 
                           <p>
                             As a sanity check, the first value should be
@@ -670,11 +672,13 @@
                             to substitute by will be
                             <code>{{ toHex(aesInstance.getSubBytes(exampleStates[1])[0][0]) }}</code
                             >. Click the following button to perform the SubBytes step.
-
-                            <button @click="subBytes()">
-                              SUB
-                            </button>
                           </p>
+
+                          <button
+                          class="btn"
+                          @click="subBytes()">
+                            SUB
+                          </button>
                         </div>
 
                         <div v-if="curExampleSlide === 3">
@@ -684,11 +688,13 @@
                             That is, row 0 shifts 0 positions to the left, row 1 shifts 1 position
                             to the left, etc. Click the following button to perform the ShiftRows
                             step.
-
-                            <button @click="shiftRows()">
-                              SR
-                            </button>
                           </p>
+
+                          <button
+                          class="btn"
+                          @click="shiftRows()">
+                            SR
+                          </button>
                         </div>
 
                         <div v-if="curExampleSlide === 4">
@@ -708,11 +714,13 @@
                             <code  class="no-wrap">
                               {{ colToHex(aesInstance.getMixCols(exampleStates[3])[0])[0] }}</code
                             >.
-
-                            <button @click="mixCols()">
-                              MIX
-                            </button>
                           </p>
+
+                          <button
+                          class="btn"
+                          @click="mixCols()">
+                            MIX
+                          </button>
 
                           <p v-if="slideButtonsPressed[4]">
                             We have officially completed one round of AES on our data! Throughout
