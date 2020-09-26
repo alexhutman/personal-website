@@ -193,7 +193,12 @@ ol {
   display: inline-block;
 }
 
-.exArrow {
+.arrowDisabled {
+  color: #EBEBE4;
+  cursor: default;
+}
+
+.arrowEnabled {
   color: $secondary-accent-color;
   cursor: pointer;
 }

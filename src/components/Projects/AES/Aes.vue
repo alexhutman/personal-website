@@ -567,16 +567,18 @@
                       <h4 class="controls my-3">
                         <font-awesome-icon
                           :icon="['fas', 'arrow-left']"
-                          class="exArrow mr-1"
+                          class="mr-1"
                           @click="exSlideDec()"
+                          :class="[ isLeftArrowDisabled() ? 'arrowDisabled' : 'arrowEnabled' ]"
                         />
 
                         {{ curSlideName() }}
 
                         <font-awesome-icon
                           :icon="['fas', 'arrow-right']"
-                          class="exArrow ml-1"
+                          class="ml-1"
                           @click="exSlideInc()"
+                          :class="[ isRightArrowDisabled() ? 'arrowDisabled' : 'arrowEnabled' ]"
                         />
                       </h4>
 
@@ -659,12 +661,12 @@
                             The vertical value of the table is the first 4 bits of the byte we are
                             going to substitute. The horizontal value is the second 4 bits. For
                             example, for the first entry of our state, we must look at row
-                            <code>{{ toHex(exampleStates[1][0][0]).charAt(0) }}</code> and column
+                            <code>{{ toHex(exampleStates[1][0][0]).length == 2 ? toHex(exampleStates[1][0][0]).charAt(0) : 0 }}</code> and column
                             <code>
                               {{
-                                toHex(exampleStates[1][0][0]).charAt(1)
+                                toHex(exampleStates[1][0][0]).length == 2
                                   ? toHex(exampleStates[1][0][0]).charAt(1)
-                                  : 0
+                                  : toHex(exampleStates[1][0][0]).charAt(0)
                               }}</code
                             >
                             in the table (which is commonly called an S-box). In our case, the value
@@ -856,6 +858,13 @@ export default Vue.extend({
         HandsOnState.SHIFT,
         HandsOnState.MIX,
       ],
+      slideButtonsPressed: [
+        false,
+        false,
+        false,
+        false,
+        false,
+      ],
       vhCenter: {
         'vertical-center': true,
         'justify-content-center': true,
@@ -873,10 +882,18 @@ export default Vue.extend({
         this.populateState(0, origMsg);
         this.exampleStates[0] = origMsg;
 
+        this.slideButtonsPressed[0] = false;
+
         // TODO: reset the key to the original value too
       } else {
         this.populateState(0, this.textToMatrix(this.msg.text));
         this.exampleStates[0] = this.textToMatrix(this.msg.text);
+
+        if (this.key.isValid && this.key.text) {
+          this.slideButtonsPressed[0] = true;
+        } else {
+          this.slideButtonsPressed[0] = false;
+        }
         // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
     },
@@ -888,11 +905,19 @@ export default Vue.extend({
         this.exampleStates[0] = origMsg;
 
         this.key.intArr = origKey;
+
+        this.slideButtonsPressed[0] = false;
       } else {
         this.populateState(0, this.textToMatrix(this.msg.text));
         this.exampleStates[0] = this.textToMatrix(this.msg.text);
 
         this.key.intArr = this.strToIntArr(this.key.text);
+
+        if (this.msg.isValid && this.msg.text) {
+          this.slideButtonsPressed[0] = true;
+        } else {
+          this.slideButtonsPressed[0] = false;
+        }
         // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
     },
@@ -942,18 +967,14 @@ export default Vue.extend({
 
       throw new Error(`Array needs to be ${matrixRowLen * matrixRowLen} (got ${arr.length})`);
     },
-    exSlideInc(): void {
-      if (this.curExampleSlide === this.stateNumbers.length - 1) {
-        this.curExampleSlide = 0;
-      } else {
-        this.curExampleSlide += 1;
+    exSlideDec(): void {
+      if (!this.isLeftArrowDisabled()) {
+        this.curExampleSlide = (this.curExampleSlide - 1) % (this.stateNumbers.length);
       }
     },
-    exSlideDec(): void {
-      if (this.curExampleSlide === 0) {
-        this.curExampleSlide = this.stateNumbers.length - 1;
-      } else {
-        this.curExampleSlide -= 1;
+    exSlideInc(): void {
+      if (!this.isRightArrowDisabled()) {
+        this.curExampleSlide = (this.curExampleSlide + 1) % (this.stateNumbers.length);
       }
     },
     curSlideName(): string {
@@ -966,6 +987,13 @@ export default Vue.extend({
       }
 
       return this.stateNumbers[this.curExampleSlide];
+    },
+    isLeftArrowDisabled(): boolean {
+      return this.curExampleSlide === 0;
+    },
+    isRightArrowDisabled(): boolean {
+      return !this.slideButtonsPressed[this.curExampleSlide]
+        || this.curExampleSlide === (this.stateNumbers.length - 1);
     },
     colToHex(col: number[]): string[] {
       const strCol: string[] = [];
@@ -991,24 +1019,32 @@ export default Vue.extend({
 
       // eslint-disable-next-line
       this.exampleStates[1] = this.msg.blocks[0];
+
+      this.slideButtonsPressed[1] = true;
     },
     subBytes(): void {
       this.msg.blocks = [this.aesInstance.getSubBytes(this.exampleStates[1])];
 
       // eslint-disable-next-line
       this.exampleStates[2] = this.msg.blocks[0];
+
+      this.slideButtonsPressed[2] = true;
     },
     shiftRows(): void {
       this.msg.blocks = [this.aesInstance.getShiftRow(this.exampleStates[2])];
 
       // eslint-disable-next-line
       this.exampleStates[3] = this.msg.blocks[0];
+
+      this.slideButtonsPressed[3] = true;
     },
     mixCols(): void {
       this.msg.blocks = [this.aesInstance.getMixCols(this.exampleStates[3])];
 
       // eslint-disable-next-line
       this.exampleStates[4] = this.msg.blocks[0];
+
+      this.slideButtonsPressed[4] = true;
     },
     getWolframURL(): string {
       return encodeURI(`https://www.wolframalpha.com/input/?i=ToUpperCase[IntegerString[BitXor[${this.exampleStates[0][0][0]}, ${this.aesInstance.displayFirstKSNum(this.key.intArr)}], 16]]`);
