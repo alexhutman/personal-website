@@ -39,6 +39,10 @@ export default class AES {
     return AES.transpose(AES.shiftRow(AES.transpose(state)));
   }
 
+  public getMixCols(state: number[][]): number[][] {
+    return AES.transpose(AES.mixColumns(AES.transpose(state)));
+  }
+
   // ------------------------------------------------
 
   public encrypt(msg: number[][][], key: number[]): string {

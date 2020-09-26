@@ -189,6 +189,10 @@ ol {
   grid-area: cell-33;
 }
 
+.no-wrap {
+  display: inline-block;
+}
+
 .exArrow {
   color: $secondary-accent-color;
   cursor: pointer;

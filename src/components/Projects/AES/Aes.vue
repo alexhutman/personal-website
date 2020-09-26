@@ -623,7 +623,7 @@
                             just XORs the round key with the state.
 
                             <button @click="addFirstRound()">
-                              XOR
+                              ARK
                             </button>
                           </p>
 
@@ -683,8 +683,8 @@
                             ShiftRows is fortunately also a simple operation. In essence, row
                             <code>i</code> circular shifts <code>i</code> positions to the left.
                             That is, row 0 shifts 0 positions to the left, row 1 shifts 1 position
-                            to the left, etc.
-                            Click the following button to perform the ShiftRows step.
+                            to the left, etc. Click the following button to perform the ShiftRows
+                            step.
 
                             <button @click="shiftRows()">
                               SR
@@ -693,7 +693,27 @@
                         </div>
 
                         <div v-if="curExampleSlide === 4">
-                          YOOO
+                          <p>
+                            For MixColumns, we can take the aforementioned shortcut and perform the
+                            matrix multiplication specified in the MixColumns slide. For example,
+                            using the first element in our state again, we can refer back to the
+                            MixColumns slide and our linear algebra knowledge to see that the new
+                            value for <code>{{ toHex(exampleStates[3][0][0]) }}</code> should be
+                            <code class="no-wrap">
+                              &lt;2, 3, 1, 1&gt; &middot;
+                              {{ hexColToVec(colToHex(exampleStates[3][0])) }}</code
+                            >. We must keep in mind that the necessary multiplications and additions
+                            shoud be performed in
+                            <span class="no-wrap">GF(2<sup>8</sup>) / (x<sup>8</sup> + x<sup>4</sup> + x<sup>3</sup> + x + 1)</span>.
+                            With this in mind, our new value for the first entry should be
+                            <code  class="no-wrap">
+                              {{ colToHex(aesInstance.getMixCols(exampleStates[3])[0])[0] }}</code
+                            >.
+
+                            <button @click="mixCols()">
+                              MIX
+                            </button>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -947,6 +967,25 @@ export default Vue.extend({
 
       return this.stateNumbers[this.curExampleSlide];
     },
+    colToHex(col: number[]): string[] {
+      const strCol: string[] = [];
+
+      col.forEach((num) => {
+        strCol.push(this.toHex(num));
+      });
+
+      return strCol;
+    },
+    hexColToVec(hexCol: string[]): string {
+      const [first, ...rest] = hexCol;
+      let vecStr = `<${first}`;
+
+      rest.forEach((hexVal) => {
+        vecStr += `, ${hexVal}`;
+      });
+
+      return `${vecStr}>`;
+    },
     addFirstRound(): void {
       this.msg.blocks = [this.aesInstance.getFirstRoundAdd(this.exampleStates[0])];
 
@@ -964,6 +1003,12 @@ export default Vue.extend({
 
       // eslint-disable-next-line
       this.exampleStates[3] = this.msg.blocks[0];
+    },
+    mixCols(): void {
+      this.msg.blocks = [this.aesInstance.getMixCols(this.exampleStates[3])];
+
+      // eslint-disable-next-line
+      this.exampleStates[4] = this.msg.blocks[0];
     },
     getWolframURL(): string {
       return encodeURI(`https://www.wolframalpha.com/input/?i=ToUpperCase[IntegerString[BitXor[${this.exampleStates[0][0][0]}, ${this.aesInstance.displayFirstKSNum(this.key.intArr)}], 16]]`);
