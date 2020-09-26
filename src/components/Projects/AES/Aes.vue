@@ -564,7 +564,7 @@
 
                   <div class="row state-row">
                     <div class="col-6 state-container">
-                      <h4 class="controls">
+                      <h4 class="controls my-3">
                         <font-awesome-icon
                           :icon="['fas', 'arrow-left']"
                           class="exArrow mr-1"
@@ -579,56 +579,55 @@
                           @click="exSlideInc()"
                         />
                       </h4>
-                      <div class="state justify-content-center text-center">
-                        <div class="state-grid">
-                          <div class="cell-00 hbb hrb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][0][0]) }}
-                          </div>
-                          <div class="cell-01 hbb hrb hlb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][1][0]) }}
-                          </div>
-                          <div class="cell-02 hbb hrb hlb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][2][0]) }}
-                          </div>
-                          <div class="cell-03 hbb hlb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][3][0]) }}
-                          </div>
-                          <div class="cell-10 hbb htb hrb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][0][1]) }}
-                          </div>
-                          <div class="cell-11 hbb htb hrb hlb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][1][1]) }}
-                          </div>
-                          <div class="cell-12 hbb htb hrb hlb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][2][1]) }}
-                          </div>
-                          <div class="cell-13 hbb htb hlb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][3][1]) }}
-                          </div>
-                          <div class="cell-20 hbb htb hrb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][0][2]) }}
-                          </div>
-                          <div class="cell-21 hbb htb hrb hlb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][1][2]) }}
-                          </div>
-                          <div class="cell-22 hbb htb hrb hlb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][2][2]) }}
-                          </div>
-                          <div class="cell-23 hbb htb hlb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][3][2]) }}
-                          </div>
-                          <div class="cell-30 htb hrb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][0][3]) }}
-                          </div>
-                          <div class="cell-31 htb hrb hlb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][1][3]) }}
-                          </div>
-                          <div class="cell-32 htb hrb hlb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][2][3]) }}
-                          </div>
-                          <div class="cell-33 htb hlb" :class="vhCenter">
-                            {{ toHex(msg.blocks[0][3][3]) }}
-                          </div>
+
+                      <div>
+                        <div v-if="curExampleSlide === 0">
+                          Please enter a message you would like to encrypt, and a key to encrypt it
+                          with. As mentioned on the first slide, we will only use 16 ASCII
+                          characters for both the message and key because that corresponds to 1
+                          block of AES128, which is suitable enough for demonstration. You may be
+                          wondering why the key must be 16 characters: this is because the message
+                          and key must both be 128 bits long. I padded the message with 0s because I
+                          am displaying the state, which at first, is comprised of only the message.
+                          You can pad the key with spaces if you'd like. <br /><br />
+                          To learn how padding is done in actual AES implementations, please click
+                          <a href="https://tools.ietf.org/html/rfc2315#section-10.3" target="_blank"
+                            >here</a
+                          >
+                          to learn about the PKCS7 specification for padding.
+                        </div>
+
+                        <div v-if="curExampleSlide === 1">
+                          AddRoundKey is fairly simple. Unfortunately, regarding the key schedule
+                          portion of this step, there is not much to add without getting into fairly
+                          granular detail. A good simplistic, yet reductive, explanation is that it
+                          is used to mix up and expand the key so that a different portion of the
+                          key can be used for each round. What is also important is that all of the
+                          operations we do are reversible so that we are able to decrypt (although
+                          the same goes for all steps of AES).
+                          <br /><br />
+                          After we generate the key schedule, we simply XOR the round key with the
+                          current state. To the right is the result of doing so. For example, the
+                          first byte (in hex) of the state is
+                          <code>{{ toHex(msg.blocks[0][0][0]) }}</code
+                          >. The first byte in the first round's key is
+                          <code> {{ toHex(aesInstance.displayFirstKSNum(key.intArr)) }}</code> in
+                          hex.
+                          <button @click="addFirstRound()">
+                            JEFFFFFFF
+                          </button>
+                        </div>
+
+                        <div v-if="curExampleSlide === 2">
+                          YOOO
+                        </div>
+
+                        <div v-if="curExampleSlide === 3">
+                          YOOO
+                        </div>
+
+                        <div v-if="curExampleSlide === 4">
+                          YOOO
                         </div>
                       </div>
                     </div>
@@ -876,6 +875,22 @@ export default Vue.extend({
       }
 
       return this.stateNumbers[this.curExampleSlide];
+    },
+    addFirstRound(): void {
+      console.log(this.msg.blocks[0]);
+      this.msg.blocks[0] = this.aesInstance.getFirstRoundAdd(this.msg.blocks[0]);
+      console.log(this.msg.blocks[0]);
+      // console.log('in button');
+    },
+  },
+  watch: {
+    msg: {
+      // eslint-disable-next-line
+      handler: function(_newValue, _oldValue) {
+        console.log('in watch');
+      },
+      deep: true,
+      immediate: true,
     },
   },
 });
