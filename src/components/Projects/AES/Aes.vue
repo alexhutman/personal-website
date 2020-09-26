@@ -679,7 +679,17 @@
                         </div>
 
                         <div v-if="curExampleSlide === 3">
-                          YOOO
+                          <p>
+                            ShiftRows is fortunately also a simple operation. In essence, row
+                            <code>i</code> circular shifts <code>i</code> positions to the left.
+                            That is, row 0 shifts 0 positions to the left, row 1 shifts 1 position
+                            to the left, etc.
+                            Click the following button to perform the ShiftRows step.
+
+                            <button @click="shiftRows()">
+                              SR
+                            </button>
+                          </p>
                         </div>
 
                         <div v-if="curExampleSlide === 4">
@@ -948,6 +958,12 @@ export default Vue.extend({
 
       // eslint-disable-next-line
       this.exampleStates[2] = this.msg.blocks[0];
+    },
+    shiftRows(): void {
+      this.msg.blocks = [this.aesInstance.getShiftRow(this.exampleStates[2])];
+
+      // eslint-disable-next-line
+      this.exampleStates[3] = this.msg.blocks[0];
     },
     getWolframURL(): string {
       return encodeURI(`https://www.wolframalpha.com/input/?i=ToUpperCase[IntegerString[BitXor[${this.exampleStates[0][0][0]}, ${this.aesInstance.displayFirstKSNum(this.key.intArr)}], 16]]`);

@@ -35,6 +35,10 @@ export default class AES {
     return AES.byteSub(state);
   }
 
+  public getShiftRow(state: number[][]): number[][] {
+    return AES.transpose(AES.shiftRow(AES.transpose(state)));
+  }
+
   // ------------------------------------------------
 
   public encrypt(msg: number[][][], key: number[]): string {
