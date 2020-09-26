@@ -582,63 +582,100 @@
 
                       <div>
                         <div v-if="curExampleSlide === 0">
-                          Please enter a message you would like to encrypt, and a key to encrypt it
-                          with. As mentioned on the first slide, we will only use 16 ASCII
-                          characters for both the message and key because that corresponds to 1
-                          block of AES128, which is suitable enough for demonstration. You may be
-                          wondering why the key must be 16 characters: this is because the message
-                          and key must both be 128 bits long. I padded the message with 0s because I
-                          am displaying the state, which at first, is comprised of only the message.
-                          You can pad the key with spaces if you'd like. <br /><br />
-                          To learn how padding is done in actual AES implementations, please click
-                          <a href="https://tools.ietf.org/html/rfc2315#section-10.3" target="_blank"
-                            >here</a
-                          >
-                          to learn about the PKCS7 specification for padding.
+                          <p>
+                            Please enter a message you would like to encrypt, and a key to encrypt
+                            it with. As mentioned on the first slide, we will only use 16 ASCII
+                            characters for both the message and key because that corresponds to 1
+                            block of AES128, which is suitable enough for demonstration. You may be
+                            wondering why the key must be 16 characters: this is because the message
+                            and key must both be 128 bits long. I padded the message with 0s because
+                            I am displaying the state, which at first, is comprised of only the
+                            message. You can pad the key with spaces if you'd like. <br /><br />
+                            To learn how padding is done in actual AES implementations, please click
+                            <a
+                              href="https://tools.ietf.org/html/rfc2315#section-10.3"
+                              target="_blank"
+                              >here</a
+                            >
+                            to learn about the PKCS7 specification for padding.
+                          </p>
                         </div>
 
                         <div v-if="curExampleSlide === 1">
-                          AddRoundKey is fairly simple. Unfortunately, regarding the key schedule
-                          portion of this step, there is not much to add without getting into fairly
-                          granular detail. A good simplistic, yet reductive, explanation is that it
-                          is used to mix up and expand the key so that a different portion of the
-                          key can be used for each round. What is also important is that all of the
-                          operations we do are reversible so that we are able to decrypt (although
-                          the same goes for all steps of AES).
-                          <br /><br />
-                          After we generate the key schedule, we simply XOR the round key with the
-                          current state. To the right is the result of doing so. For example, the
-                          first byte (in hex) of the state is
-                          <code>{{ toHex(exampleStates[0][0][0]) }}</code
-                          >. The first byte in the first round's key is
-                          <code> {{ toHex(aesInstance.displayFirstKSNum(key.intArr)) }}</code> in
-                          hex. Click the following button to perform the AddRoundKey step, which
-                          just XORs the round key with the state.
+                          <p>
+                            AddRoundKey is fairly simple. Unfortunately, regarding the key schedule
+                            portion of this step, there is not much to add without getting into
+                            fairly granular detail. A good simplistic, yet reductive, explanation is
+                            that it is used to mix up and expand the key so that a different portion
+                            of the key can be used for each round. What is also important is that
+                            all of the operations we do are reversible so that we are able to
+                            decrypt (although the same goes for all steps of AES).
+                          </p>
 
-                          <button @click="addFirstRound()">
-                            XOR
-                          </button>
+                          <p>
+                            After we generate the key schedule, we simply XOR the round key with the
+                            current state. To the right is the result of doing so. For example, the
+                            first byte (in hex) of the state is
+                            <code>{{ toHex(exampleStates[0][0][0]) }}</code
+                            >. The first byte in the first round's key is
+                            <code> {{ toHex(aesInstance.displayFirstKSNum(key.intArr)) }}</code> in
+                            hex. Click the following button to perform the AddRoundKey step, which
+                            just XORs the round key with the state.
 
-                          <br /><br />
+                            <button @click="addFirstRound()">
+                              XOR
+                            </button>
+                          </p>
 
-                          As a sanity check, the first value should be
-                          <code
-                            >{{ toHex(exampleStates[0][0][0]) }}
-                            &#8853;
-                            {{ toHex(aesInstance.displayFirstKSNum(key.intArr)) }}
-                            =
-                            {{
-                              toHex(
-                                exampleStates[0][0][0] ^ aesInstance.displayFirstKSNum(key.intArr)
-                              )
-                            }}</code
-                          >. Checking on
-                          <a :href="getWolframURL()" target="_blank">WolframAlpha</a>, we can see
-                          that this is the correct value.
+                          <p>
+                            As a sanity check, the first value should be
+                            <code
+                              >{{ toHex(exampleStates[0][0][0]) }}
+                              &#8853;
+                              {{ toHex(aesInstance.displayFirstKSNum(key.intArr)) }}
+                              =
+                              {{
+                                toHex(
+                                  exampleStates[0][0][0] ^ aesInstance.displayFirstKSNum(key.intArr)
+                                )
+                              }}</code
+                            >. Checking on
+                            <a :href="getWolframURL()" target="_blank">WolframAlpha</a>, we can see
+                            that this is the correct value.
+                          </p>
                         </div>
 
                         <div v-if="curExampleSlide === 2">
-                          YOOO
+                          <p>
+                            SubBytes is a straightforward step. The slide dedicated to SubBytes
+                            explained how the substitution values are created, but as mentioned at
+                            the end of the slide, these values can be precomputed and stored into a
+                            lookup table:
+                          </p>
+
+                          <img src="assets/aes/sbox.jpg" class="s-box img-fluid" />
+
+                          <p>
+                            The vertical value of the table is the first 4 bits of the byte we are
+                            going to substitute. The horizontal value is the second 4 bits. For
+                            example, for the first entry of our state, we must look at row
+                            <code>{{ toHex(exampleStates[1][0][0]).charAt(0) }}</code> and column
+                            <code>
+                              {{
+                                toHex(exampleStates[1][0][0]).charAt(1)
+                                  ? toHex(exampleStates[1][0][0]).charAt(1)
+                                  : 0
+                              }}</code
+                            >
+                            in the table (which is commonly called an S-box). In our case, the value
+                            to substitute by will be
+                            <code>{{ toHex(aesInstance.getSubBytes(exampleStates[1])[0][0]) }}</code
+                            >. Click the following button to perform the SubBytes step.
+
+                            <button @click="subBytes()">
+                              SUB
+                            </button>
+                          </p>
                         </div>
 
                         <div v-if="curExampleSlide === 3">
@@ -902,6 +939,15 @@ export default Vue.extend({
     },
     addFirstRound(): void {
       this.msg.blocks = [this.aesInstance.getFirstRoundAdd(this.exampleStates[0])];
+
+      // eslint-disable-next-line
+      this.exampleStates[1] = this.msg.blocks[0];
+    },
+    subBytes(): void {
+      this.msg.blocks = [this.aesInstance.getSubBytes(this.exampleStates[1])];
+
+      // eslint-disable-next-line
+      this.exampleStates[2] = this.msg.blocks[0];
     },
     getWolframURL(): string {
       return encodeURI(`https://www.wolframalpha.com/input/?i=ToUpperCase[IntegerString[BitXor[${this.exampleStates[0][0][0]}, ${this.aesInstance.displayFirstKSNum(this.key.intArr)}], 16]]`);

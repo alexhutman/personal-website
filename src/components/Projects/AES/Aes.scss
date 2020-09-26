@@ -44,6 +44,10 @@ ol {
   margin-left: 25%;
 }
 
+.s-box {
+  width: 75%;
+}
+
 .state-form,
 .state-container,
 .state-row {
@@ -194,5 +198,9 @@ ol {
   vueper-slides {
     height: 100vh !important;
   }
+
+.s-box {
+  width: 100%;
+}
 
 }

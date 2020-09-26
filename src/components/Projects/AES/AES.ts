@@ -31,6 +31,10 @@ export default class AES {
     return AES.addRoundKey(state, this.getRoundKey(0));
   }
 
+  public getSubBytes(state: number[][]): number[][] {
+    return AES.byteSub(state);
+  }
+
   // ------------------------------------------------
 
   public encrypt(msg: number[][][], key: number[]): string {
