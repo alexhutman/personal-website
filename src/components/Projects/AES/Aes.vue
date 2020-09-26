@@ -897,7 +897,7 @@ export default Vue.extend({
         this.populateState(0, origMsg);
         this.exampleStates[0] = origMsg;
 
-        this.slideButtonsPressed[0] = false;
+        this.resetSlideButtons();
 
         // TODO: reset the key to the original value too
       } else {
@@ -907,7 +907,7 @@ export default Vue.extend({
         if (this.key.isValid && this.key.text) {
           this.slideButtonsPressed[0] = true;
         } else {
-          this.slideButtonsPressed[0] = false;
+          this.resetSlideButtons();
         }
         // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
@@ -921,7 +921,7 @@ export default Vue.extend({
 
         this.key.intArr = origKey;
 
-        this.slideButtonsPressed[0] = false;
+        this.resetSlideButtons();
       } else {
         this.populateState(0, this.textToMatrix(this.msg.text));
         this.exampleStates[0] = this.textToMatrix(this.msg.text);
@@ -931,7 +931,7 @@ export default Vue.extend({
         if (this.msg.isValid && this.msg.text) {
           this.slideButtonsPressed[0] = true;
         } else {
-          this.slideButtonsPressed[0] = false;
+          this.resetSlideButtons();
         }
         // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
@@ -981,6 +981,11 @@ export default Vue.extend({
       }
 
       throw new Error(`Array needs to be ${matrixRowLen * matrixRowLen} (got ${arr.length})`);
+    },
+    resetSlideButtons(): void {
+      for (let i = 0; i < this.slideButtonsPressed.length; i += 1) {
+        this.slideButtonsPressed[0] = false;
+      }
     },
     exSlideDec(): void {
       if (!this.isLeftArrowDisabled()) {
