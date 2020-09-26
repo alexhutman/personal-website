@@ -509,8 +509,9 @@
                     <h2 class="mb-3">Try it out!:</h2>
                   </div>
                   <p>
-                    Enter your own message and key below! We will go over each operation using your
-                    message and key to make the learning more hands-on.
+                    Enter your own message and key below! We will perform one round of encryption
+                    and go over each operation using your message and key to make the learning more
+                    hands-on.
                   </p>
 
                   <form class="needs-validation state-form" novalidate>
@@ -661,13 +662,9 @@
                             The vertical value of the table is the first 4 bits of the byte we are
                             going to substitute. The horizontal value is the second 4 bits. For
                             example, for the first entry of our state, we must look at row
-                            <code>{{ toHex(exampleStates[1][0][0]).length == 2 ? toHex(exampleStates[1][0][0]).charAt(0) : 0 }}</code> and column
-                            <code>
-                              {{
-                                toHex(exampleStates[1][0][0]).length == 2
-                                  ? toHex(exampleStates[1][0][0]).charAt(1)
-                                  : toHex(exampleStates[1][0][0]).charAt(0)
-                              }}</code
+                            <code>{{ toHex(exampleStates[1][0][0]).charAt(0) }}</code>
+                            and column
+                            <code> {{ toHex(exampleStates[1][0][0]).charAt(1) }}</code
                             >
                             in the table (which is commonly called an S-box). In our case, the value
                             to substitute by will be
@@ -715,6 +712,16 @@
                             <button @click="mixCols()">
                               MIX
                             </button>
+                          </p>
+
+                          <p v-if="slideButtonsPressed[4]">
+                            We have officially completed one round of AES on our data! Throughout
+                            everything thus far, we have been dealing with AES128, which means we
+                            just need to iterate through 9 more rounds to get our final ciphertext.
+                            Although
+                            it may have seemed very complicated at first, hopefully this example
+                            has shown that AES' robustness and impenetrability is quite impressive
+                            for how relatively few steps it needs to encrypt data.
                           </p>
                         </div>
                       </div>
@@ -922,7 +929,7 @@ export default Vue.extend({
       }
     },
     toHex(n: number): string {
-      return n.toString(16).toUpperCase();
+      return n.toString(16).toUpperCase().padStart(2, '0');
     },
     isASCII(str: string): boolean {
       return /^[\x20-\x7E]*$/.test(str);
