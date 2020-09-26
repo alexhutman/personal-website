@@ -19,36 +19,21 @@ export default class AES {
     this.keyLength = keyLen as keyRange;
   }
 
-  private static generateRoundConsts(): number[] {
-    const rc: number[] = [];
+  // ------------------------------------------------
+  // Example slides methods
 
-    AES.range(10).forEach((i) => {
-      if (i === 0) {
-        rc.push(1);
-      } else if (i > 0 && rc[i - 1] < 0x80) {
-        rc.push(2 * rc[i - 1]);
-      } else if (i > 0 && rc[i - 1] >= 0x80) {
-        rc.push(((2 * rc[i - 1]) ^ 0x1B) & 0xFF);
-      }
-    });
-
-    return rc;
+  public displayFirstKSNum(key: number[]): number {
+    this.keySchedule = this.generateKeySchedule(key);
+    return this.keySchedule[0][0];
   }
 
-  private static numberDictKeys(dict: Record<string, Number>): number[] {
-    return Object.keys(dict).map(str => Number(str));
+  public getFirstRoundAdd(state: number[][]): number[][] {
+    return AES.addRoundKey(state, this.getRoundKey(0));
   }
 
-  // From https://stackoverflow.com/a/10050831/6708303
-  private static range(size:number, startAt:number = 0):ReadonlyArray<number> {
-    return [...Array(size).keys()].map(i => i + startAt);
-  }
-
+  // ------------------------------------------------
 
   public encrypt(msg: number[][][], key: number[]): string {
-    AES.validateKey(key, this.keyLength);
-    [this.Nk, this.Nr] = AES.calculateConstants(key, this.keyLength);
-
     this.keySchedule = this.generateKeySchedule(key);
 
     const encryptedBlocks: number[][][] = [];
@@ -77,6 +62,31 @@ export default class AES {
     });
 
     return res;
+  }
+
+  private static generateRoundConsts(): number[] {
+    const rc: number[] = [];
+
+    AES.range(10).forEach((i) => {
+      if (i === 0) {
+        rc.push(1);
+      } else if (i > 0 && rc[i - 1] < 0x80) {
+        rc.push(2 * rc[i - 1]);
+      } else if (i > 0 && rc[i - 1] >= 0x80) {
+        rc.push(((2 * rc[i - 1]) ^ 0x1B) & 0xFF);
+      }
+    });
+
+    return rc;
+  }
+
+  private static numberDictKeys(dict: Record<string, Number>): number[] {
+    return Object.keys(dict).map(str => Number(str));
+  }
+
+  // From https://stackoverflow.com/a/10050831/6708303
+  private static range(size:number, startAt:number = 0):ReadonlyArray<number> {
+    return [...Array(size).keys()].map(i => i + startAt);
   }
 
   private static byteSub(state: number[][]) {
@@ -230,6 +240,9 @@ export default class AES {
   }
 
   private generateKeySchedule(key: number[]): number[][] {
+    AES.validateKey(key, this.keyLength);
+    [this.Nk, this.Nr] = AES.calculateConstants(key, this.keyLength);
+
     const rCon = AES.generateRoundConsts();
 
     const w: number[][] = [];
