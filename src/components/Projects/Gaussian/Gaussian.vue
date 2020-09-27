@@ -11,6 +11,8 @@
             :gap="100"
           >
             <vueper-slide
+              class="gaussian-slide"
+              style="overflow: auto !important;"
               v-for="(slide, i) in slides"
               :key="i"
               :title="slide.title"
