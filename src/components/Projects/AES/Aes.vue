@@ -506,7 +506,7 @@
               <template v-slot:content>
                 <div class="vueperslide__content-wrapper">
                   <div class="vueperslide__title">
-                    <h2 class="mb-3">Try it out!:</h2>
+                    <h2 class="mb-3">Try it out!</h2>
                   </div>
                   <p>
                     Enter your own message and key below! We will perform one round of encryption
