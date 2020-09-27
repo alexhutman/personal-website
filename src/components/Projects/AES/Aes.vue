@@ -602,6 +602,11 @@
                             >
                             to learn about the PKCS7 specification for padding.
                           </p>
+
+                          <p>
+                            Once you input a non-zero length message and a 16 ASCII character
+                            long key, press the right arrow to continue to the next step.
+                          </p>
                         </div>
 
                         <div v-if="curExampleSlide === 1">
