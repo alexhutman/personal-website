@@ -9,8 +9,13 @@ $outside-border-stroke: 2 * $border-stroke;
 .vueperslide__content-wrapper:not(.vueperslide__content-wrapper--outside-top):not(.vueperslide__content-wrapper--outside-bottom) {
   // display: block;
 }
-.vueperslide__content-wrapper.parallax-fixed-content, .vueperslide__content-wrapper:not(.vueperslide__content-wrapper--outside-top):not(.vueperslide__content-wrapper--outside-bottom) {
+.vueperslide__content-wrapper.parallax-fixed-content,
+.vueperslide__content-wrapper:not(.vueperslide__content-wrapper--outside-top):not(.vueperslide__content-wrapper--outside-bottom) {
   display: -webkit-box;
+}
+
+code {
+  color: $code-color;
 }
 
 ol {
@@ -22,7 +27,7 @@ ol {
   }
 
   li:before {
-    content: counter(item) ". ";
+    content: counter(item) '. ';
     counter-increment: item;
     // color: $accent-color;
   }
@@ -34,12 +39,22 @@ ol {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .example {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.state {
+  width: 50%;
+  margin-left: 25%;
+}
+
+.s-box {
+  width: 75%;
 }
 
 .state-form,
-.state-container {
+.state-container,
+.state-row {
   width: 100%;
 }
 
@@ -111,8 +126,6 @@ ol {
     border-right: $border-stroke solid $border-color;
   }
 
-  width: 20%;
-
   &::before {
     content: '';
     width: 0;
@@ -180,8 +193,33 @@ ol {
   grid-area: cell-33;
 }
 
+.no-wrap {
+  display: inline-block;
+}
+
+.arrowDisabled {
+  color: #EBEBE4;
+  cursor: default;
+}
+
+.arrowEnabled {
+  color: $secondary-accent-color;
+  cursor: pointer;
+}
+
+button {
+  text-decoration: none;
+  color: white !important;
+  background-color: $accent-color !important;
+}
+
 @media (max-width: 767px) {
   vueper-slides {
     height: 100vh !important;
   }
+
+.s-box {
+  width: 100%;
+}
+
 }

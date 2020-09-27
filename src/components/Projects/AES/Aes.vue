@@ -430,11 +430,12 @@
                         ></code
                       >
                       will be the value to substitute <code>n</code> by.
-                      <br>
-                      <br>
-                      Luckily, a majority of this step does not
-                      need to be done at runtime. This is because a precomputed table of substitution values exists
-                      and SubBytes is as simple as replacing the initial byte with the precomputed substitution byte in this table.
+                      <br />
+                      <br />
+                      Luckily, a majority of this step does not need to be done at runtime. This is
+                      because a precomputed table of substitution values exists and SubBytes is as
+                      simple as replacing the initial byte with the precomputed substitution byte in
+                      this table.
                     </p>
                   </ol>
                 </div>
@@ -508,8 +509,9 @@
                     <h2 class="mb-3">Try it out!:</h2>
                   </div>
                   <p>
-                    Enter your own message and key below! We will go over each operation using your
-                    message and key to make the learning more hands-on.
+                    Enter your own message and key below! We will perform one round of encryption
+                    and go over each operation using your message and key to make the learning more
+                    hands-on.
                   </p>
 
                   <form class="needs-validation state-form" novalidate>
@@ -524,7 +526,8 @@
                         type="text"
                         maxlength="16"
                         class="form-control"
-                        :class="{ 'is-invalid': msg.isInvalid }"
+                        :class="{ 'is-invalid': !msg.isValid }"
+                        :disabled="curExampleSlide != 0"
                         id="messageInputBox"
                         placeholder="The message you'd like to encrypt"
                         v-model="msg.text"
@@ -547,7 +550,8 @@
                         type="text"
                         maxlength="16"
                         class="form-control"
-                        :class="{ 'is-invalid': key.isInvalid }"
+                        :class="{ 'is-invalid': !key.isValid }"
+                        :disabled="curExampleSlide != 0"
                         id="keyInputBox"
                         placeholder="The key to encrypt the message with"
                         v-model="key.text"
@@ -559,57 +563,230 @@
                     </div>
                   </form>
 
-                  <div class="text-center state-container">
-                    <h3>State:</h3>
-                    <div class="state justify-content-center">
-                      <div class="state-grid">
-                        <div class="cell-00 hbb hrb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][0][0]) }}
+                  <div class="row state-row">
+                    <div class="col-6 state-container">
+                      <h4 class="controls my-3">
+                        <font-awesome-icon
+                          :icon="['fas', 'arrow-left']"
+                          class="mr-1"
+                          @click="exSlideDec()"
+                          :class="[ isLeftArrowDisabled() ? 'arrowDisabled' : 'arrowEnabled' ]"
+                        />
+
+                        {{ curSlideName() }}
+
+                        <font-awesome-icon
+                          :icon="['fas', 'arrow-right']"
+                          class="ml-1"
+                          @click="exSlideInc()"
+                          :class="[ isRightArrowDisabled() ? 'arrowDisabled' : 'arrowEnabled' ]"
+                        />
+                      </h4>
+
+                      <div>
+                        <div v-if="curExampleSlide === 0">
+                          <p>
+                            Please enter a message you would like to encrypt, and a key to encrypt
+                            it with. As mentioned on the first slide, we will only use 16 ASCII
+                            characters for both the message and key because that corresponds to 1
+                            block of AES128, which is suitable enough for demonstration. You may be
+                            wondering why the key must be 16 characters: this is because the message
+                            and key must both be 128 bits long. I padded the message with 0s because
+                            I am displaying the state, which at first, is comprised of only the
+                            message. You can pad the key with spaces if you'd like. <br /><br />
+                            To learn how padding is done in actual AES implementations, please click
+                            <a
+                              href="https://tools.ietf.org/html/rfc2315#section-10.3"
+                              target="_blank"
+                              >here</a
+                            >
+                            to learn about the PKCS7 specification for padding.
+                          </p>
                         </div>
-                        <div class="cell-01 hbb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][1][0]) }}
+
+                        <div v-if="curExampleSlide === 1">
+                          <p>
+                            AddRoundKey is fairly simple. Unfortunately, regarding the key schedule
+                            portion of this step, there is not much to add without getting into
+                            fairly granular detail. A good simplistic, yet reductive, explanation is
+                            that it is used to mix up and expand the key so that a different portion
+                            of the key can be used for each round. What is also important is that
+                            all of the operations we do are reversible so that we are able to
+                            decrypt (although the same goes for all steps of AES).
+                          </p>
+
+                          <p>
+                            After we generate the key schedule, we simply XOR the round key with the
+                            current state. To the right is the result of doing so. For example, the
+                            first byte (in hex) of the state is
+                            <code>{{ toHex(exampleStates[0][0][0]) }}</code
+                            >. The first byte in the first round's key is
+                            <code> {{ toHex(aesInstance.displayFirstKSNum(key.intArr)) }}</code> in
+                            hex. Click the following button to perform the AddRoundKey step, which
+                            just XORs the round key with the state.
+                          </p>
+
+                          <button
+                          class="btn"
+                          @click="addFirstRound()">
+                            ARK
+                          </button>
+
+                          <p>
+                            As a sanity check, the first value should be
+                            <code
+                              >{{ toHex(exampleStates[0][0][0]) }}
+                              &#8853;
+                              {{ toHex(aesInstance.displayFirstKSNum(key.intArr)) }}
+                              =
+                              {{
+                                toHex(
+                                  exampleStates[0][0][0] ^ aesInstance.displayFirstKSNum(key.intArr)
+                                )
+                              }}</code
+                            >. Checking on
+                            <a :href="getWolframURL()" target="_blank">WolframAlpha</a>, we can see
+                            that this is the correct value.
+                          </p>
                         </div>
-                        <div class="cell-02 hbb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][2][0]) }}
+
+                        <div v-if="curExampleSlide === 2">
+                          <p>
+                            SubBytes is a straightforward step. The slide dedicated to SubBytes
+                            explained how the substitution values are created, but as mentioned at
+                            the end of the slide, these values can be precomputed and stored into a
+                            lookup table:
+                          </p>
+
+                          <img src="assets/aes/sbox.jpg" class="s-box img-fluid" />
+
+                          <p>
+                            The vertical value of the table is the first 4 bits of the byte we are
+                            going to substitute. The horizontal value is the second 4 bits. For
+                            example, for the first entry of our state, we must look at row
+                            <code>{{ toHex(exampleStates[1][0][0]).charAt(0) }}</code>
+                            and column
+                            <code> {{ toHex(exampleStates[1][0][0]).charAt(1) }}</code
+                            >
+                            in the table (which is commonly called an S-box). In our case, the value
+                            to substitute by will be
+                            <code>{{ toHex(aesInstance.getSubBytes(exampleStates[1])[0][0]) }}</code
+                            >. Click the following button to perform the SubBytes step.
+                          </p>
+
+                          <button
+                          class="btn"
+                          @click="subBytes()">
+                            SUB
+                          </button>
                         </div>
-                        <div class="cell-03 hbb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][3][0]) }}
+
+                        <div v-if="curExampleSlide === 3">
+                          <p>
+                            ShiftRows is fortunately also a simple operation. In essence, row
+                            <code>i</code> circular shifts <code>i</code> positions to the left.
+                            That is, row 0 shifts 0 positions to the left, row 1 shifts 1 position
+                            to the left, etc. Click the following button to perform the ShiftRows
+                            step.
+                          </p>
+
+                          <button
+                          class="btn"
+                          @click="shiftRows()">
+                            SR
+                          </button>
                         </div>
-                        <div class="cell-10 hbb htb hrb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][0][1]) }}
+
+                        <div v-if="curExampleSlide === 4">
+                          <p>
+                            For MixColumns, we can take the aforementioned shortcut and perform the
+                            matrix multiplication specified in the MixColumns slide. For example,
+                            using the first element in our state again, we can refer back to the
+                            MixColumns slide and our linear algebra knowledge to see that the new
+                            value for <code>{{ toHex(exampleStates[3][0][0]) }}</code> should be
+                            <code class="no-wrap">
+                              &lt;2, 3, 1, 1&gt; &middot;
+                              {{ hexColToVec(colToHex(exampleStates[3][0])) }}</code
+                            >. We must keep in mind that the necessary multiplications and additions
+                            shoud be performed in
+                            <span class="no-wrap">GF(2<sup>8</sup>) / (x<sup>8</sup> + x<sup>4</sup> + x<sup>3</sup> + x + 1)</span>.
+                            With this in mind, our new value for the first entry should be
+                            <code  class="no-wrap">
+                              {{ colToHex(aesInstance.getMixCols(exampleStates[3])[0])[0] }}</code
+                            >.
+                          </p>
+
+                          <button
+                          class="btn"
+                          @click="mixCols()">
+                            MIX
+                          </button>
+
+                          <p v-if="slideButtonsPressed[4]">
+                            We have officially completed one round of AES on our data! Throughout
+                            everything thus far, we have been dealing with AES128, which means we
+                            just need to iterate through 9 more rounds to get our final ciphertext.
+                            Although
+                            it may have seemed very complicated at first, hopefully this example
+                            has shown that AES' robustness and impenetrability is quite impressive
+                            for how relatively few steps it needs to encrypt data.
+                          </p>
                         </div>
-                        <div class="cell-11 hbb htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][1][1]) }}
-                        </div>
-                        <div class="cell-12 hbb htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][2][1]) }}
-                        </div>
-                        <div class="cell-13 hbb htb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][3][1]) }}
-                        </div>
-                        <div class="cell-20 hbb htb hrb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][0][2]) }}
-                        </div>
-                        <div class="cell-21 hbb htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][1][2]) }}
-                        </div>
-                        <div class="cell-22 hbb htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][2][2]) }}
-                        </div>
-                        <div class="cell-23 hbb htb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][3][2]) }}
-                        </div>
-                        <div class="cell-30 htb hrb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][0][3]) }}
-                        </div>
-                        <div class="cell-31 htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][1][3]) }}
-                        </div>
-                        <div class="cell-32 htb hrb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][2][3]) }}
-                        </div>
-                        <div class="cell-33 htb hlb" :class="vhCenter">
-                          {{ toHex(msg.blocks[0][3][3]) }}
+                      </div>
+                    </div>
+
+                    <div class="col-6 state-container">
+                      <h3>State</h3>
+                      <div class="state justify-content-center text-center">
+                        <div class="state-grid">
+                          <div class="cell-00 hbb hrb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][0][0]) }}
+                          </div>
+                          <div class="cell-01 hbb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][1][0]) }}
+                          </div>
+                          <div class="cell-02 hbb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][2][0]) }}
+                          </div>
+                          <div class="cell-03 hbb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][3][0]) }}
+                          </div>
+                          <div class="cell-10 hbb htb hrb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][0][1]) }}
+                          </div>
+                          <div class="cell-11 hbb htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][1][1]) }}
+                          </div>
+                          <div class="cell-12 hbb htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][2][1]) }}
+                          </div>
+                          <div class="cell-13 hbb htb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][3][1]) }}
+                          </div>
+                          <div class="cell-20 hbb htb hrb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][0][2]) }}
+                          </div>
+                          <div class="cell-21 hbb htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][1][2]) }}
+                          </div>
+                          <div class="cell-22 hbb htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][2][2]) }}
+                          </div>
+                          <div class="cell-23 hbb htb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][3][2]) }}
+                          </div>
+                          <div class="cell-30 htb hrb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][0][3]) }}
+                          </div>
+                          <div class="cell-31 htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][1][3]) }}
+                          </div>
+                          <div class="cell-32 htb hrb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][2][3]) }}
+                          </div>
+                          <div class="cell-33 htb hlb" :class="vhCenter">
+                            {{ toHex(msg.blocks[0][3][3]) }}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -642,6 +819,14 @@ const slideNumRegex = new RegExp('^slide-([0-9]+)$');
 //   [0xcc, 0xdd, 0xee, 0xff],
 // ];
 
+const enum HandsOnState {
+  INPUT = 'Input',
+  ARK = 'AddRoundKey',
+  SUB = 'SubBytes',
+  SHIFT = 'ShiftRows',
+  MIX = 'MixColumns',
+}
+
 const origMsg = [
   [0x00, 0x00, 0x00, 0x00],
   [0x00, 0x00, 0x00, 0x00],
@@ -671,14 +856,30 @@ export default Vue.extend({
       aesInstance: new AES(128),
       msg: {
         text: '',
-        isInvalid: false,
+        isValid: true,
         blocks: [origMsg],
       },
       key: {
         text: '',
-        isInvalid: false,
+        isValid: true,
         intArr: origKey,
       },
+      curExampleSlide: 0,
+      exampleStates: [origMsg, origMsg, origMsg, origMsg, origMsg],
+      stateNumbers: [
+        HandsOnState.INPUT,
+        HandsOnState.ARK,
+        HandsOnState.SUB,
+        HandsOnState.SHIFT,
+        HandsOnState.MIX,
+      ],
+      slideButtonsPressed: [
+        false,
+        false,
+        false,
+        false,
+        false,
+      ],
       vhCenter: {
         'vertical-center': true,
         'justify-content-center': true,
@@ -690,33 +891,53 @@ export default Vue.extend({
   },
   methods: {
     onMsgChange(): void {
-      this.msg.isInvalid = !(this.isASCII(this.msg.text) && this.isInputLengthValid(this.msg.text));
+      this.msg.isValid = this.isASCII(this.msg.text) && this.isInputLengthValid(this.msg.text);
 
-      if (this.msg.isInvalid || !this.msg.text) {
+      if (!(this.msg.isValid && this.msg.text)) {
         this.populateState(0, origMsg);
+        this.exampleStates[0] = origMsg;
+
+        this.resetSlideButtons();
 
         // TODO: reset the key to the original value too
       } else {
         this.populateState(0, this.textToMatrix(this.msg.text));
+        this.exampleStates[0] = this.textToMatrix(this.msg.text);
+
+        if (this.key.isValid && this.key.text) {
+          this.slideButtonsPressed[0] = true;
+        } else {
+          this.resetSlideButtons();
+        }
         // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
     },
     onKeyChange(): void {
-      this.key.isInvalid = !(this.isASCII(this.key.text) && this.key.text.length === 16);
+      this.key.isValid = this.isASCII(this.key.text) && this.key.text.length === 16;
 
-      if (this.key.isInvalid || !this.key.text) {
+      if (!(this.key.isValid && this.key.text)) {
         this.populateState(0, origMsg);
+        this.exampleStates[0] = origMsg;
 
         this.key.intArr = origKey;
+
+        this.resetSlideButtons();
       } else {
         this.populateState(0, this.textToMatrix(this.msg.text));
+        this.exampleStates[0] = this.textToMatrix(this.msg.text);
 
         this.key.intArr = this.strToIntArr(this.key.text);
+
+        if (this.msg.isValid && this.msg.text) {
+          this.slideButtonsPressed[0] = true;
+        } else {
+          this.resetSlideButtons();
+        }
         // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
     },
     toHex(n: number): string {
-      return n.toString(16).toUpperCase();
+      return n.toString(16).toUpperCase().padStart(2, '0');
     },
     isASCII(str: string): boolean {
       return /^[\x20-\x7E]*$/.test(str);
@@ -760,6 +981,93 @@ export default Vue.extend({
       }
 
       throw new Error(`Array needs to be ${matrixRowLen * matrixRowLen} (got ${arr.length})`);
+    },
+    resetSlideButtons(): void {
+      for (let i = 0; i < this.slideButtonsPressed.length; i += 1) {
+        this.slideButtonsPressed[0] = false;
+      }
+    },
+    exSlideDec(): void {
+      if (!this.isLeftArrowDisabled()) {
+        this.curExampleSlide = (this.curExampleSlide - 1) % (this.stateNumbers.length);
+      }
+    },
+    exSlideInc(): void {
+      if (!this.isRightArrowDisabled()) {
+        this.curExampleSlide = (this.curExampleSlide + 1) % (this.stateNumbers.length);
+      }
+    },
+    curSlideName(): string {
+      const width = window.innerWidth > 0 ? window.innerWidth : window.screen.width;
+      if (width < 768) {
+        if (this.curExampleSlide === 0) {
+          return this.stateNumbers[0];
+        }
+        return (this.stateNumbers[this.curExampleSlide] as string).replace(/[a-z]/g, '');
+      }
+
+      return this.stateNumbers[this.curExampleSlide];
+    },
+    isLeftArrowDisabled(): boolean {
+      return this.curExampleSlide === 0;
+    },
+    isRightArrowDisabled(): boolean {
+      return !this.slideButtonsPressed[this.curExampleSlide]
+        || this.curExampleSlide === (this.stateNumbers.length - 1);
+    },
+    colToHex(col: number[]): string[] {
+      const strCol: string[] = [];
+
+      col.forEach((num) => {
+        strCol.push(this.toHex(num));
+      });
+
+      return strCol;
+    },
+    hexColToVec(hexCol: string[]): string {
+      const [first, ...rest] = hexCol;
+      let vecStr = `<${first}`;
+
+      rest.forEach((hexVal) => {
+        vecStr += `, ${hexVal}`;
+      });
+
+      return `${vecStr}>`;
+    },
+    addFirstRound(): void {
+      this.msg.blocks = [this.aesInstance.getFirstRoundAdd(this.exampleStates[0])];
+
+      // eslint-disable-next-line
+      this.exampleStates[1] = this.msg.blocks[0];
+
+      this.slideButtonsPressed[1] = true;
+    },
+    subBytes(): void {
+      this.msg.blocks = [this.aesInstance.getSubBytes(this.exampleStates[1])];
+
+      // eslint-disable-next-line
+      this.exampleStates[2] = this.msg.blocks[0];
+
+      this.slideButtonsPressed[2] = true;
+    },
+    shiftRows(): void {
+      this.msg.blocks = [this.aesInstance.getShiftRow(this.exampleStates[2])];
+
+      // eslint-disable-next-line
+      this.exampleStates[3] = this.msg.blocks[0];
+
+      this.slideButtonsPressed[3] = true;
+    },
+    mixCols(): void {
+      this.msg.blocks = [this.aesInstance.getMixCols(this.exampleStates[3])];
+
+      // eslint-disable-next-line
+      this.exampleStates[4] = this.msg.blocks[0];
+
+      this.slideButtonsPressed[4] = true;
+    },
+    getWolframURL(): string {
+      return encodeURI(`https://www.wolframalpha.com/input/?i=ToUpperCase[IntegerString[BitXor[${this.exampleStates[0][0][0]}, ${this.aesInstance.displayFirstKSNum(this.key.intArr)}], 16]]`);
     },
   },
 });

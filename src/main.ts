@@ -1,7 +1,7 @@
 import { library, IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 import {
-  faBars, faCommentDots, faKey, faEnvelope, faPhone,
+  faBars, faCommentDots, faKey, faEnvelope, faPhone, faArrowLeft, faArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithubSquare, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -13,7 +13,10 @@ import router from './router';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const solidIcons: IconDefinition[] = [faBars, faCommentDots, faKey, faEnvelope, faPhone];
+const solidIcons: IconDefinition[] = [
+  faBars, faCommentDots, faKey, faEnvelope,
+  faPhone, faArrowLeft, faArrowRight,
+];
 const brandIcons: IconDefinition[] = [faGithubSquare, faLinkedin];
 
 [...solidIcons, ...brandIcons].map(icon => library.add(icon));
