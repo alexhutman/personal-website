@@ -602,6 +602,11 @@
                             >
                             to learn about the PKCS7 specification for padding.
                           </p>
+
+                          <p>
+                            Once you input a non-zero length message and a 16 ASCII character
+                            long key, press the right arrow to continue to the next step.
+                          </p>
                         </div>
 
                         <div v-if="curExampleSlide === 1">
@@ -897,7 +902,7 @@ export default Vue.extend({
         this.populateState(0, origMsg);
         this.exampleStates[0] = origMsg;
 
-        this.resetSlideButtons();
+        this.resetSlideButtons(this.curExampleSlide);
 
         // TODO: reset the key to the original value too
       } else {
@@ -907,7 +912,7 @@ export default Vue.extend({
         if (this.key.isValid && this.key.text) {
           this.slideButtonsPressed[0] = true;
         } else {
-          this.resetSlideButtons();
+          this.resetSlideButtons(this.curExampleSlide);
         }
         // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
@@ -921,7 +926,7 @@ export default Vue.extend({
 
         this.key.intArr = origKey;
 
-        this.resetSlideButtons();
+        this.resetSlideButtons(this.curExampleSlide);
       } else {
         this.populateState(0, this.textToMatrix(this.msg.text));
         this.exampleStates[0] = this.textToMatrix(this.msg.text);
@@ -931,7 +936,7 @@ export default Vue.extend({
         if (this.msg.isValid && this.msg.text) {
           this.slideButtonsPressed[0] = true;
         } else {
-          this.resetSlideButtons();
+          this.resetSlideButtons(this.curExampleSlide);
         }
         // console.log(this.aesInstance.encrypt(this.msg.blocks, this.key.intArr));
       }
@@ -982,14 +987,20 @@ export default Vue.extend({
 
       throw new Error(`Array needs to be ${matrixRowLen * matrixRowLen} (got ${arr.length})`);
     },
-    resetSlideButtons(): void {
-      for (let i = 0; i < this.slideButtonsPressed.length; i += 1) {
-        this.slideButtonsPressed[0] = false;
+    resetSlideButtons(minSlide: number): void {
+      for (let i = minSlide; i < this.slideButtonsPressed.length; i += 1) {
+        if (!(i === 0 && this.slideButtonsPressed[i])) {
+          this.slideButtonsPressed[i] = false;
+        }
       }
     },
     exSlideDec(): void {
       if (!this.isLeftArrowDisabled()) {
         this.curExampleSlide = (this.curExampleSlide - 1) % (this.stateNumbers.length);
+        this.resetSlideButtons(this.curExampleSlide);
+
+        const prevBlockIndex = this.curExampleSlide < 1 ? 0 : this.curExampleSlide - 1;
+        this.msg.blocks = [this.exampleStates[prevBlockIndex]];
       }
     },
     exSlideInc(): void {
