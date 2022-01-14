@@ -18,7 +18,7 @@
         "core-js": "^3.6.4",
         "eslint-import-resolver-webpack": "^0.12.2",
         "eslint-plugin-import": "^2.22.0",
-        "follow-redirects": "^1.13.0",
+        "follow-redirects": "^1.14.7",
         "jquery": "^3.5.1",
         "p5": "^0.10.2",
         "popper.js": "^1.16.1",
